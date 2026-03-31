@@ -1,10 +1,10 @@
 import NutUIResolver from '@nutui/auto-import-resolver'
 import { defineConfig, type UserConfigExport } from '@tarojs/cli'
+import path from 'path'
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 import Components from 'unplugin-vue-components/webpack'
 import devConfig from './dev'
 import prodConfig from './prod'
-import path from 'path'
 
 
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
@@ -14,7 +14,7 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
     date: '2026-3-24',
     designWidth(input) {
       // 配置 NutUI 375 尺寸
-      if (input?.file?.replace(/\\+/g, '/').indexOf('@nutui') > -1) {
+      if ((input as any)?.file?.replace(/\\+/g, '/').indexOf('@nutui') > -1) {
         return 375
       }
       // 全局使用 Taro 默认的 750 尺寸
@@ -33,6 +33,7 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
     },
     copy: {
       patterns: [
+        { from: 'src/assets/', to: 'dist/assets/' },
       ],
       options: {
       }
@@ -45,14 +46,16 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
       }
     },
     cache: {
-      enable: false // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
+      enable: true // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
     },
     mini: {
+      enableSourceMap: false,
+      // hot: true,
       postcss: {
         pxtransform: {
           enable: true,
           config: {
-
+            selectorBlackList: ['nut-'],
           }
         },
         cssModules: {
@@ -64,6 +67,25 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
         }
       },
       webpackChain(chain) {
+        chain.module.rule('js')
+          .test(/\.js$/)
+          .use('babel-loader')
+          .loader('babel-loader')
+          .options({
+            presets: [
+              ['taro', {
+                framework: 'vue3',
+                ts: true,
+                compiler: 'webpack5',
+              }]
+            ],
+            plugins: [
+              ['babel-plugin-dynamic-import-node'],
+              ['@babel/plugin-proposal-optional-chaining', { loose: true }],
+              ['@babel/plugin-proposal-nullish-coalescing-operator', { loose: true }]
+            ]
+          })
+
         chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
         chain.plugin('unplugin-vue-components').use(Components({
           resolvers: [NutUIResolver({ taro: true })]

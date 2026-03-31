@@ -1,0 +1,14 @@
+.draw-canvas {
+  border: 1px solid gray;
+  margin: 1px;
+  width: calc(100vw - 8px);
+  height: 50vh;
+  border-radius: 15px;
+}
+
+.upupu {
+  width: 128px;
+  height: 10px;
+  background-size: 100% 2200%;
+  background-image: '../../assets/upupu.png';
+}

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es5",
     "module": "commonjs",
     "removeComments": false,
     "preserveConstEnums": true,
@@ -11,7 +11,7 @@
     "outDir": "lib",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "sourceMap": true,
     "baseUrl": ".",
     "rootDir": ".",
@@ -22,6 +22,15 @@
       "node_modules/@types"
     ]
   },
-  "include": ["./src", "./types", "components.d.ts"],
+  "lib": [
+    "es5",
+    "es6",
+    "dom"
+  ],
+  "include": [
+    "./src",
+    "./types",
+    "components.d.ts"
+  ],
   "compileOnSave": false
 }

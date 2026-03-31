@@ -1,0 +1,11 @@
+:root,
+page {
+  --nut-primary-color: #2980b9;
+  --nut-primary-color-end: #3498db;
+  --nut-help-color: #f5f5f5;
+  --nut-font-size-0: 0.6rem;
+  --nut-font-size-1: 0.9rem;
+  --nut-font-size-2: 1rem;
+  --nut-font-size-3: 1.2rem;
+  --nut-font-size-4: 1.4rem;
+}
