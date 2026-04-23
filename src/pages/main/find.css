@@ -2,8 +2,11 @@
   border: 1px solid gray;
   margin: 1px;
   width: calc(100vw - 8px);
-  height: 50vh;
+  height: 60vh;
   border-radius: 15px;
+  contain: layout style paint;
+  position: relative;
+  display: block;
 }
 
 .upupu {

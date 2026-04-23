@@ -1,5 +1,5 @@
 <template>
-  <nut-config-provider :theme="theme">
+  <nut-config-provider :theme="theme" style="height: calc(100vh - 52px); overflow: hidden;">
     <HomeTab v-if="activeTab == 'home'"></HomeTab>
     <FindTab v-if="activeTab == 'find'"></FindTab>
     <MoreTab v-if="activeTab == 'more'"></MoreTab>
