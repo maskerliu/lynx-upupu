@@ -51,6 +51,11 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
     mini: {
       enableSourceMap: false,
       // hot: true,
+      miniCssExtractPluginOption: {
+        ignoreOrder: true,
+        // filename: 'css/[name].[hash].css',
+        // chunkFilename: 'css/[name].[chunkhash].css'
+      },
       postcss: {
         pxtransform: {
           enable: true,
@@ -72,26 +77,6 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
         chain.plugin('unplugin-vue-components').use(Components({
           resolvers: [NutUIResolver({ taro: true })]
         }))
-
-        // chain.module.rule('js')
-        //   .test(/\.js$/)
-        //   .use('babel-loader')
-        //   .loader('babel-loader')
-        //   .options({
-        //     presets: [
-        //       ['taro', {
-        //         framework: 'vue3',
-        //         ts: true,
-        //         compiler: 'webpack5',
-        //       }]
-        //     ],
-        //     plugins: [
-        //       ['babel-plugin-dynamic-import-node'],
-        //       ['@babel/plugin-transform-runtime', { 'regenerator': true, 'absoluteRuntime': false }],
-        //       ['@babel/plugin-proposal-optional-chaining', { loose: true }],
-        //       ['@babel/plugin-proposal-nullish-coalescing-operator', { loose: true }]
-        //     ]
-        //   })
       }
     },
     h5: {

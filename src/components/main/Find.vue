@@ -2,7 +2,6 @@
 
   <view>
     <canvas id="drawCanvas" canvas-id="drawCanvas" class="draw-canvas"></canvas>
-
     <view :style="{ height: `calc(40vh - ${94 + navBarHeight}px)` }" style="overflow: hidden auto;">
       <nut-form>
         <nut-form-item label-width="3rem">
@@ -54,9 +53,7 @@ import Taro, { nextTick } from '@tarojs/taro'
 import { inject, onMounted, ref, Ref, watch } from 'vue'
 import './Find.css'
 
-
 const navBarHeight = inject<Ref<number>>('navBarHeight')
-
 
 type ManConfig = {
   file: string,
@@ -73,7 +70,10 @@ type ManConfig = {
   textTranslate: number,
 }
 
-type QueueType = 'horizontal' | 'vertical'
+enum QueueType {
+  Horizontal = 'horizontal',
+  Vertical = 'vertical',
+}
 
 const LihanManConfig: ManConfig = {
   file: 'lihan.png',
@@ -110,7 +110,7 @@ const Shapes = [{ title: '横排', value: 'horizontal' }, { title: '竖排', val
 const Colors = ['#c0392b', '#2980b9', '#2c3e50', '#8e44ad']
 
 const theme = ref<string>('default')
-const shape = ref<QueueType>('horizontal')
+const shape = ref<QueueType>(QueueType.Horizontal)
 const ratio = ref<number>(100)
 const color = ref<string>('#c0392b')
 const canSave = ref<boolean>(false)
@@ -127,7 +127,7 @@ let dpr = 1
 
 onMounted(async () => {
   Taro.setNavigationBarTitle({ title: '举牌小人' })
-  const systemInfo = Taro.getSystemInfoSync()
+  const systemInfo = Taro.getWindowInfo()
   dpr = systemInfo.pixelRatio || 1
 
   nextTick(async () => {
@@ -213,20 +213,24 @@ async function queue(config: ManConfig) {
   let manW = config.width * scale
   let manH = config.height * scale
 
-  let col = 0, row = 0, marginH = 0, marginV = 0, x = 0, y = 0
+  let col = 0, row = 0, marginH = 0, marginV = 0, x = 0, y = 0, v = 0, h = 0
 
-  if (shape.value == 'horizontal') {
+  if (shape.value == QueueType.Horizontal) {
     col = Math.floor(canvasW / config.width)
     row = Math.ceil(text.length / col)
-  } else if (shape.value == 'vertical') {
+    v = row
+    h = col
+  } else if (shape.value == QueueType.Vertical) {
     row = Math.floor(canvasH / config.height)
     col = Math.ceil(text.length / row)
+    v = col
+    h = row
   }
 
   marginH = (canvasW - col * manW) / 2
   marginV = (canvasH - row * manH) / 2
 
-  let i = 0, idx = 0;
+  let i = 0, idx = 0
   while (i < row) {
     let j = 0;
     while (j < col) {
@@ -255,43 +259,25 @@ async function queue(config: ManConfig) {
     i++
   }
 
-  if (shape.value == 'horizontal') {
-    for (let i = 0; i < row; ++i) {
-      for (let j = 0; j < col; ++j) {
-        let idx = i * col + j
-        if (idx >= text.length) break
+  ctx.font = `${config.fontSize * scale}px "微软雅黑"`
+  ctx.fillStyle = color.value
 
-        ctx.font = `${config.fontSize * scale}px "微软雅黑"`
-        ctx.fillStyle = color.value
-        ctx.save()
-        x = Math.round(marginH + manW * j + config.textMarginLeft * scale)
-        y = Math.round(marginV + manH * i + config.textMarginTop * scale)
-        ctx.translate(x, y)
-        ctx.transform(config.textTransform, 0, 0, 1, 0, 0)
-        ctx.translate(-(config.textTranslate * scale) / config.textTransform, 0)
-        ctx.rotate(config.textRotate)
-        ctx.fillText(text[idx], 0, 0)
-        ctx.restore()
-      }
-    }
-  } else if (shape.value == 'vertical') {
-    for (let i = 0; i < col; ++i) {
-      for (let j = 0; j < row; ++j) {
-        let idx = i * row + j
-        if (idx >= text.length) break
+  let isHorizontal = shape.value == QueueType.Horizontal
+  for (let i = 0; i < v; ++i) {
+    for (let j = 0; j < h; ++j) {
+      let idx = i * h + j
+      if (idx >= text.length) break
 
-        ctx.font = `${config.fontSize * scale}px "微软雅黑"`
-        ctx.fillStyle = color.value
-        ctx.save()
-        x = Math.round(marginH + manW * i + config.textMarginLeft * scale)
-        y = Math.round(marginV + manH * j + config.textMarginTop * scale)
-        ctx.translate(x, y)
-        ctx.transform(config.textTransform, 0, 0, 1, 0, 0)
-        ctx.translate(-(config.textTranslate * scale) / config.textTransform, 0)
-        ctx.rotate(config.textRotate)
-        ctx.fillText(text[idx], 0, 0)
-        ctx.restore()
-      }
+      ctx.save()
+
+      x = Math.round(marginH + manW * (isHorizontal ? j : i) + config.textMarginLeft * scale)
+      y = Math.round(marginV + manH * (isHorizontal ? i : j) + config.textMarginTop * scale)
+      ctx.translate(x, y)
+      ctx.transform(config.textTransform, 0, 0, 1, 0, 0)
+      ctx.translate(-(config.textTranslate * scale) / config.textTransform, 0)
+      ctx.rotate(config.textRotate)
+      ctx.fillText(text[idx], 0, 0)
+      ctx.restore()
     }
   }
 

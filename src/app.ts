@@ -1,19 +1,23 @@
-import '@nutui/icons-vue-taro/dist/style_iconfont.css'
+// import '@nutui/icons-vue-taro/dist/style_iconfont.css'
 import NutUI from "@nutui/nutui-taro"
 import "@nutui/nutui-taro/dist/style.css"
 import { createApp } from 'vue'
-import { createRouter, createWebHistory } from "vue-router"
+import { createMemoryHistory, createRouter } from "vue-router"
 import './app.css'
-import CommonQA from './components/settings/commonQA/index.vue'
-import ContactUs from './components/settings/contactUs/index.vue'
-import FontSize from './components/settings/fontSize/index.vue'
-import Find from './pages/main/Find.vue'
-import Home from './pages/main/Home.vue'
-import Main from './pages/main/Main.vue'
-import More from './pages/main/More.vue'
+import Find from './components/main/Find.vue'
+import Home from './components/main/Home.vue'
+import Main from './components/main/Main.vue'
+import More from './components/main/More.vue'
+import MyOrder from './components/order/MyOrder.vue'
+import MyPost from './components/post/MyPost.vue'
+import PostDetail from './components/post/PostDetail.vue'
+import CommonQA from './components/settings/CommonQA.vue'
+import ContactUs from './components/settings/ContactUs.vue'
+import FontSize from './components/settings/FontSize.vue'
+import UserProfile from './components/user/UserProfile.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createMemoryHistory(),
   routes: [
     {
       path: '/',
@@ -33,13 +37,18 @@ const router = createRouter({
     { path: '/settings/fontSize', component: FontSize },
     { path: '/settings/contactUs', component: ContactUs },
     { path: '/settings/commonQA', component: CommonQA },
-  ]
+    { path: '/postDetail/:id', component: PostDetail },
+    { path: '/user/profile', component: UserProfile },
+    { path: '/post/myPost', component: MyPost },
+    { path: '/order/myOrder', component: MyOrder },
+  ],
 })
 
 const App = createApp({
   onShow() { },
 })
 
+// App.use(IconFont as any)
 App.use(NutUI)
 App.use(router)
 

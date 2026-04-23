@@ -1,11 +1,11 @@
 .draw-canvas {
+  position: relative;
   border: 2px solid rgb(156, 154, 154);
   margin: 1px;
   width: calc(100vw - 8px);
   height: 60vh;
   border-radius: 15px;
   contain: layout style paint;
-  position: relative;
   display: block;
 }
 

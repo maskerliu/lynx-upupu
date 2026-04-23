@@ -2,11 +2,11 @@
 
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
     <view class="nav-bar" :style="{ height: navBarHeight + 'px' }">
-      <!-- 左侧返回按钮（可选） -->
       <view class="nav-left" v-if="showNavBack" :style="{ marginTop: statusBarHeight + 'px' }" @tap="goBack">
         <Left />
       </view>
     </view>
+
     <router-view v-slot="{ Component, route }">
       <keep-alive :include="['Main']">
         <component :is="Component" />
@@ -17,6 +17,7 @@
 
 <script setup>
 import { Left } from '@nutui/icons-vue-taro'
+import Taro from '@tarojs/taro'
 import { onMounted, provide, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import './index.scss'
@@ -48,14 +49,11 @@ onMounted(() => {
 })
 
 function initNavBarHeight() {
-  const systemInfo = wx.getSystemInfoSync()
-  const menuButtonInfo = wx.getMenuButtonBoundingClientRect()
+  const winInfo = Taro.getWindowInfo()
+  const menuBtnInfo = Taro.getMenuButtonBoundingClientRect()
 
-  statusBarHeight.value = systemInfo.statusBarHeight || 0
-  const menuHeight = menuButtonInfo.height
-  const menuTop = menuButtonInfo.top
-
-  navBarHeight.value = statusBarHeight.value + menuHeight + (menuTop - statusBarHeight.value) * 2
+  statusBarHeight.value = winInfo.statusBarHeight || 0
+  navBarHeight.value = statusBarHeight.value + menuBtnInfo.height + 4
 }
 
 function goBack() {
