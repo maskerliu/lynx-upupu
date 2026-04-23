@@ -22,10 +22,12 @@ const router = createRouter({
     {
       path: '/main',
       component: Main,
+      name: 'Main',
+      meta: { keepAlive: true },
       children: [
-        { path: 'home', component: Home },
-        { path: 'find', component: Find },
-        { path: 'more', component: More },
+        { path: 'home', component: Home, meta: { keepAlive: true } },
+        { path: 'find', component: Find, meta: { keepAlive: true } },
+        { path: 'more', component: More, meta: { keepAlive: true } },
       ]
     },
     { path: '/settings/fontSize', component: FontSize },

@@ -3,7 +3,7 @@
     <nut-cell :title="item.title" @click="naviTo(item)" is-link :to="item.to" v-for="item in MoreItems"
       :key="item.title">
       <template #icon>
-        <component :is="item.icon" style="font-size: 1.2rem; color: gray; margin-right: 10px;"></component>
+        <component :is="item.icon" style="font-size: 1.0rem; color: gray; margin-right: 10px;"></component>
       </template>
     </nut-cell>
   </nut-cell-group>
@@ -24,27 +24,8 @@ const MoreItems = [
 ]
 
 function naviTo(item) {
-  router.replace(item.to)
+  router.push(item.to)
   Taro.setNavigationBarTitle({ title: item.title })
 }
-
-function clickCommonQA() {
-  router.replace('/settings/commonQA')
-}
-
-function clickContactUs() {
-  router.replace('/settings/contactUs')
-}
-
-function clickFontSize() {
-  router.replace('/settings/fontSize')
-  Taro.setNavigationBarTitle({ title: '字体大小' })
-}
-
-function openToast(type, msg, cover = false) {
-  Taro.showToast({ title: msg, icon: 'none' })
-}
-
-function onClosed() { console.log('closed') }
 
 </script>

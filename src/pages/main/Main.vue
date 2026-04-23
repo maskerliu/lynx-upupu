@@ -1,15 +1,17 @@
 <template>
-  <router-view style="height: calc(100vh - 52px);"></router-view>
+  <router-view style="height: calc(100vh - 144px);"></router-view>
   <nut-tabbar v-model="activeTab" @tab-switch="tabSwitch" class="fixed-tabbar">
     <nut-tabbar-item v-for="item in Tabs" :key="item.name" :name="item.name" :tab-title="item.title"
       :icon="item.icon"></nut-tabbar-item>
   </nut-tabbar>
 </template>
 <script setup>
+
 import { Find, Home, My } from '@nutui/icons-vue-taro'
-import { h, onMounted, ref } from 'vue'
+import { h, inject, onActivated, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+const showNavBack = inject('showNavBack')
 const router = useRouter()
 const activeTab = ref('home')
 const Tabs = [
@@ -31,8 +33,14 @@ const Tabs = [
 ]
 
 onMounted(() => {
+  console.log('mounted')
   activeTab.value = 'home'
   router.replace(`/main/${activeTab.value}`)
+})
+
+onActivated(() => {
+  console.log('activated')
+  showNavBack.value = false
 })
 
 function tabSwitch(tab) {

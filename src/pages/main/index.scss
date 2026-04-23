@@ -1,3 +1,18 @@
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: linear-gradient(90deg, #ffa15b, #ff7954);
+  /* 渐变背景示例 */
+  color: white;
+  font-weight: bold;
+}
+
+.page-content {
+  padding: 16px;
+}
+
 .fixed-tabbar {
   position: fixed !important;
   bottom: 0;
@@ -5,7 +20,6 @@
   right: 0;
   background-color: white;
 }
-
 
 .draw-container {
   width: 375px;

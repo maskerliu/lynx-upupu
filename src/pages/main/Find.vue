@@ -3,7 +3,7 @@
   <view>
     <canvas id="drawCanvas" canvas-id="drawCanvas" class="draw-canvas"></canvas>
 
-    <view style="height: calc(40vh - 100px); overflow: hidden auto;">
+    <view :style="{ height: `calc(40vh - ${94 + navBarHeight}px)` }" style="overflow: hidden auto;">
       <nut-form>
         <nut-form-item label-width="3rem">
           <template #label>
@@ -51,8 +51,12 @@
 <script setup lang="ts">
 import { Ask } from '@nutui/icons-vue-taro'
 import Taro, { nextTick } from '@tarojs/taro'
-import { onMounted, ref, watch } from 'vue'
+import { inject, onMounted, ref, Ref, watch } from 'vue'
 import './Find.css'
+
+
+const navBarHeight = inject<Ref<number>>('navBarHeight')
+
 
 type ManConfig = {
   file: string,
@@ -94,8 +98,8 @@ const DefManConfig: ManConfig = {
   width: 64,
   height: 150,
   fontSize: 18,
-  textMarginTop: 22,
-  textMarginLeft: 30,
+  textMarginTop: 20,
+  textMarginLeft: 28,
   textTransform: 1.9,
   textRotate: Math.PI / 5.5,
   textTranslate: 20,

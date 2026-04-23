@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES5",
     "module": "commonjs",
     "removeComments": false,
     "preserveConstEnums": true,
@@ -24,10 +24,10 @@
     ]
   },
   "lib": [
-    "es5",
-    "es6",
-    "dom"
+    "ES5",
+    "DOM"
   ],
+  "downlevelIteration": true,
   "include": [
     "./src",
     "./types",
