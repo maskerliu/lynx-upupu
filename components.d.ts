@@ -9,8 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     Counter: typeof import('./src/components/Counter.vue')['default']
     NutButton: typeof import('@nutui/nutui-taro')['Button']
-    NutCell: typeof import('@nutui/nutui-taro')['Cell']
-    NutConfigProvider: typeof import('@nutui/nutui-taro')['ConfigProvider']
     NutForm: typeof import('@nutui/nutui-taro')['Form']
     NutFormItem: typeof import('@nutui/nutui-taro')['FormItem']
     NutInput: typeof import('@nutui/nutui-taro')['Input']
@@ -18,8 +16,6 @@ declare module 'vue' {
     NutRadioGroup: typeof import('@nutui/nutui-taro')['RadioGroup']
     NutRange: typeof import('@nutui/nutui-taro')['Range']
     NutRow: typeof import('@nutui/nutui-taro')['Row']
-    NutTabbar: typeof import('@nutui/nutui-taro')['Tabbar']
-    NutTabbarItem: typeof import('@nutui/nutui-taro')['TabbarItem']
     NutTag: typeof import('@nutui/nutui-taro')['Tag']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
