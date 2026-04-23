@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <canvas canvas-id="column" id="column" class="charts" @tap="tap" style="width: 100vw; height: 40vh;"></canvas>
 </template>
 
@@ -56,14 +56,14 @@ function initChart(id: string) {
         activeBgOpacity: 0.08,
         meterBorder: 3,
         meterFillColor: '#EBFBD6',
-        barBorderRadius: [10, 10, 0, 0]
+        barBorderRadius: [5, 5, 0, 0]
       }
     }
   })
 }
 
 function loadData(id: string) {
-  uChartsInstance[id]?.updateData({
+  uChartsInstance[id].updateData({
     categories: data.value.categories,
     series: data.value.series,
   })
@@ -94,9 +94,9 @@ function tap(e) {
   // uChartsInstance['column'].touchLegend(e)
   uChartsInstance['column'].showToolTip(e, {
     formatter: (item, category, index, opts) => {
-      return item.name + ":" + item.data;
+      return item.name + ":" + item.data
     }
   })
 }
 
-</script>
+</script> -->

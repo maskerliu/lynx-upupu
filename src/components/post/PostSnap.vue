@@ -31,7 +31,7 @@ onMounted(() => {
 
 
 async function onClick() {
-  await router.push(`/postDetail/${data?.id}`)
+  await router.push(`/postDetail/${data.id}`)
 }
 
 </script>

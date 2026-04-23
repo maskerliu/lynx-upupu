@@ -1,10 +1,10 @@
 .draw-canvas {
   position: relative;
-  border: 2px solid rgb(156, 154, 154);
-  margin: 1px;
-  width: calc(100vw - 8px);
+  border: 1px solid #2c3e50;
+  margin: 1px 1px 0 1px;
+  width: calc(100vw - 5px);
   height: 60vh;
-  border-radius: 15px;
+  border-radius: 10px;
   contain: layout style paint;
   display: block;
 }
@@ -15,8 +15,8 @@
 }
 
 .upupu {
-  width: 60px;
-  height: 120px;
+  width: 24px;
+  height: 56px;
 }
 
 .find-btn {

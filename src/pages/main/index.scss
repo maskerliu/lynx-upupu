@@ -2,15 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 15px;
   background: linear-gradient(90deg, #ffa15b, #ff7954);
-  /* 渐变背景示例 */
-  color: white;
+  color: var(--nut-white);
   font-weight: bold;
-}
-
-.page-content {
-  padding: 16px;
 }
 
 .fixed-tabbar {
@@ -18,25 +13,18 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: white;
 }
 
-.draw-container {
-  width: 375px;
-  height: 500px;
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
 }
 
-.slide-enter-active,
-.slide-leave-active {
-  transition: all 0.5s ease;
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
-.slide-enter-from {
-  transform: translateX(100%);
-  opacity: 0;
-}
-
-.slide-leave-to {
-  transform: translateX(-100%);
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
   opacity: 0;
 }

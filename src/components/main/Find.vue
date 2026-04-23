@@ -2,11 +2,11 @@
 
   <view>
     <canvas id="drawCanvas" canvas-id="drawCanvas" class="draw-canvas"></canvas>
-    <view :style="{ height: `calc(40vh - ${94 + navBarHeight}px)` }" style="overflow: hidden auto;">
+    <view :style="{ height: `calc(40vh - ${97 + navBarHeight}px)` }" style="overflow: hidden auto;">
       <nut-form>
-        <nut-form-item label-width="3rem">
+        <nut-form-item label-width="3rem" center>
           <template #label>
-            <Ask></Ask>
+            <Ask />
           </template>
           <nut-input v-model="inVal" placeholder="输入你的土味情话" clearable>
           </nut-input>
@@ -14,18 +14,18 @@
         <nut-form-item label="小人" label-width="3rem">
           <nut-radio-group v-model="theme" direction="horizontal">
             <nut-radio :label="item" shape="button" v-for="item in Themes">
-              <image :src="`/assets/icon_${item}.png`" alt="" class="upupu"></image>
+              <image :src="`/assets/icon_${item}.png`" mode="aspectFit" class="upupu"></image>
             </nut-radio>
           </nut-radio-group>
         </nut-form-item>
-        <nut-form-item label="队形" label-width="3rem">
+        <nut-form-item label="队形" label-width="3rem" center>
           <nut-radio-group v-model="shape" direction="horizontal">
             <nut-radio :label="item.value" shape="button" v-for="item in Shapes">
               {{ item.title }}
             </nut-radio>
           </nut-radio-group>
         </nut-form-item>
-        <nut-form-item label="颜色" label-width="3rem">
+        <nut-form-item label="颜色" label-width="3rem" center>
           <nut-radio-group v-model="color" direction="horizontal">
             <nut-radio v-for="item in Colors" :key="item" :label="item" shape="button" size="mini">
               <nut-tag :color="item" class="color-tag"></nut-tag>
@@ -80,11 +80,11 @@ const LihanManConfig: ManConfig = {
   count: 32,
   row: 8,
   col: 4,
-  width: 80,
-  height: 156,
-  fontSize: 18,
-  textMarginTop: 23,
-  textMarginLeft: 44,
+  width: 64,
+  height: 125,
+  fontSize: 16,
+  textMarginTop: 18,
+  textMarginLeft: 38,
   textTransform: 1.8,
   textRotate: Math.PI / 4.5,
   textTranslate: 25,
@@ -99,30 +99,30 @@ const DefManConfig: ManConfig = {
   height: 150,
   fontSize: 18,
   textMarginTop: 20,
-  textMarginLeft: 28,
+  textMarginLeft: 30,
   textTransform: 1.9,
   textRotate: Math.PI / 5.5,
   textTranslate: 20,
 }
 
-const Themes = ['default', 'lihan']
+const Themes = ['default', 'lihan', 'kid']
 const Shapes = [{ title: '横排', value: 'horizontal' }, { title: '竖排', value: 'vertical' }]
 const Colors = ['#c0392b', '#2980b9', '#2c3e50', '#8e44ad']
 
-const theme = ref<string>('default')
+const theme = ref<string>('lihan')
 const shape = ref<QueueType>(QueueType.Horizontal)
 const ratio = ref<number>(100)
 const color = ref<string>('#c0392b')
 const canSave = ref<boolean>(false)
 const inVal = ref<string | null>('土味情话，举牌表达')
 const generating = ref<boolean>(false)
+const canvasSize = ref<{ width: number, height: number }>({ width: 0, height: 0 })
 
 let ctx: Taro.CanvasContext | null = null
 let offscreenCanvas: Taro.OffscreenCanvas | null = null
 let offscreenCtx: Taro.RenderingContext | null = null
 let material: Taro.Image | null = null
 let materialLoaded = false
-let canvasW = 0, canvasH = 0
 let dpr = 1
 
 onMounted(async () => {
@@ -139,20 +139,26 @@ watch(() => theme.value, async () => {
   await loadMaterial()
 })
 
+watch(() => canvasSize.value, async () => {
+
+  offscreenCanvas = Taro.createOffscreenCanvas({
+    type: '2d',
+    width: canvasSize.value.width,
+    height: canvasSize.value.height
+  })
+  offscreenCtx = offscreenCanvas.getContext('2d')
+  material = offscreenCanvas.createImage()
+
+  await loadMaterial()
+})
+
 async function initCanvas() {
   // 初始化canvas上下文
   Taro.createSelectorQuery()
     .select('#drawCanvas')
     .fields({ node: true, size: true })
     .exec(async (res) => {
-      canvasW = res[0].width
-      canvasH = res[0].height
-
-      offscreenCanvas = Taro.createOffscreenCanvas({ type: '2d', width: canvasW, height: canvasH })
-      offscreenCtx = offscreenCanvas.getContext('2d')
-      material = offscreenCanvas.createImage()
-
-      await loadMaterial()
+      canvasSize.value = { width: res[0].width, height: res[0].height }
     })
 
   ctx = Taro.createCanvasContext('drawCanvas')
@@ -195,7 +201,7 @@ async function generate() {
     generating.value = true
     canSave.value = false
 
-    ctx.clearRect(0, 0, canvasW, canvasH)
+    ctx.clearRect(0, 0, canvasSize.value.width, canvasSize.value.height)
     ctx.draw(false)
 
     let config = theme.value == 'default' ? DefManConfig : LihanManConfig
@@ -216,25 +222,25 @@ async function queue(config: ManConfig) {
   let col = 0, row = 0, marginH = 0, marginV = 0, x = 0, y = 0, v = 0, h = 0
 
   if (shape.value == QueueType.Horizontal) {
-    col = Math.floor(canvasW / config.width)
+    col = Math.floor(canvasSize.value.width / config.width)
     row = Math.ceil(text.length / col)
     v = row
     h = col
   } else if (shape.value == QueueType.Vertical) {
-    row = Math.floor(canvasH / config.height)
+    row = Math.floor(canvasSize.value.height / config.height)
     col = Math.ceil(text.length / row)
     v = col
     h = row
   }
 
-  marginH = (canvasW - col * manW) / 2
-  marginV = (canvasH - row * manH) / 2
+  marginH = (canvasSize.value.width - col * manW) / 2
+  marginV = (canvasSize.value.height - row * manH) / 2
 
   let i = 0, idx = 0
   while (i < row) {
-    let j = 0;
+    let j = 0
     while (j < col) {
-      idx = i * col + j;
+      idx = i * col + j
       if (idx >= text.length) break
 
       let randomW = Math.floor(Math.floor(Math.random() * config.row) * config.width)
@@ -290,10 +296,10 @@ async function saveToAlbum() {
     let res = await Taro.canvasToTempFilePath({
       x: 0,
       y: 0,
-      width: canvasW,
-      height: canvasH,
-      destWidth: canvasW * dpr,
-      destHeight: canvasH * dpr,
+      width: canvasSize.value.width,
+      height: canvasSize.value.height,
+      destWidth: canvasSize.value.width * dpr,
+      destHeight: canvasSize.value.height * dpr,
       canvasId: 'drawCanvas'
     })
 

@@ -1,8 +1,9 @@
-// import '@nutui/icons-vue-taro/dist/style_iconfont.css'
-import NutUI from "@nutui/nutui-taro"
-import "@nutui/nutui-taro/dist/style.css"
 import { createApp } from 'vue'
 import { createMemoryHistory, createRouter } from "vue-router"
+
+import NutUI, { ConfigProvider } from "@nutui/nutui-taro"
+import "@nutui/nutui-taro/dist/style.css"
+
 import './app.css'
 import Find from './components/main/Find.vue'
 import Home from './components/main/Home.vue'
@@ -48,8 +49,8 @@ const App = createApp({
   onShow() { },
 })
 
-// App.use(IconFont as any)
 App.use(NutUI)
+App.use(ConfigProvider)
 App.use(router)
 
 export default App

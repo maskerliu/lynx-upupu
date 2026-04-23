@@ -6,7 +6,7 @@
   "setting": {
     "urlCheck": true,
     "es6": true,
-    "enhance": true,
+    "enhance": false,
     "compileHotReLoad": true,
     "postcss": false,
     "minified": true

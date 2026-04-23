@@ -1,6 +1,37 @@
-import type { UserConfigExport } from "@tarojs/cli";
+import type { UserConfigExport } from "@tarojs/cli"
 export default {
-  mini: {},
+  mini: {
+
+    webpackChain(chain) {
+      chain.merge({
+        plugin: {
+          install: {
+            plugin: require('terser-webpack-plugin'),
+            args: [
+              {
+                terserOptions: {
+                  compress: {
+                    drop_console: false, // 移除console
+                    drop_debugger: true, // 移除debugger
+                    pure_funcs: ['console.log'], // 移除指定函数
+                  },
+                  mangle: {
+                    keep_fnames: true, // 保持函数名
+                    keep_classnames: true, // 保持类名
+                  },
+                  format: {
+                    comments: false, // 移除注释
+                    beautify: false, // 不美化代码
+                  },
+                  ecma: 5,
+                },
+              },
+            ],
+          },
+        }
+      })
+    },
+  },
   h5: {
     /**
      * WebpackChain 插件配置

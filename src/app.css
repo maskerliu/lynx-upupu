@@ -1,8 +1,22 @@
 :root,
 page {
   --nut-white: #fdfdfd;
+  --nut-black: #2b2b2b;
   --nut-help-color: #f5f5f5;
   --nut-button-border-radius: 15px;
 
   background: #ecf0f1;
+
+  --nut-dark-background: #242424;
+  --nut-dark-background2: #292929;
+  --nut-dark-background3: #343434;
+  --nut-dark-background4: #3b3b3b;
+  --nut-dark-background5: #646566;
+  --nut-dark-background6: #380e08;
+  --nut-dark-background7: #707070;
+}
+
+.nut-theme-dark {
+  color: var(--nut-white);
+  background: var(--nut-dark-background4);
 }

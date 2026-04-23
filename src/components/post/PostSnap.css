@@ -14,7 +14,7 @@
 .post-tag {
   position: absolute;
   left: 0;
-  bottom: 100px;
+  bottom: 65px;
 }
 
 .post-snap {
@@ -24,12 +24,13 @@
 }
 
 .post-title {
-  font-size: 0.8rem;
+  color: var(--nut-black);
+  font-size: 0.9rem;
   font-weight: bold;
 }
 
 .post-desc {
-  font-size: 0.7rem;
-  padding: 5px;
-  color: rgb(167, 116, 55);
+  font-size: 0.8rem;
+  padding: 5px 0;
+  color: #e67e22;
 }

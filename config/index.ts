@@ -7,28 +7,20 @@ import devConfig from './dev'
 import prodConfig from './prod'
 
 
-// https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
   const baseConfig: UserConfigExport<'webpack5'> = {
     projectName: 'lynx-upupu',
     date: '2026-3-24',
-    designWidth(input) {
-      // 配置 NutUI 375 尺寸
-      if ((input as any)?.file?.replace(/\\+/g, '/').indexOf('@nutui') > -1) {
-        return 375
-      }
-      // 全局使用 Taro 默认的 750 尺寸
-      return 750
-    },
+    designWidth: 375,
     deviceRatio: {
       640: 2.34 / 2,
       750: 1,
-      375: 2,
-      828: 1.81 / 2
+      828: 1.81 / 2,
+      375: 2 / 1
     },
     sourceRoot: 'src',
     outputRoot: 'dist',
-    plugins: ['@tarojs/plugin-html'],
+    plugins: ['@tarojs/plugin-html',],
     defineConstants: {},
     copy: {
       patterns: [
@@ -42,18 +34,18 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
       prebundle: {
         enable: false,
         timings: true,
-        exclude: ['@nutui/nutui-taro']
+        exclude: ['@nutui/nutui-taro', 'core-js', '@babel/runtime', '@babel/runtime-corejs3']
       }
     },
     cache: {
       enable: true
     },
     mini: {
-      enableSourceMap: false,
       // hot: true,
+      enableSourceMap: false,
       miniCssExtractPluginOption: {
         ignoreOrder: true,
-        // filename: 'css/[name].[hash].css',
+        // filename: 'css/[name].[fullhash].css',
         // chunkFilename: 'css/[name].[chunkhash].css'
       },
       postcss: {
@@ -72,11 +64,51 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
         }
       },
       webpackChain(chain) {
+        chain.output.globalObject('wx')
+        chain.plugin('define-plugin').use(require('webpack').DefinePlugin, [{
+          'process.env.TARO_RUNTIME': JSON.stringify('weapp'),
+          'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        }])
+
+        // chain.output.devtoolModuleFilenameTemplate('webpack:///[resource-path]')
         chain.resolve.alias.set('@tarojs/runtime', path.resolve(__dirname, '../node_modules/@tarojs/runtime/dist/index.cjs.js'))
         chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
         chain.plugin('unplugin-vue-components').use(Components({
-          resolvers: [NutUIResolver({ taro: true })]
+          resolvers: [NutUIResolver({ taro: true })],
+          dts: false,
+          directives: false,
+          version: 3,
         }))
+
+
+
+        chain.module.rule('js').test(/\.js$/).include
+          .add(/node_modules\/(@qiun\/ucharts)/)
+          .add(/node_modules\/(vue-router)/)
+          .end().exclude
+          .add(/node_modules\/(@babel\/runtime)/)
+          // .add(/node_modules\/(@tarojs\/router)/)
+          // .add(/node_modules\/(@qiun\/ucharts)/)
+          // .add(/node_modules\/(uuid)/)
+          // .add(/node_modules\/(vue-router)/)
+          .end()
+
+
+        chain.devtool(false)
+        // chain.optimization.set('moduleIds', 'deterministic')
+        // chain.optimization.set('chunkIds', 'deterministic')
+
+        // chain.plugin('fix-nutui-modules').use(require('webpack').NormalModuleReplacementPlugin, [
+        //   /D_Repo_lynx_upupu_node_modules_babel_runtime_helpers_esm_/,
+        //   (resource: any) => {
+        //     // 重写为标准的 @babel/runtime 路径
+        //     const match = resource.request.match(/helpers_esm_(\w+)_js/)
+        //     if (match) {
+        //       const helperName = match[1]
+        //       resource.request = `@babel/runtime/helpers/esm/${helperName}`
+        //     }
+        //   }
+        // ])
       }
     },
     h5: {

@@ -1,6 +1,6 @@
 <template>
   <view>
-    <router-view v-slot="{ Component, route }" style="margin-bottom: 52px;"
+    <router-view v-slot="{ Component }" style="margin-bottom: 52px;"
       :style="{ height: `calc(100vh - ${navBarHeight + 52}px)` }">
       <keep-alive :include="['Home', 'Find', 'More']">
         <component :is="Component" />
@@ -8,7 +8,7 @@
     </router-view>
 
     <nut-tabbar v-model="activeTab" @tab-switch="tabSwitch" class="fixed-tabbar">
-      <nut-tabbar-item v-for="item in Tabs" :key="item.name" :name="item.name" :icon="item.icon"></nut-tabbar-item>
+      <nut-tabbar-item v-for="item in Tabs" :key="item.name" :name="item.name" :icon="item.icon" />
     </nut-tabbar>
   </view>
 </template>
@@ -18,7 +18,7 @@ import { Fabulous, Home, My } from '@nutui/icons-vue-taro'
 import { h, inject, onActivated, onMounted, ref, Ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const navBarHeight = inject('navBarHeight', 0)
+const navBarHeight = inject<Ref<number>>('navBarHeight')
 const showNavBack = inject<Ref<boolean>>('showNavBack')
 const router = useRouter()
 const activeTab = ref('home')
@@ -53,6 +53,5 @@ function tabSwitch(tab: any) {
   router.replace(`/main/${tab.name}`)
   activeTab.value = tab.name
 }
-
 
 </script>
