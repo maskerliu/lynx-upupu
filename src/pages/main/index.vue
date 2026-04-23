@@ -1,49 +1,30 @@
 <template>
-  <nut-config-provider :theme="theme" style="height: calc(100vh - 52px); overflow: hidden;">
-    <HomeTab v-if="activeTab == 'home'"></HomeTab>
-    <FindTab v-if="activeTab == 'find'"></FindTab>
-    <MoreTab v-if="activeTab == 'more'"></MoreTab>
-    <nut-tabbar v-model="activeTab" @tab-switch="tabSwitch" class="fixed-tabbar">
-      <nut-tabbar-item v-for="item in Tabs" :key="item.name" :name="item.name" :tab-title="item.title"
-        :icon="item.icon"></nut-tabbar-item>
-    </nut-tabbar>
+  <nut-config-provider :theme="theme" :theme-vars="themeVars">
+    <router-view></router-view>
   </nut-config-provider>
 </template>
 
 <script setup>
-import { Find, Home, My } from '@nutui/icons-vue-taro'
-import { h, onMounted, ref } from 'vue'
-import FindTab from './Find.vue'
-import HomeTab from './Home.vue'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import './index.scss'
-import MoreTab from './More.vue'
 
 const activeTab = ref('home')
 const theme = ref('light')
-const Tabs = [
-  {
-    title: '首页',
-    icon: h(Home),
-    name: 'home'
-  },
-  {
-    title: '发现',
-    icon: h(Find),
-    name: 'find'
-  },
-  {
-    title: '我的',
-    icon: h(My),
-    name: 'more'
-  }
-]
-
-onMounted(() => {
-  activeTab.value = 'home'
+const themeVars = ref({
+  primaryColor: '#2980b9',
+  primaryColorEnd: '#3498db',
+  fontSize0: '0.6rem',
+  fontSize1: '0.9rem',
+  fontSize2: '1rem',
+  fontSize3: '1.2rem',
+  fontSize4: '1.4rem'
 })
 
-function tabSwitch(tab) {
-  activeTab.value = tab.name
-}
+const router = useRouter()
+
+onMounted(() => {
+  router.replace('/main/home')
+})
 
 </script>

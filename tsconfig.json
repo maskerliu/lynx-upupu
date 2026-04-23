@@ -12,6 +12,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": false,
+    "ignoreDeprecations": "6.0",
     "sourceMap": true,
     "baseUrl": ".",
     "rootDir": ".",

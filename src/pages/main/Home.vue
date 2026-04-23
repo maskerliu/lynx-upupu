@@ -1,7 +1,6 @@
 <template>
   <nut-tabs v-model="activeCatergory" title-scroll :animated-time="0">
-    <nut-tab-pane :title="category" :pane-key="idx" v-for="(category, idx) in Categories"
-      style="padding: 10px 0 0 0; background-color: antiquewhite;">
+    <nut-tab-pane :title="category" :pane-key="idx" v-for="(category, idx) in Categories" style="padding: 10px 0 0 0;">
       <nut-list :list-data="data" :container-height="containerHeight" @scroll-bottom="onScrollBottom">
         <template #default="{ index }">
           <div class="list-item">
@@ -16,7 +15,7 @@
 <script setup>
 import Taro from '@tarojs/taro'
 import { computed, onMounted, ref } from 'vue'
-import './home.scss'
+import './Home.scss'
 
 const activeCatergory = ref(0)
 const Categories = ref(['推荐', '穿搭', '美食', '职场', '影视', '情感', '美食', '游戏', '健身'])

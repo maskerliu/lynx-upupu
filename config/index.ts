@@ -29,20 +29,20 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
     sourceRoot: 'src',
     outputRoot: 'dist',
     plugins: ['@tarojs/plugin-html'],
-    defineConstants: {
-    },
+    defineConstants: {},
     copy: {
       patterns: [
         { from: 'src/assets/', to: 'dist/assets/' },
       ],
-      options: {
-      }
+      options: {}
     },
     framework: 'vue3',
     compiler: {
       type: 'webpack5',
       prebundle: {
-        enable: false
+        enable: false,
+        timings: true,
+        exclude: ['@nutui/nutui-taro']
       }
     },
     cache: {
@@ -67,6 +67,12 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
         }
       },
       webpackChain(chain) {
+        chain.resolve.alias.set('@tarojs/runtime', path.resolve(__dirname, '../node_modules/@tarojs/runtime/dist/index.cjs.js'))
+        chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
+        chain.plugin('unplugin-vue-components').use(Components({
+          resolvers: [NutUIResolver({ taro: true })]
+        }))
+
         chain.module.rule('js')
           .test(/\.js$/)
           .use('babel-loader')
@@ -81,16 +87,13 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
             ],
             plugins: [
               ['babel-plugin-dynamic-import-node'],
+              ['@babel/plugin-transform-runtime', { 'regenerator': true }],
               ['@babel/plugin-proposal-optional-chaining', { loose: true }],
               ['@babel/plugin-proposal-nullish-coalescing-operator', { loose: true }]
             ]
           })
 
-        chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
-        chain.plugin('unplugin-vue-components').use(Components({
-          resolvers: [NutUIResolver({ taro: true })]
-        }))
-        chain.resolve.alias.set('@tarojs/runtime', path.resolve(__dirname, '../node_modules/@tarojs/runtime/dist/index.cjs.js'))
+
       }
     },
     h5: {

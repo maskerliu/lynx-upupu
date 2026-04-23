@@ -15,8 +15,11 @@
 }
 
 .upupu {
-  width: 128px;
-  height: 10px;
-  background-size: 100% 2200%;
-  background-image: '../../assets/upupu.png';
+  width: 60px;
+  height: 120px;
+}
+
+.find-btn {
+  width: calc(50% - 20px);
+  margin: 0 10px;
 }
