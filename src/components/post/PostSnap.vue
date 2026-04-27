@@ -2,7 +2,7 @@
   <view class="post-card" @click="onClick">
     <image src="/assets/icon_default.png" mode="aspectFill" class="post-image" />
     <view class="post-tag">
-      <nut-tag color="#FA685D"> 外卖 </nut-tag>
+      <nut-tag color="#FA685D" style="margin-right: 5px;"> 外卖 </nut-tag>
       <nut-tag plain color="#FA685D"> 20分钟 </nut-tag>
     </view>
     <view class="post-snap">

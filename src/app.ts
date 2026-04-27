@@ -1,10 +1,12 @@
 import { createApp } from 'vue'
 import { createMemoryHistory, createRouter } from "vue-router"
 
-import NutUI, { ConfigProvider } from "@nutui/nutui-taro"
+import NutUI from "@nutui/nutui-taro"
 import "@nutui/nutui-taro/dist/style.css"
-
+import { loadEcharts } from 'echarts4taro3'
+// import * as echarts from 'echarts4taro3/lib/assets/echarts'
 import './app.css'
+import * as echarts from './components/echarts'
 import Find from './components/main/Find.vue'
 import Home from './components/main/Home.vue'
 import Main from './components/main/Main.vue'
@@ -16,6 +18,12 @@ import CommonQA from './components/settings/CommonQA.vue'
 import ContactUs from './components/settings/ContactUs.vue'
 import FontSize from './components/settings/FontSize.vue'
 import UserProfile from './components/user/UserProfile.vue'
+
+try {
+  loadEcharts(echarts)
+} catch (e) {
+  console.log('echarts error', e)
+}
 
 const router = createRouter({
   history: createMemoryHistory(),
@@ -50,7 +58,6 @@ const App = createApp({
 })
 
 App.use(NutUI)
-App.use(ConfigProvider)
 App.use(router)
 
 export default App

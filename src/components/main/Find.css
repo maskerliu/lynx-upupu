@@ -2,7 +2,7 @@
   position: relative;
   border: 1px solid #2c3e50;
   margin: 1px 1px 0 1px;
-  width: calc(100vw - 5px);
+  width: calc(100vw - 4px);
   height: 60vh;
   border-radius: 10px;
   contain: layout style paint;

@@ -13,7 +13,6 @@ declare module 'vue' {
     Find: typeof import('./src/components/main/Find.vue')['default']
     FontSize: typeof import('./src/components/settings/FontSize.vue')['default']
     Home: typeof import('./src/components/main/Home.vue')['default']
-    // Line: typeof import('./src/components/Line.vue')['default']
     Main: typeof import('./src/components/main/Main.vue')['default']
     More: typeof import('./src/components/main/More.vue')['default']
     MyOrder: typeof import('./src/components/order/MyOrder.vue')['default']

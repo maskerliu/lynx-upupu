@@ -6508,6 +6508,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"echarts4taro3@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "echarts4taro3@npm:1.8.0"
+  dependencies:
+    vue-demi: "npm:^0.13.11"
+  peerDependencies:
+    "@tarojs/taro": ">=3.0.0"
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^2.0.0 || >=3.0.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  checksum: 10c0/1e8f916f19f9ed9d132383a553558ec828eaba4e9ee963387f47b86a8eaece5aa03b8e45352e742e970a3a23d6f691e3231ca9764922e18e0cbf625d990c6e2f
+  languageName: node
+  linkType: hard
+
 "ee-first@npm:1.1.1":
   version: 1.1.1
   resolution: "ee-first@npm:1.1.1"
@@ -10105,6 +10121,7 @@ __metadata:
     babel-plugin-dynamic-import-node: "npm:^2.3.3"
     babel-preset-taro: "npm:4.2.0"
     css-loader: "npm:^3.4.2"
+    echarts4taro3: "npm:^1.8.0"
     eslint: "npm:^8.57.0"
     eslint-config-taro: "npm:4.2.0"
     eslint-plugin-vue: "npm:^8.0.0"
@@ -10120,7 +10137,7 @@ __metadata:
     uuid: "npm:^13.0.0"
     vue: "npm:^3.5.32"
     vue-loader: "npm:^17.4.2"
-    vue-router: "npm:5.0.4"
+    vue-router: "npm:^5.0.6"
     webpack: "npm:5.91.0"
   languageName: unknown
   linkType: soft
@@ -14467,6 +14484,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vue-demi@npm:^0.13.11":
+  version: 0.13.11
+  resolution: "vue-demi@npm:0.13.11"
+  peerDependencies:
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^3.0.0-0 || ^2.6.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  bin:
+    vue-demi-fix: bin/vue-demi-fix.js
+    vue-demi-switch: bin/vue-demi-switch.js
+  checksum: 10c0/8f1a38e41e3dd0a4821c87231c664dcc00e6dbf5eecd3de397b7ddb6ae01f173aed5385c55a3c3239be36145742f1a5be407662fc67f9c4515ea691dd0ac93e1
+  languageName: node
+  linkType: hard
+
 "vue-eslint-parser@npm:^8.0.1":
   version: 8.3.0
   resolution: "vue-eslint-parser@npm:8.3.0"
@@ -14502,9 +14535,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-router@npm:5.0.4":
-  version: 5.0.4
-  resolution: "vue-router@npm:5.0.4"
+"vue-router@npm:^5.0.6":
+  version: 5.0.6
+  resolution: "vue-router@npm:5.0.6"
   dependencies:
     "@babel/generator": "npm:^7.28.6"
     "@vue-macros/common": "npm:^3.1.1"
@@ -14535,7 +14568,7 @@ __metadata:
       optional: true
     pinia:
       optional: true
-  checksum: 10c0/11309a44c3b5aaa6e4f960d8739ce94796e78afa2d9b517ccfe78fa982f029009a07aef30ffeafecaf383a1cbd870ae27f7d56f4b9a62bad61423d8e244eb94b
+  checksum: 10c0/2ede48df2ee9a1e196a822134659db50af6b3eb653c0c0000e9a17f0b3aa5e0a1bbb3ea2ce1e6189dc2d8a0aec1baeb85d5e2f524bd8df736409ae45594d3572
   languageName: node
   linkType: hard
 

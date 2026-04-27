@@ -7,13 +7,13 @@ page {
 
   background: #ecf0f1;
 
-  --nut-dark-background: #242424;
-  --nut-dark-background2: #292929;
+  --nut-dark-background: #2e2e2e;
+  --nut-dark-background2: #353535;
   --nut-dark-background3: #343434;
-  --nut-dark-background4: #3b3b3b;
-  --nut-dark-background5: #646566;
-  --nut-dark-background6: #380e08;
-  --nut-dark-background7: #707070;
+  --nut-dark-background4: #4b4b4b;
+  --nut-dark-background5: #5a5a5a;
+  --nut-dark-background6: #6b6b6b;
+  --nut-dark-background7: #7a7a7a;
 }
 
 .nut-theme-dark {

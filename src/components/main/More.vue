@@ -1,10 +1,10 @@
 <template>
-  <view>
+  <view style="padding: 10px;">
     <nut-cell-group>
       <user-snap @click="naviTo({ to: '/user/profile' })"></user-snap>
     </nut-cell-group>
 
-    <nut-noticebar :text="notice" />
+    <nut-noticebar :text="notice" close-mode />
 
     <nut-cell-group>
       <nut-cell :title="item.title" @click="naviTo(item)" is-link :to="item.to" v-for="item in Group1"

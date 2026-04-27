@@ -65,9 +65,12 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
       },
       webpackChain(chain) {
         chain.output.globalObject('wx')
+        // chain.output.set('chunkLoadingGlobal', 'webpackJsonp')
+
         chain.plugin('define-plugin').use(require('webpack').DefinePlugin, [{
           'process.env.TARO_RUNTIME': JSON.stringify('weapp'),
           'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+          // 'chunkLoadingGlobal': JSON.stringify('webpackJsonp'),
         }])
 
         // chain.output.devtoolModuleFilenameTemplate('webpack:///[resource-path]')
@@ -78,14 +81,17 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
           dts: false,
           directives: false,
           version: 3,
+          include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
+          exclude: [/[\\/]node_modules[\\/]/, /[\\/].git[\\/]/, /[\\/].taro[\\/]/],
         }))
 
-
-
-        chain.module.rule('js').test(/\.js$/).include
-          .add(/node_modules\/(@qiun\/ucharts)/)
+        chain.module.rule('js').test(/\.js$/)
+          .include
           .add(/node_modules\/(vue-router)/)
-          .end().exclude
+          .add(/node_modules\/(@qiun\/ucharts)/)
+          .add(/node_modules\/(echarts|echarts4taro3)/)
+          .end()
+          .exclude
           .add(/node_modules\/(@babel\/runtime)/)
           // .add(/node_modules\/(@tarojs\/router)/)
           // .add(/node_modules\/(@qiun\/ucharts)/)
@@ -93,22 +99,8 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
           // .add(/node_modules\/(vue-router)/)
           .end()
 
-
         chain.devtool(false)
-        // chain.optimization.set('moduleIds', 'deterministic')
-        // chain.optimization.set('chunkIds', 'deterministic')
-
-        // chain.plugin('fix-nutui-modules').use(require('webpack').NormalModuleReplacementPlugin, [
-        //   /D_Repo_lynx_upupu_node_modules_babel_runtime_helpers_esm_/,
-        //   (resource: any) => {
-        //     // 重写为标准的 @babel/runtime 路径
-        //     const match = resource.request.match(/helpers_esm_(\w+)_js/)
-        //     if (match) {
-        //       const helperName = match[1]
-        //       resource.request = `@babel/runtime/helpers/esm/${helperName}`
-        //     }
-        //   }
-        // ])
+        // chain.optimization.splitChunks(false)
       }
     },
     h5: {

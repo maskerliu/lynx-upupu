@@ -1,6 +1,7 @@
 <template>
 
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
+
     <view class="nav-bar" :style="{ height: navBarHeight + 'px' }">
       <view class="nav-left" v-if="showNavBack" :style="{ marginTop: statusBarHeight + 'px' }" @tap="goBack">
         <Left style="font-size: 1rem;" />
@@ -58,8 +59,6 @@ onMounted(() => {
   themeVars.value.fontSize2 = `${fontSize + 4}px`
   themeVars.value.fontSize3 = `${fontSize + 6}px`
   themeVars.value.fontSize4 = `${fontSize + 8}px`
-
-  console.log(themeVars.value)
 })
 
 function initNavBarHeight() {

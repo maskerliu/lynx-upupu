@@ -2,7 +2,7 @@
   <view :style="{ height: `calc(100% - ${navBarHeight}px)` }" style="overflow: hidden auto;">
 
     <nut-tabs v-model="activeCatergory" title-scroll :animated-time="0">
-      <nut-tab-pane :title="category" :pane-key="idx" style="background-color: transparent; padding: 0;"
+      <nut-tab-pane :title="category" :pane-key="idx" style="background-color: transparent;"
         v-for="(category, idx) in Categories">
 
         <scroll-view :style="{ height: `${containerHeight}px` }" style="overflow: hidden auto; ">

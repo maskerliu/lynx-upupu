@@ -15,7 +15,7 @@
       </nut-col>
     </nut-row>
 
-    <!-- <Line /> -->
+    <Line />
 
     <scroll-view scroll-y>
       <nut-row type="flex" flex-wrap="wrap" style="width: 98vw; margin: 0 5px;">
@@ -33,7 +33,7 @@ import Taro from '@tarojs/taro'
 import { inject, onActivated, onMounted, onUnmounted, ref } from 'vue'
 import { ActivityCardType, ActivityCol, ActivityRow, Post } from '../../common/model'
 import ActivityCard from '../../components/ActivityCard.vue'
-// import Line from '../../components/Line.vue'
+import Line from '../../components/Line.vue'
 import PostSnap from '../../components/post/PostSnap.vue'
 import './Home.scss'
 
@@ -211,12 +211,12 @@ onMounted(async () => {
 })
 
 onActivated(() => {
-  console.log('Home activated')
+  // console.log('Home activated')
 })
 
 
 onUnmounted(() => {
-  console.log('Home unmounted')
+  // console.log('Home unmounted')
 })
 
 function onScrollBottom() {

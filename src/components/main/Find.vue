@@ -2,19 +2,19 @@
 
   <view>
     <canvas id="drawCanvas" canvas-id="drawCanvas" class="draw-canvas"></canvas>
-    <view :style="{ height: `calc(40vh - ${97 + navBarHeight}px)` }" style="overflow: hidden auto;">
+    <view :style="{ height: `calc(40vh - ${97 + navBarHeight}px)` }" style="overflow: hidden auto; padding: 0 5px;">
       <nut-form>
         <nut-form-item label-width="3rem" center>
           <template #label>
             <Ask />
           </template>
-          <nut-input v-model="inVal" placeholder="输入你的土味情话" clearable>
+          <nut-input v-model="inVal" placeholder="输入你的土味情话" clearable show-word-limit :max-length="maxLength">
           </nut-input>
         </nut-form-item>
         <nut-form-item label="小人" label-width="3rem">
           <nut-radio-group v-model="theme" direction="horizontal">
             <nut-radio :label="item" shape="button" v-for="item in Themes">
-              <image :src="`/assets/icon_${item}.png`" mode="aspectFit" class="upupu"></image>
+              <image :src="`/assets/icon_${item}.webp`" mode="aspectFit" class="upupu"></image>
             </nut-radio>
           </nut-radio-group>
         </nut-form-item>
@@ -31,9 +31,6 @@
               <nut-tag :color="item" class="color-tag"></nut-tag>
             </nut-radio>
           </nut-radio-group>
-        </nut-form-item>
-        <nut-form-item label="大小" label-width="3rem">
-          <nut-range v-model="ratio" step="10" min="50" hidden-range hidden-tag @change="changeSize"></nut-range>
         </nut-form-item>
       </nut-form>
     </view>
@@ -91,7 +88,7 @@ const LihanManConfig: ManConfig = {
 }
 
 const DefManConfig: ManConfig = {
-  file: 'default.png',
+  file: 'default.webp',
   count: 32,
   row: 8,
   col: 4,
@@ -110,26 +107,23 @@ const Shapes = [{ title: '横排', value: 'horizontal' }, { title: '竖排', val
 const Colors = ['#c0392b', '#2980b9', '#2c3e50', '#8e44ad']
 
 const theme = ref<string>('lihan')
-const shape = ref<QueueType>(QueueType.Horizontal)
-const ratio = ref<number>(100)
+const shape = ref<QueueType>(QueueType.Vertical)
 const color = ref<string>('#c0392b')
 const canSave = ref<boolean>(false)
 const inVal = ref<string | null>('土味情话，举牌表达')
 const generating = ref<boolean>(false)
 const canvasSize = ref<{ width: number, height: number }>({ width: 0, height: 0 })
+const maxLength = ref<number>(0)
 
 let ctx: Taro.CanvasContext | null = null
 let offscreenCanvas: Taro.OffscreenCanvas | null = null
 let offscreenCtx: Taro.RenderingContext | null = null
 let material: Taro.Image | null = null
 let materialLoaded = false
-let dpr = 1
+let dpr = Taro.getWindowInfo().pixelRatio || 1
 
 onMounted(async () => {
   Taro.setNavigationBarTitle({ title: '举牌小人' })
-  const systemInfo = Taro.getWindowInfo()
-  dpr = systemInfo.pixelRatio || 1
-
   nextTick(async () => {
     await initCanvas()
   })
@@ -171,7 +165,6 @@ async function loadMaterial() {
   await new Promise(resolve => {
     material.onload = resolve
     material.src = url
-    // console.log('start load image', url)
   })
 
   offscreenCanvas.width = material.width
@@ -179,11 +172,9 @@ async function loadMaterial() {
 
   (offscreenCtx as any).drawImage(material, 0, 0, material.width, material.height)
 
-  materialLoaded = true
-}
+  maxLength.value = Math.floor(canvasSize.value.width / config.width) * Math.floor(canvasSize.value.height / config.height)
 
-async function changeSize() {
-  // console.log(ratio.value)
+  materialLoaded = true
 }
 
 async function generate() {
@@ -215,9 +206,8 @@ async function generate() {
 
 async function queue(config: ManConfig) {
   const text = inVal.value.trim()
-  let scale = ratio.value / 100
-  let manW = config.width * scale
-  let manH = config.height * scale
+  let manW = config.width
+  let manH = config.height
 
   let col = 0, row = 0, marginH = 0, marginV = 0, x = 0, y = 0, v = 0, h = 0
 
@@ -236,36 +226,9 @@ async function queue(config: ManConfig) {
   marginH = (canvasSize.value.width - col * manW) / 2
   marginV = (canvasSize.value.height - row * manH) / 2
 
-  let i = 0, idx = 0
-  while (i < row) {
-    let j = 0
-    while (j < col) {
-      idx = i * col + j
-      if (idx >= text.length) break
+  await drawMan(row, col, text.length, config, marginH, marginV)
 
-      let randomW = Math.floor(Math.floor(Math.random() * config.row) * config.width)
-      let randomH = Math.floor(Math.floor(Math.random() * config.col) * config.height)
-
-      try {
-        await Taro.canvasPutImageData({
-          canvasId: 'drawCanvas',
-          x: marginH + config.width * scale * j,
-          y: marginV + config.height * scale * i,
-          width: config.width,
-          height: config.height,
-          data: (offscreenCtx as any).getImageData(randomW, randomH, config.width, config.height).data,
-        })
-      } catch (err) {
-        // console.error(err)
-      }
-
-      j++
-    }
-    if (idx >= text.length) break
-    i++
-  }
-
-  ctx.font = `${config.fontSize * scale}px "微软雅黑"`
+  ctx.font = `${config.fontSize}px "微软雅黑"`
   ctx.fillStyle = color.value
 
   let isHorizontal = shape.value == QueueType.Horizontal
@@ -276,11 +239,11 @@ async function queue(config: ManConfig) {
 
       ctx.save()
 
-      x = Math.round(marginH + manW * (isHorizontal ? j : i) + config.textMarginLeft * scale)
-      y = Math.round(marginV + manH * (isHorizontal ? i : j) + config.textMarginTop * scale)
+      x = Math.round(marginH + manW * (isHorizontal ? j : i) + config.textMarginLeft)
+      y = Math.round(marginV + manH * (isHorizontal ? i : j) + config.textMarginTop)
       ctx.translate(x, y)
       ctx.transform(config.textTransform, 0, 0, 1, 0, 0)
-      ctx.translate(-(config.textTranslate * scale) / config.textTransform, 0)
+      ctx.translate(-config.textTranslate / config.textTransform, 0)
       ctx.rotate(config.textRotate)
       ctx.fillText(text[idx], 0, 0)
       ctx.restore()
@@ -289,6 +252,66 @@ async function queue(config: ManConfig) {
 
   ctx.draw(true)
   generating.value = false
+}
+
+
+async function drawMan(row: number, col: number, textLen: number, config: ManConfig, marginH: number, marginV: number) {
+  let i = 0, j = 0, idx = 0
+  if (shape.value == QueueType.Horizontal) {
+    while (i < row) {
+      j = 0
+      while (j < col) {
+        idx = i * col + j
+        if (idx >= textLen) return
+
+        let randomW = Math.floor(Math.floor(Math.random() * config.row) * config.width)
+        let randomH = Math.floor(Math.floor(Math.random() * config.col) * config.height)
+
+        try {
+          await Taro.canvasPutImageData({
+            canvasId: 'drawCanvas',
+            x: marginH + config.width * j,
+            y: marginV + config.height * i,
+            width: config.width,
+            height: config.height,
+            data: (offscreenCtx as any).getImageData(randomW, randomH, config.width, config.height).data,
+          })
+        } catch (err) {
+          // console.error(err)
+        }
+
+        j++
+      }
+      i++
+    }
+  } else if (shape.value == QueueType.Vertical) {
+    while (i < col) {
+      j = 0
+      while (j < row) {
+        idx = i * row + j
+        if (idx >= textLen) return
+
+        let randomW = Math.floor(Math.floor(Math.random() * config.row) * config.width)
+        let randomH = Math.floor(Math.floor(Math.random() * config.col) * config.height)
+
+        try {
+          await Taro.canvasPutImageData({
+            canvasId: 'drawCanvas',
+            x: marginH + config.width * i,
+            y: marginV + config.height * j,
+            width: config.width,
+            height: config.height,
+            data: (offscreenCtx as any).getImageData(randomW, randomH, config.width, config.height).data,
+          })
+        } catch (err) {
+          // console.error(err)
+        }
+
+        j++
+      }
+      i++
+    }
+  }
 }
 
 async function saveToAlbum() {
