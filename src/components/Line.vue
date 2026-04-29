@@ -1,6 +1,5 @@
 <template>
-  <e-chart ref="canvas" canvas-id="bar-canvas"
-    style="background-color: #bdc3c7; margin: 5px; width: calc(100% - 10px); height: 50vh;" />
+  <e-chart ref="canvas" canvas-id="bar-canvas" style="margin: 5px; width: calc(100% - 10px); height: 50vh;" />
 </template>
 
 <script setup lang="ts">

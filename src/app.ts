@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createMemoryHistory, createRouter } from "vue-router"
 
-import NutUI from "@nutui/nutui-taro"
+// import NutUI from "@nutui/nutui-taro"
 import "@nutui/nutui-taro/dist/style.css"
 import { loadEcharts } from 'echarts4taro3'
 // import * as echarts from 'echarts4taro3/lib/assets/echarts'
@@ -57,7 +57,7 @@ const App = createApp({
   onShow() { },
 })
 
-App.use(NutUI)
+// App.use(NutUI)
 App.use(router)
 
 export default App

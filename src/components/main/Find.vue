@@ -14,7 +14,7 @@
         <nut-form-item label="小人" label-width="3rem">
           <nut-radio-group v-model="theme" direction="horizontal">
             <nut-radio :label="item" shape="button" v-for="item in Themes">
-              <image :src="`/assets/icon_${item}.webp`" mode="aspectFit" class="upupu"></image>
+              <image :src="`/assets/icon_${item}.png`" mode="aspectFit" class="upupu"></image>
             </nut-radio>
           </nut-radio-group>
         </nut-form-item>
@@ -88,7 +88,7 @@ const LihanManConfig: ManConfig = {
 }
 
 const DefManConfig: ManConfig = {
-  file: 'default.webp',
+  file: 'default.png',
   count: 32,
   row: 8,
   col: 4,
@@ -103,7 +103,11 @@ const DefManConfig: ManConfig = {
 }
 
 const Themes = ['default', 'lihan', 'kid']
-const Shapes = [{ title: '横排', value: 'horizontal' }, { title: '竖排', value: 'vertical' }]
+const Shapes = [
+  { title: '横排', value: 'horizontal' },
+  { title: '竖排', value: 'vertical' },
+  { title: '45度', value: 'slant' },
+]
 const Colors = ['#c0392b', '#2980b9', '#2c3e50', '#8e44ad']
 
 const theme = ref<string>('lihan')
@@ -226,10 +230,10 @@ async function queue(config: ManConfig) {
   marginH = (canvasSize.value.width - col * manW) / 2
   marginV = (canvasSize.value.height - row * manH) / 2
 
-  await drawMan(row, col, text.length, config, marginH, marginV)
-
   ctx.font = `${config.fontSize}px "微软雅黑"`
   ctx.fillStyle = color.value
+
+  await drawMan(row, col, text, config, marginH, marginV)
 
   let isHorizontal = shape.value == QueueType.Horizontal
   for (let i = 0; i < v; ++i) {
@@ -254,62 +258,48 @@ async function queue(config: ManConfig) {
   generating.value = false
 }
 
+async function drawMan(row: number, col: number, text: string, config: ManConfig, marginH: number, marginV: number) {
+  let textLen = text.length
+  const isHorizontal = shape.value === QueueType.Horizontal
+  const itemsPerRow = isHorizontal ? col : row
+  const itemsPerCol = isHorizontal ? row : col
 
-async function drawMan(row: number, col: number, textLen: number, config: ManConfig, marginH: number, marginV: number) {
-  let i = 0, j = 0, idx = 0
-  if (shape.value == QueueType.Horizontal) {
-    while (i < row) {
-      j = 0
-      while (j < col) {
-        idx = i * col + j
-        if (idx >= textLen) return
+  for (let i = 0; i < itemsPerCol; i++) {
+    for (let j = 0; j < itemsPerRow; j++) {
+      const idx = isHorizontal ? i * itemsPerRow + j : j * itemsPerCol + i
 
-        let randomW = Math.floor(Math.floor(Math.random() * config.row) * config.width)
-        let randomH = Math.floor(Math.floor(Math.random() * config.col) * config.height)
+      if (idx >= textLen) return
 
-        try {
-          await Taro.canvasPutImageData({
-            canvasId: 'drawCanvas',
-            x: marginH + config.width * j,
-            y: marginV + config.height * i,
-            width: config.width,
-            height: config.height,
-            data: (offscreenCtx as any).getImageData(randomW, randomH, config.width, config.height).data,
-          })
-        } catch (err) {
-          // console.error(err)
-        }
+      const randomW = Math.floor(Math.floor(Math.random() * config.row) * config.width)
+      const randomH = Math.floor(Math.floor(Math.random() * config.col) * config.height)
 
-        j++
+      try {
+        const imageData = (offscreenCtx as any).getImageData(randomW, randomH, config.width, config.height).data
+
+        let x = marginH + config.width * (isHorizontal ? j : i)
+        let y = marginV + config.height * (isHorizontal ? i : j)
+
+        await Taro.canvasPutImageData({
+          canvasId: 'drawCanvas',
+          x, y,
+          width: config.width,
+          height: config.height,
+          data: imageData,
+        })
+
+        // x = Math.round(marginH + config.width * (isHorizontal ? j : i) + config.textMarginLeft)
+        // y = Math.round(marginV + config.height * (isHorizontal ? i : j) + config.textMarginTop)
+
+        // ctx.save()
+        // ctx.translate(x, y)
+        // ctx.transform(config.textTransform, 0, 0, 1, 0, 0)
+        // ctx.translate(-config.textTranslate / config.textTransform, 0)
+        // ctx.rotate(config.textRotate)
+        // ctx.fillText(text[idx], 0, 0)
+        // ctx.restore()
+      } catch (err) {
+        // console.error('绘制小人失败:', err)
       }
-      i++
-    }
-  } else if (shape.value == QueueType.Vertical) {
-    while (i < col) {
-      j = 0
-      while (j < row) {
-        idx = i * row + j
-        if (idx >= textLen) return
-
-        let randomW = Math.floor(Math.floor(Math.random() * config.row) * config.width)
-        let randomH = Math.floor(Math.floor(Math.random() * config.col) * config.height)
-
-        try {
-          await Taro.canvasPutImageData({
-            canvasId: 'drawCanvas',
-            x: marginH + config.width * i,
-            y: marginV + config.height * j,
-            width: config.width,
-            height: config.height,
-            data: (offscreenCtx as any).getImageData(randomW, randomH, config.width, config.height).data,
-          })
-        } catch (err) {
-          // console.error(err)
-        }
-
-        j++
-      }
-      i++
     }
   }
 }
