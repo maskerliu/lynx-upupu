@@ -70,6 +70,7 @@ type ManConfig = {
 enum QueueType {
   Horizontal = 'horizontal',
   Vertical = 'vertical',
+  Slant = 'slant',
 }
 
 const LihanManConfig: ManConfig = {
@@ -104,9 +105,9 @@ const DefManConfig: ManConfig = {
 
 const Themes = ['default', 'lihan', 'kid']
 const Shapes = [
-  { title: '横排', value: 'horizontal' },
-  { title: '竖排', value: 'vertical' },
-  { title: '45度', value: 'slant' },
+  { title: '横排', value: QueueType.Horizontal },
+  { title: '竖排', value: QueueType.Vertical },
+  { title: '45度', value: QueueType.Slant },
 ]
 const Colors = ['#c0392b', '#2980b9', '#2c3e50', '#8e44ad']
 
@@ -209,7 +210,7 @@ async function generate() {
 }
 
 async function queue(config: ManConfig) {
-  const text = inVal.value.trim()
+  const text = inVal.value
   let manW = config.width
   let manH = config.height
 
@@ -233,12 +234,16 @@ async function queue(config: ManConfig) {
   ctx.font = `${config.fontSize}px "微软雅黑"`
   ctx.fillStyle = color.value
 
-  await drawMan(row, col, text, config, marginH, marginV)
 
   let isHorizontal = shape.value == QueueType.Horizontal
-  for (let i = 0; i < v; ++i) {
-    for (let j = 0; j < h; ++j) {
-      let idx = i * h + j
+  const itemsPerRow = isHorizontal ? row : col
+  const itemsPerCol = isHorizontal ? col : row
+
+  await drawMan(itemsPerRow, itemsPerCol, text, config, marginH, marginV)
+
+  for (let i = 0; i < itemsPerRow; ++i) {
+    for (let j = 0; j < itemsPerCol; ++j) {
+      let idx = i * itemsPerCol + j
       if (idx >= text.length) break
 
       ctx.save()
@@ -261,14 +266,12 @@ async function queue(config: ManConfig) {
 async function drawMan(row: number, col: number, text: string, config: ManConfig, marginH: number, marginV: number) {
   let textLen = text.length
   const isHorizontal = shape.value === QueueType.Horizontal
-  const itemsPerRow = isHorizontal ? col : row
-  const itemsPerCol = isHorizontal ? row : col
+  for (let i = 0; i < row; i++) {
+    for (let j = 0; j < col; j++) {
+      const idx = i * col + j
 
-  for (let i = 0; i < itemsPerCol; i++) {
-    for (let j = 0; j < itemsPerRow; j++) {
-      const idx = isHorizontal ? i * itemsPerRow + j : j * itemsPerCol + i
-
-      if (idx >= textLen) return
+      if (idx >= textLen) break
+      if (text[idx] == ' ') continue
 
       const randomW = Math.floor(Math.floor(Math.random() * config.row) * config.width)
       const randomH = Math.floor(Math.floor(Math.random() * config.col) * config.height)

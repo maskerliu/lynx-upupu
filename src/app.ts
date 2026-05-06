@@ -1,10 +1,8 @@
 import { createApp } from 'vue'
 import { createMemoryHistory, createRouter } from "vue-router"
 
-// import NutUI from "@nutui/nutui-taro"
 import "@nutui/nutui-taro/dist/style.css"
 import { loadEcharts } from 'echarts4taro3'
-// import * as echarts from 'echarts4taro3/lib/assets/echarts'
 import './app.css'
 import * as echarts from './components/echarts'
 import Find from './components/main/Find.vue'

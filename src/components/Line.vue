@@ -1,5 +1,6 @@
 <template>
-  <e-chart ref="canvas" canvas-id="bar-canvas" style="margin: 5px; width: calc(100% - 10px); height: 50vh;" />
+  <e-chart ref="canvas" canvas-id="bar-canvas"
+    style="margin: 5px 10px 0 10px; width: calc(100% - 20px); height: 40vh; background-color: antiquewhite;" />
 </template>
 
 <script setup lang="ts">
@@ -8,47 +9,57 @@ import { EChart } from "echarts4taro3"
 import { onActivated, onMounted, ref } from 'vue'
 
 const canvas = ref(null)
-const cWidth = ref(430)
-const cHeight = ref(286)
-
 const options = {
   tooltip: {
-    trigger: "axis",
+    trigger: 'item',
     axisPointer: {
-      type: "shadow"
+      type: 'cross'
     }
   },
+  grid: {
+    right: 0,
+    left: 0,
+    top: 30,
+    bottom: 30,
+  },
   xAxis: {
-    type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    type: 'category',
+    data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   },
   yAxis: {
-    type: "value"
+    type: 'value'
   },
   series: [
     {
-      data: [120, 200, 150, 80, 70, 110, 130],
-      type: "bar"
+      name: 'Rainfall',
+      data: [2.0, 4.9, 7.0, 23.2, 25.6, 36.7, 13.6, 16.2, 32.6, 20.0, 6.4, 3.3],
+      type: 'bar',
+      itemStyle: {
+        borderRadius: 5,
+        borderWidth: 1,
+        borderType: 'solid',
+        borderColor: '#73c0de',
+        shadowBlur: 3,
+        shadowColor: 'rgba(84, 112, 198, 0.2)',
+      }
+    },
+    {
+      name: 'Temperature',
+      type: 'line',
+      data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
     }
   ]
 }
 
 onMounted(() => {
-  const winInfo = Taro.getWindowInfo()
-  cWidth.value = winInfo.windowWidth - 10
-  cHeight.value = winInfo.windowHeight * 0.4 - 10
-
-  Taro.nextTick(() => {
-    canvas.value.refresh(options)
-  })
 
 })
 
 onActivated(() => {
 
-  // setTimeout(() => {
-  //   canvas.value.refresh(options)
-  // }, 500)
+  Taro.nextTick(() => {
+    canvas.value.refresh(options)
+  })
 })
 
 </script>

@@ -18,8 +18,8 @@
     <Line />
 
     <scroll-view scroll-y>
-      <nut-row type="flex" flex-wrap="wrap" style="width: 98vw; margin: 0 5px;">
-        <nut-col :span="12" style="margin-top: 2vw;" v-for="(item, idx) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+      <nut-row type="flex" flex-wrap="wrap" style="width: calc(100% - 20px); margin: 0 10px;">
+        <nut-col :span="12" style="margin-top: 10px;" v-for="(item, idx) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
           <PostSnap :data="PostData"
             :style="{ margin: `0 ${idx % 2 == 0 ? '1vw' : '0'} 0 ${idx % 2 == 0 ? '0' : '1vw'}` }" />
         </nut-col>

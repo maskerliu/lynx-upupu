@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view :style="{ height: `calc(100vh - ${navBarHeight}px)` }" style="overflow: hidden auto;">
     <view style="padding: 25px; color: #2980b9;" :style="{ fontSize: curFontSize + 'px' }">
       这是一段字体大小预览文本
     </view>
@@ -27,6 +27,7 @@ import { inject, onMounted, ref, Ref } from 'vue'
 import './FontSize.css'
 
 const showNavBack = inject<Ref<boolean>>('showNavBack')
+const navBarHeight = inject<Ref<number>>('navBarHeight')
 const theme = inject<Ref<string>>('theme')
 const themeVars = inject<Ref<Record<string, string>>>('themeVars')
 const isDark = ref(false)
@@ -60,10 +61,11 @@ function onSliderChange() {
 
 function saveFontSize() {
   try {
-    themeVars.value.fontSize1 = `${curFontSize.value}px`
-    themeVars.value.fontSize2 = `${curFontSize.value + 2}px`
-    themeVars.value.fontSize3 = `${curFontSize.value + 4}px`
-    themeVars.value.fontSize4 = `${curFontSize.value + 6}px`
+    themeVars.value['font-size-0'] = `${curFontSize.value - 3}px`
+    themeVars.value['font-size-1'] = `${curFontSize.value - 2}px`
+    themeVars.value['font-size-2'] = `${curFontSize.value}px`
+    themeVars.value['font-size-3'] = `${curFontSize.value + 2}px`
+    themeVars.value['font-size-4'] = `${curFontSize.value + 4}px`
 
     Taro.setStorageSync('app_font_size', curFontSize.value)
     Taro.showToast({ title: '设置已保存', icon: 'none' })

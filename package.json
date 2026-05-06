@@ -51,6 +51,7 @@
     "@tarojs/runtime": "4.2.0",
     "@tarojs/shared": "4.2.0",
     "@tarojs/taro": "4.2.0",
+    "echarts": "^6.0.0",
     "echarts4taro3": "^1.8.0",
     "pinia": "^3.0.4",
     "uuid": "^13.0.0",

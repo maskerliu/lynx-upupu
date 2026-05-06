@@ -33,11 +33,11 @@ const showNavBack = ref(false)
 const themeVars = ref({
   primaryColor: '#2980b9',
   primaryColorEnd: '#3498db',
-  fontSize0: '0.8rem',
-  fontSize1: '1rem',
-  fontSize2: '1.2rem',
-  fontSize3: '1.4rem',
-  fontSize4: '1.6rem'
+  // fontSize0: '0.8rem',
+  // fontSize1: '1rem',
+  // fontSize2: '1.2rem',
+  // fontSize3: '1.4rem',
+  // fontSize4: '1.6rem'
 })
 
 const router = useRouter()
@@ -54,11 +54,16 @@ onMounted(() => {
 
   theme.value = Taro.getStorageSync('app_theme') || 'light'
   const fontSize = Taro.getStorageSync('app_font_size')
-  themeVars.value.fontSize0 = `${fontSize}px`
-  themeVars.value.fontSize1 = `${fontSize + 2}px`
-  themeVars.value.fontSize2 = `${fontSize + 4}px`
-  themeVars.value.fontSize3 = `${fontSize + 6}px`
-  themeVars.value.fontSize4 = `${fontSize + 8}px`
+  themeVars.value['font-size-0'] = `${fontSize - 3}px`
+  themeVars.value['font-size-1'] = `${fontSize - 2}px`
+  themeVars.value['font-size-2'] = `${fontSize}px`
+  themeVars.value['font-size-3'] = `${fontSize + 2}px`
+  themeVars.value['font-size-4'] = `${fontSize + 4}px`
+  // themeVars.value.fontSize0 = `${fontSize}px`
+  // themeVars.value.fontSize1 = `${fontSize + 2}px`
+  // themeVars.value.fontSize2 = `${fontSize + 4}px`
+  // themeVars.value.fontSize3 = `${fontSize + 6}px`
+  // themeVars.value.fontSize4 = `${fontSize + 8}px`
 })
 
 function initNavBarHeight() {
