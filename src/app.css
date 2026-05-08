@@ -5,18 +5,28 @@ page {
   --nut-help-color: #f5f5f5;
   --nut-button-border-radius: 15px;
 
-  background: #ecf0f1;
-
+  --nut-background: #ecf0f1;
+  --nav-bar-height: 97px;
   --nut-dark-background: #2e2e2e;
   --nut-dark-background2: #353535;
-  --nut-dark-background3: #343434;
-  --nut-dark-background4: #4b4b4b;
+  --nut-nut-dark-background3: #343434;
+  --nut-nut-dark-background4: #4b4b4b;
   --nut-dark-background5: #5a5a5a;
   --nut-dark-background6: #6b6b6b;
   --nut-dark-background7: #7a7a7a;
+  --nut-cell-box-shadow: 0px 1px 7px 0px rgb(237, 238, 241);
+
+  background: var(--nut-background);
 }
 
 .nut-theme-dark {
   color: var(--nut-white);
-  background: var(--nut-dark-background4);
+  --nut-background: var(--nut-dark-background2);
+
+  --nut-cell-box-shadow: 0px 2px 5px 0px rgb(117, 117, 117);
+  --nut-tabbar-border-bottom: 1px solid var(--nut-nut-dark-background4);
+  --nut-tabbar-border-top: 1px solid var(--nut-nut-dark-background4);
+
+
+  background: var(--nut-background);
 }

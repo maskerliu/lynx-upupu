@@ -1,29 +1,36 @@
 <template>
-  <view :style="{ height: `calc(100vh - ${navBarHeight}px)` }" style="overflow: hidden auto;">
-    <view style="padding: 25px; color: #2980b9;" :style="{ fontSize: curFontSize + 'px' }">
-      这是一段字体大小预览文本
+  <fake-page>
+    <view :style="{ height: `calc(100vh - ${navBarHeight}px)` }"
+      style="background: var(--nut-background); padding: 10px;">
+
+      <nut-cell-group>
+        <nut-cell title="黑白模式">
+          <template #desc>
+            <nut-switch v-model="isDark" @change="changeTheme" />
+          </template>
+        </nut-cell>
+      </nut-cell-group>
+
+      <view style="position: absolute; width: calc(100vw - 30px); bottom: 10px; margin: 15px;">
+        <view style="padding: 40px 0; color: var(--nut-primary-color);" :style="{ fontSize: curFontSize + 'px' }">
+          这是一段字体大小预览文本
+        </view>
+
+        <nut-range v-model="curFontSize" :marks="marks" :min="14" :max="24" :step="2" hidden-range hidden-tag
+          @change="onSliderChange" style="width: calc(100% - 20px); margin: 0 10px 40px 10px;"></nut-range>
+
+        <nut-button block type="primary" plain @click="saveFontSize">
+          保存设置
+        </nut-button>
+      </view>
     </view>
-
-    <nut-cell title="黑白模式">
-      <template #desc>
-        <nut-switch v-model="isDark" @change="changeTheme" />
-      </template>
-    </nut-cell>
-
-    <view style="position: absolute; width: calc(100% - 30px); bottom: 10px; margin: 15px;">
-      <nut-range v-model="curFontSize" :marks="marks" :min="14" :max="24" :step="2" :hidden-range="true"
-        @change="onSliderChange" style="width: calc(100% - 20px); margin: 0 10px 40px 10px;"></nut-range>
-
-      <nut-button block type="primary" plain @click="saveFontSize">
-        保存设置
-      </nut-button>
-    </view>
-  </view>
+  </fake-page>
 </template>
 
 <script setup lang="ts">
 import Taro from '@tarojs/taro'
 import { inject, onMounted, ref, Ref } from 'vue'
+import FakePage from '../../components/FakePage.vue'
 import './FontSize.css'
 
 const showNavBack = inject<Ref<boolean>>('showNavBack')

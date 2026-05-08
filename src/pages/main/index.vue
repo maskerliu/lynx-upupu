@@ -1,13 +1,6 @@
 <template>
-
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
-
-    <view class="nav-bar" :style="{ height: navBarHeight + 'px' }">
-      <view class="nav-left" v-if="showNavBack" :style="{ marginTop: statusBarHeight + 'px' }" @tap="goBack">
-        <Left style="font-size: 1rem;" />
-      </view>
-    </view>
-
+    <nav-bar />
     <router-view v-slot="{ Component }" :class='theme == "dark" ? "nut-theme-dark" : ""'>
       <transition name="slide-fade">
         <keep-alive :include="['Main']">
@@ -17,27 +10,19 @@
     </router-view>
   </nut-config-provider>
 </template>
-
-<script setup>
-import { Left } from '@nutui/icons-vue-taro'
+<script setup lang="ts">
 import Taro from '@tarojs/taro'
 import { onMounted, provide, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import NavBar from '../../components/NavBar.vue'
 import './index.scss'
 
 const navBarHeight = ref(0)
-const statusBarHeight = ref(0)
-const activeTab = ref('home')
 const theme = ref('light')
 const showNavBack = ref(false)
 const themeVars = ref({
   primaryColor: '#2980b9',
   primaryColorEnd: '#3498db',
-  // fontSize0: '0.8rem',
-  // fontSize1: '1rem',
-  // fontSize2: '1.2rem',
-  // fontSize3: '1.4rem',
-  // fontSize4: '1.6rem'
 })
 
 const router = useRouter()
@@ -48,7 +33,6 @@ provide('theme', theme)
 provide('themeVars', themeVars)
 
 onMounted(() => {
-  initNavBarHeight()
   router.replace('/main/home')
   showNavBack.value = false
 
@@ -59,24 +43,6 @@ onMounted(() => {
   themeVars.value['font-size-2'] = `${fontSize}px`
   themeVars.value['font-size-3'] = `${fontSize + 2}px`
   themeVars.value['font-size-4'] = `${fontSize + 4}px`
-  // themeVars.value.fontSize0 = `${fontSize}px`
-  // themeVars.value.fontSize1 = `${fontSize + 2}px`
-  // themeVars.value.fontSize2 = `${fontSize + 4}px`
-  // themeVars.value.fontSize3 = `${fontSize + 6}px`
-  // themeVars.value.fontSize4 = `${fontSize + 8}px`
 })
-
-function initNavBarHeight() {
-  const winInfo = Taro.getWindowInfo()
-  const menuBtnInfo = Taro.getMenuButtonBoundingClientRect()
-
-  statusBarHeight.value = winInfo.statusBarHeight || 0
-  navBarHeight.value = statusBarHeight.value + menuBtnInfo.height + 10
-}
-
-function goBack() {
-  console.log(router.currentRoute.value.path)
-  router.go(-1)
-}
 
 </script>

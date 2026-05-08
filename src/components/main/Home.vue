@@ -15,7 +15,7 @@
       </nut-col>
     </nut-row>
 
-    <Line />
+    <Line style="position: relative;" />
 
     <scroll-view scroll-y>
       <nut-row type="flex" flex-wrap="wrap" style="width: calc(100% - 20px); margin: 0 10px;">

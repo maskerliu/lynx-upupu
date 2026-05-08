@@ -7,7 +7,8 @@
       </keep-alive>
     </router-view>
 
-    <nut-tabbar v-model="activeTab" @tab-switch="tabSwitch" class="fixed-tabbar">
+    <nut-tabbar v-model="activeTab" @tab-switch="tabSwitch" class="fixed-tabbar"
+      style="border-color: var(--nut-background);">
       <nut-tabbar-item v-for="item in Tabs" :key="item.name" :name="item.name" :icon="item.icon" />
     </nut-tabbar>
   </view>

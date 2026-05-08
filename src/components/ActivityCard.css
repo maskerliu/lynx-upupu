@@ -2,6 +2,7 @@
   position: relative;
   height: 100%;
   border-radius: 10px;
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
   background: linear-gradient(45deg, #c6c5c5, #f4f1f0);
 }
@@ -22,13 +23,13 @@
 }
 
 .activity-title {
-  font-size: 0.8rem;
+  font-size: var(--nut-font-size-0);
   font-weight: bold;
   color: rgb(230, 230, 230);
 }
 
 .activity-desc {
-  font-size: 0.7rem;
+  font-size: var(--nut-font-size-0);
   padding: 3px 0;
   color: rgb(208, 208, 208);
 }

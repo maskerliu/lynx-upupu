@@ -1,10 +1,10 @@
 .draw-canvas {
   position: relative;
-  border: 1px solid #2c3e50;
-  margin: 1px 1px 0 1px;
-  width: calc(100vw - 4px);
+  border: 1px solid #bdc3c7;
+  margin: 3px 2px 0 3px;
+  width: calc(100vw - 8px);
   height: 60vh;
-  border-radius: 10px;
+  border-radius: 5px;
   contain: layout style paint;
   display: block;
 }
@@ -20,6 +20,6 @@
 }
 
 .find-btn {
-  width: calc(50% - 20px);
-  margin: 0 10px;
+  width: calc(50% - 10px);
+  margin: 0 5px;
 }
