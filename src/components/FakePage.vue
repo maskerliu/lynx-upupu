@@ -1,8 +1,11 @@
 <template>
   <page-container :show="useBackConfirm" overlay="{{false}}" position="center" @beforeleave="handleBeforeLeave">
     <nav-bar />
-    <slot :style="{ height: `calc(100vh - ${navBarHeight}px)`, background: 'var(--nut-background)' }">
-    </slot>
+    <view :style="{ height: `calc(100% - ${navBarHeight}px)` }"
+      style="background: var(--nut-background); overflow: hidden auto;">
+      <slot :style="{ height: `calc(100vh - ${navBarHeight}px)`, background: 'var(--nut-background)' }">
+      </slot>
+    </view>
   </page-container>
 </template>
 <script setup lang="ts">

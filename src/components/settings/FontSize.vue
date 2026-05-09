@@ -1,8 +1,6 @@
 <template>
   <fake-page>
-    <view :style="{ height: `calc(100vh - ${navBarHeight}px)` }"
-      style="background: var(--nut-background); padding: 10px;">
-
+    <view style="padding: 0 10px;">
       <nut-cell-group>
         <nut-cell title="黑白模式">
           <template #desc>
@@ -11,7 +9,7 @@
         </nut-cell>
       </nut-cell-group>
 
-      <view style="position: absolute; width: calc(100vw - 30px); bottom: 10px; margin: 15px;">
+      <view style="position: absolute; width: calc(100% - 20px); bottom: 10px;">
         <view style="padding: 40px 0; color: var(--nut-primary-color);" :style="{ fontSize: curFontSize + 'px' }">
           这是一段字体大小预览文本
         </view>
@@ -34,7 +32,7 @@ import FakePage from '../../components/FakePage.vue'
 import './FontSize.css'
 
 const showNavBack = inject<Ref<boolean>>('showNavBack')
-const navBarHeight = inject<Ref<number>>('navBarHeight')
+const navTitle = inject<Ref<string>>('navTitle')
 const theme = inject<Ref<string>>('theme')
 const themeVars = inject<Ref<Record<string, string>>>('themeVars')
 const isDark = ref(false)
@@ -49,6 +47,7 @@ const curFontSize = ref<number>(16)
 
 onMounted(async () => {
   showNavBack.value = true
+  navTitle.value = '字体大小'
 
   isDark.value = theme.value === 'dark'
   const savedSize = Taro.getStorageSync('app_font_size')

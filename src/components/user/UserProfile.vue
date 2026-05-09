@@ -1,14 +1,15 @@
 <template>
   <fake-page>
-    <view class="container">
-      <nut-cell>
-        <image src="/assets/icon_default.png" />
+    <nut-cell>
+      <image src="/assets/icon_default.png" />
 
-        <view>User ID: {{ $route.params.id }}</view>
-        <nut-row style="margin-top: 10px;">
-          <nut-tag>关注</nut-tag><nut-tag>关注</nut-tag>
-        </nut-row>
-      </nut-cell>
+      <view>User ID: {{ $route.params.id }}</view>
+      <nut-row style="margin-top: 10px;">
+        <nut-tag>关注</nut-tag><nut-tag>关注</nut-tag>
+      </nut-row>
+    </nut-cell>
+    <view class="container">
+
     </view>
   </fake-page>
 </template>

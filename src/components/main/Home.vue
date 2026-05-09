@@ -1,5 +1,5 @@
 <template>
-  <view :style="{ height: `calc(100% - ${navBarHeight}px)` }" style="overflow: hidden auto;">
+  <view style="overflow: hidden auto;">
     <nut-swiper>
       <nut-swiper-item v-for="(item, index) in ADs" :key="index" style="height: 150px">
         <img :src="item" alt="" style="height: 100%; width: 100%" draggable="false" />
@@ -30,14 +30,13 @@
 
 <script setup lang="ts">
 import Taro from '@tarojs/taro'
-import { inject, onActivated, onMounted, onUnmounted, ref } from 'vue'
+import { onActivated, onMounted, onUnmounted, ref } from 'vue'
 import { ActivityCardType, ActivityCol, ActivityRow, Post } from '../../common/model'
 import ActivityCard from '../../components/ActivityCard.vue'
 import Line from '../../components/Line.vue'
 import PostSnap from '../../components/post/PostSnap.vue'
 import './Home.scss'
 
-const navBarHeight = inject('navBarHeight', 0)
 const activeCatergory = ref(0)
 const winInfo = ref(null)
 

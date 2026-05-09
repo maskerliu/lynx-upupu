@@ -18,6 +18,7 @@ import NavBar from '../../components/NavBar.vue'
 import './index.scss'
 
 const navBarHeight = ref(0)
+const navTitle = ref('')
 const theme = ref('light')
 const showNavBack = ref(false)
 const themeVars = ref({
@@ -28,6 +29,7 @@ const themeVars = ref({
 const router = useRouter()
 
 provide('navBarHeight', navBarHeight)
+provide('navTitle', navTitle)
 provide('showNavBack', showNavBack)
 provide('theme', theme)
 provide('themeVars', themeVars)

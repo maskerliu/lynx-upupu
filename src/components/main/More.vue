@@ -1,7 +1,7 @@
 <template>
-  <view style="padding: 10px;">
+  <view style="padding: 0 10px;">
     <nut-cell-group>
-      <user-snap @click="naviTo({ to: '/user/profile' })"></user-snap>
+      <user-snap></user-snap>
     </nut-cell-group>
 
     <nut-noticebar :text="notice" close-mode />

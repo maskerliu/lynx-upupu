@@ -37,10 +37,9 @@
     </view>
 
     <nut-row>
-      <nut-button type="primary" plain shape="square" :loading="generating" :disabled="generating" class="find-btn"
+      <nut-button type="primary" plain :loading="generating" :disabled="generating" class="find-btn"
         @click="generate">生成</nut-button>
-      <nut-button type="success" plain shape="square" @click="saveToAlbum" :disabled="!canSave"
-        class="find-btn">保存</nut-button>
+      <nut-button type="success" plain @click="saveToAlbum" :disabled="!canSave" class="find-btn">保存</nut-button>
     </nut-row>
   </view>
 </template>

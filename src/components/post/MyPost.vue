@@ -1,23 +1,25 @@
 <template>
-  <view :style="{ height: `calc(100vh - ${navBarHeight}px)` }" style="overflow: hidden auto; padding: 0 5px;">
-    <nut-cell-group>
-      <nut-cell title="我的作品">
-        <template #desc>
-          <nut-button shape="square" plain type="primary" size="small">
-            <template #icon>
-              <Uploader />
-            </template>
-          </nut-button>
-        </template>
-      </nut-cell>
+  <fake-page>
+    <view style="padding: 0 5px;">
+      <nut-cell-group>
+        <nut-cell title="我的作品">
+          <template #desc>
+            <nut-button shape="square" plain type="primary" size="small">
+              <template #icon>
+                <Uploader />
+              </template>
+            </nut-button>
+          </template>
+        </nut-cell>
 
-      <nut-cell>
-        <post-snap style="width: 200px; margin-right: 15px;"></post-snap>
-        <post-snap style="width: 200px; margin-right: 15px;"></post-snap>
-        <post-snap style="width: 200px; margin-right: 15px;"></post-snap>
-      </nut-cell>
-    </nut-cell-group>
-  </view>
+        <nut-cell>
+          <post-snap style="width: 200px; margin-right: 15px;"></post-snap>
+          <post-snap style="width: 200px; margin-right: 15px;"></post-snap>
+          <post-snap style="width: 200px; margin-right: 15px;"></post-snap>
+        </nut-cell>
+      </nut-cell-group>
+    </view>
+  </fake-page>
 </template>
 <script lang="ts" setup>
 import { Uploader } from '@nutui/icons-vue-taro'

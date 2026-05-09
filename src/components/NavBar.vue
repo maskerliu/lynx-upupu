@@ -1,9 +1,12 @@
 <template>
-  <view class="nav-bar" :style="{ height: navBarHeight + 'px' }">
+  <nut-row class="nav-bar" :style="{ height: navBarHeight + 'px' }">
     <view class="nav-left" v-if="showNavBack" :style="{ marginTop: statusBarHeight + 'px' }" @tap="goBack">
       <Left style="font-size: 1rem;" />
     </view>
-  </view>
+
+    <view class="nav-title" :style="{ marginTop: (statusBarHeight - 5) + 'px' }">{{ title }}</view>
+
+  </nut-row>
 </template>
 <script setup lang="ts">
 import { Left } from '@nutui/icons-vue-taro'
@@ -16,6 +19,7 @@ const router = useRouter()
 const statusBarHeight = ref(0)
 const navBarHeight = inject<Ref<number>>('navBarHeight')
 const showNavBack = inject<Ref<boolean>>('showNavBack')
+const title = inject<Ref<string>>('navTitle')
 
 onMounted(() => {
   initNavBarHeight()
@@ -27,7 +31,7 @@ function initNavBarHeight() {
   const menuBtnInfo = Taro.getMenuButtonBoundingClientRect()
 
   statusBarHeight.value = winInfo.statusBarHeight || 0
-  navBarHeight.value = statusBarHeight.value + menuBtnInfo.height + 10
+  navBarHeight.value = statusBarHeight.value + menuBtnInfo.height
 }
 
 function goBack() {
