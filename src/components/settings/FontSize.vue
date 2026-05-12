@@ -38,9 +38,10 @@ const themeVars = inject<Ref<Record<string, string>>>('themeVars')
 const isDark = ref(false)
 
 const marks = {
-  14: 14,
   16: 16,
+  18: 18,
   20: 20,
+  22: 22,
   24: 24,
 }
 const curFontSize = ref<number>(16)

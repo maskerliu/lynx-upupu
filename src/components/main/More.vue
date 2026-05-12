@@ -1,5 +1,5 @@
 <template>
-  <view style="padding: 0 10px;">
+  <view style="padding: 0 10px; overflow: hidden auto;">
     <nut-cell-group>
       <user-snap></user-snap>
     </nut-cell-group>
@@ -23,12 +23,28 @@
         </template>
       </nut-cell>
     </nut-cell-group>
+
+    <nut-cell-group>
+      <Line style="margin: 10px; height: 30vh;" />
+    </nut-cell-group>
+
+    <nut-cell-group>
+      <nut-cell :title="item.title" @click="naviTo(item)" is-link :to="item.to" v-for="item in Group2"
+        :key="item.title">
+        <template #icon>
+          <component :is="item.icon" style="font-size: 1.0rem; color: gray; margin-right: 10px;"></component>
+        </template>
+      </nut-cell>
+    </nut-cell-group>
   </view>
 </template>
 
 <script setup>
 import { Ask, Edit, Footprint, Message, Order } from '@nutui/icons-vue-taro'
+import Taro, { nextTick, useDidShow } from '@tarojs/taro'
+import { onActivated, onDeactivated, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import Line from '../../components/Line.vue'
 import UserSnap from '../user/UserSnap.vue'
 
 const router = useRouter()
@@ -44,6 +60,34 @@ const Group2 = [
   { title: '字体大小', icon: Edit, to: '/settings/fontSize' },
   { title: '联系我们', icon: Message, to: '/settings/contactUs' }
 ]
+
+let scrollTop = 0
+
+onMounted(() => {
+
+})
+
+// onPageScroll((e => {
+//   scrollTop = e.detail.scrollTop
+// }))
+
+onActivated(() => {
+
+})
+
+onDeactivated(() => {
+  scrollTop = 30
+})
+
+useDidShow(() => {
+  console.log(scrollTop)
+  nextTick(() => {
+    Taro.pageScrollTo({
+      scrollTop: scrollTop,
+      duration: 0
+    })
+  })
+})
 
 async function naviTo(item) {
   await router.push(item.to)

@@ -1,8 +1,8 @@
 .draw-canvas {
   position: relative;
   border: 1px solid #bdc3c7;
-  margin: 3px 2px 0 3px;
-  width: calc(100vw - 8px);
+  margin: 2px 4px 0 4px;
+  width: calc(100vw - 10px);
   height: 60vh;
   border-radius: 5px;
   contain: layout style paint;

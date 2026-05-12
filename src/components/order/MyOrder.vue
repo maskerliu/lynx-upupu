@@ -1,21 +1,18 @@
 <template>
-  <view :style="{ height: `calc(100% - ${navBarHeight}px)` }" style="overflow: hidden auto;">
-
+  <fake-page>
     <nut-tabs v-model="activeCatergory" title-scroll :animated-time="0">
       <nut-tab-pane :title="category" :pane-key="idx" style="background-color: transparent;"
         v-for="(category, idx) in Categories">
-
-        <scroll-view :style="{ height: `${containerHeight}px` }" style="overflow: hidden auto; ">
-
-        </scroll-view>
-
+        <view :style="{ height: `${containerHeight}px` }" style="overflow: hidden auto; ">
+        </view>
       </nut-tab-pane>
     </nut-tabs>
-  </view>
+  </fake-page>
 </template>
 <script lang="ts" setup>
 import Taro from '@tarojs/taro'
 import { computed, inject, onMounted, Ref, ref } from 'vue'
+import FakePage from '../../components/FakePage.vue'
 
 const navBarHeight = inject<Ref<number>>('navBarHeight')
 const showNavBack = inject<Ref<boolean>>('showNavBack')

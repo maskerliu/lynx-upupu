@@ -12,6 +12,6 @@ const showNavBack = inject<Ref<boolean>>('showNavBack')
 
 onMounted(() => {
   showNavBack.value = true
-  console.log('PostDetail mounted')
+
 })
 </script>

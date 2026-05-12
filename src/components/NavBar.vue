@@ -1,6 +1,6 @@
 <template>
   <nut-row class="nav-bar" :style="{ height: navBarHeight + 'px' }">
-    <view class="nav-left" v-if="showNavBack" :style="{ marginTop: statusBarHeight + 'px' }" @tap="goBack">
+    <view class="nav-left" v-if="showNavBack" :style="{ marginTop: statusBarHeight + 'px' }" @click="goBack">
       <Left style="font-size: 1rem;" />
     </view>
 
@@ -21,6 +21,10 @@ const navBarHeight = inject<Ref<number>>('navBarHeight')
 const showNavBack = inject<Ref<boolean>>('showNavBack')
 const title = inject<Ref<string>>('navTitle')
 
+const emits = defineEmits<{
+  (e: 'onNavBack')
+}>()
+
 onMounted(() => {
   initNavBarHeight()
   showNavBack.value = false
@@ -28,6 +32,7 @@ onMounted(() => {
 
 function initNavBarHeight() {
   const winInfo = Taro.getWindowInfo()
+  const dpr = winInfo.pixelRatio || 1
   const menuBtnInfo = Taro.getMenuButtonBoundingClientRect()
 
   statusBarHeight.value = winInfo.statusBarHeight || 0
@@ -35,7 +40,8 @@ function initNavBarHeight() {
 }
 
 function goBack() {
-  router.go(-1)
+  emits('onNavBack')
+  // router.go(-1)
 }
 
 </script>

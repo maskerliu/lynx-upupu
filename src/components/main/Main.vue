@@ -1,7 +1,6 @@
 <template>
   <view>
-    <router-view v-slot="{ Component }" style="margin-bottom: 52px;"
-      :style="{ height: `calc(100vh - ${navBarHeight + 52}px)` }">
+    <router-view v-slot="{ Component }" style="padding-bottom: 52px;">
       <keep-alive :include="['Home', 'Find', 'More']">
         <component :is="Component" />
       </keep-alive>
@@ -16,6 +15,7 @@
 <script setup lang="ts">
 
 import { Fabulous, Home, My } from '@nutui/icons-vue-taro'
+import Taro from '@tarojs/taro'
 import { h, inject, onActivated, onMounted, ref, Ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -23,6 +23,7 @@ const navBarHeight = inject<Ref<number>>('navBarHeight')
 const navTitle = inject<Ref<string>>('navTitle')
 const showNavBack = inject<Ref<boolean>>('showNavBack')
 const router = useRouter()
+const containerHeight = ref(0)
 const activeTab = ref('home')
 const Tabs = [
   {
@@ -45,6 +46,9 @@ const Tabs = [
 onMounted(() => {
   activeTab.value = 'home'
   router.replace(`/main/${activeTab.value}`)
+
+  const dpr = Taro.getWindowInfo().pixelRatio || 1
+  containerHeight.value = navBarHeight.value + 52 * dpr
 })
 
 onActivated(() => {

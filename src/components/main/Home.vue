@@ -1,41 +1,40 @@
 <template>
-  <view style="overflow: hidden auto;">
+  <scroll-view style="flex: 1; overflow: hidden auto;">
     <nut-swiper>
-      <nut-swiper-item v-for="(item, index) in ADs" :key="index" style="height: 150px">
+      <nut-swiper-item v-for="(item, index) in ADs" :key="index" style="height: 300rpx">
         <img :src="item" alt="" style="height: 100%; width: 100%" draggable="false" />
       </nut-swiper-item>
     </nut-swiper>
 
-    <nut-row :gutter="5" class="activity-row" :style="{ height: row.height * 60 + 'px' }" v-for="row in Activities">
+    <nut-skeleton width="200px" height="15px" title avatar avatar-size="60px" row="3"
+      style="padding: 5px;"></nut-skeleton>
+
+    <nut-row :gutter="5" class="activity-row"
+      :style="{ height: row.height * 120 + 'rpx', width: 'calc(100vw - 20rpx)' }" v-for="row in Activities">
       <nut-col :span="col.width * 6" style="height: 100%;" v-for="col in row.cols">
         <ActivityCard :style="{
           height: `calc(${100 / col.items.length}% + ${5 / col.items.length}px - 5px)`,
-          marginTop: `${idx == 0 ? 0 : 2.5 * col.items.length / (col.items.length - 1)}px`
+          marginTop: `${idx == 0 ? 0 : 5 * col.items.length / (col.items.length - 1)}rpx`
         }" :data="item" v-for="(item, idx) in col.items" />
       </nut-col>
     </nut-row>
 
-    <Line style="position: relative;" />
-
-    <scroll-view scroll-y>
-      <nut-row type="flex" flex-wrap="wrap" style="width: calc(100% - 20px); margin: 0 10px;">
-        <nut-col :span="12" style="margin-top: 10px;" v-for="(item, idx) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
-          <PostSnap :data="PostData"
-            :style="{ margin: `0 ${idx % 2 == 0 ? '1vw' : '0'} 0 ${idx % 2 == 0 ? '0' : '1vw'}` }" />
-        </nut-col>
-      </nut-row>
-    </scroll-view>
-  </view>
+    <nut-row type="flex" flex-wrap="wrap" style="width: calc(100vw - 20rpx); margin: 0 10rpx;">
+      <nut-col :span="12" style="margin-top: 20rpx;" v-for="(_, idx) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+        <PostSnap :data="PostData"
+          :style="{ margin: `0 ${idx % 2 == 0 ? '1vw' : '0'} 0 ${idx % 2 == 0 ? '0' : '1vw'}` }" />
+      </nut-col>
+    </nut-row>
+  </scroll-view>
 </template>
 
 <script setup lang="ts">
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow, usePageScroll } from '@tarojs/taro'
 import { onActivated, onMounted, onUnmounted, ref } from 'vue'
 import { ActivityCardType, ActivityCol, ActivityRow, Post } from '../../common/model'
 import ActivityCard from '../../components/ActivityCard.vue'
-import Line from '../../components/Line.vue'
 import PostSnap from '../../components/post/PostSnap.vue'
-import './Home.scss'
+import './Home.css'
 
 const activeCatergory = ref(0)
 const winInfo = ref(null)
@@ -49,6 +48,12 @@ const ADs = ref([
 ])
 
 const PostData = ref<Post>()
+
+useDidShow(() => console.log('home onShow'))
+
+usePageScroll((e => {
+
+}))
 
 onMounted(async () => {
 
@@ -64,7 +69,7 @@ onMounted(async () => {
     tag: ['外卖', '20分钟'],
     image: 'https://www.baidu.com',
     schema: 'https://www.baidu.com',
-    title: '茶百道(外高桥山姆店)',
+    title: 'xxx(外高桥山姆店)',
     snap: '高行商圈奶茶好评榜第1名',
   }
 
@@ -210,20 +215,13 @@ onMounted(async () => {
 })
 
 onActivated(() => {
-  // console.log('Home activated')
+
 })
 
 
 onUnmounted(() => {
-  // console.log('Home unmounted')
+
 })
-
-function onScrollBottom() {
-  // let arr = new Array(100).fill(0)
-  // const len = data.value.length
-  // data.value = data.value.concat(arr.map((_, index) => len + index + 1))
-}
-
 
 
 </script>

@@ -1,8 +1,7 @@
 <template>
-
-  <view>
+  <view :style="{ height: 'calc(100% - ' + (navBarHeight + 52) + 'px)' }">
     <canvas id="drawCanvas" canvas-id="drawCanvas" class="draw-canvas"></canvas>
-    <view :style="{ height: `calc(40vh - ${97 + navBarHeight}px)` }"
+    <view :style="{ height: `calc(40vh - ${navBarHeight + 92}px)` }"
       style="overflow: hidden auto; margin: 0 5px; padding: 0;">
       <nut-form>
         <nut-form-item label-width="3rem" center>

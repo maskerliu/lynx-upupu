@@ -1,6 +1,6 @@
 <template>
-  <e-chart ref="canvas" canvas-id="bar-canvas"
-    style="margin: 5px 10px 0 10px; width: calc(100% - 20px); height: 40vh; background-color: antiquewhite;" />
+  <e-chart ref="canvas" canvas-id="bar-canvas" style="margin: 5px 10px 0 10px; width: calc(100% - 20px); height: 40vh;">
+  </e-chart>
 </template>
 
 <script setup lang="ts">
@@ -10,6 +10,7 @@ import { onActivated, onMounted, ref } from 'vue'
 
 const canvas = ref(null)
 const options = {
+  backgroundColor: '#ebebeb00',
   tooltip: {
     trigger: 'item',
     axisPointer: {

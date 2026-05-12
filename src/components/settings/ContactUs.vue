@@ -1,8 +1,6 @@
 <template>
   <fake-page>
     <view>
-      联系我们
-
       <nut-rate v-model="value" :custom-icon="HeartFill" active-color="skyblue" size="1.5rem" />
     </view>
   </fake-page>
@@ -14,11 +12,13 @@ import FakePage from '../../components/FakePage.vue'
 
 
 const navBarHeight = inject<Ref<number>>('navBarHeight')
+const navTitle = inject<Ref<string>>('navTitle')
 const showNavBack = inject<Ref<boolean>>('showNavBack')
 const value = ref(3)
 
 onMounted(() => {
   showNavBack.value = true
+  navTitle.value = '联系我们'
 })
 
 </script>

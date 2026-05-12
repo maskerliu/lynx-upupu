@@ -70,7 +70,7 @@ const canLogin = computed(() => {
 })
 
 onMounted(() => {
-  console.log('Login mounted')
+
 })
 
 function sendCode() {

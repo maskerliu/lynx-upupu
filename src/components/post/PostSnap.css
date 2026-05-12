@@ -1,6 +1,5 @@
 .post-card {
   position: relative;
-  width: calc(47vw);
   border-radius: 10px;
   text-align: center;
   background: linear-gradient(45deg, #c6c5c555, #b2948955);

@@ -18,16 +18,19 @@
           <post-snap style="width: 200px; margin-right: 15px;"></post-snap>
         </nut-cell>
       </nut-cell-group>
+
+      <nut-cell-group>
+        <Line style="margin: 10px;" />
+      </nut-cell-group>
     </view>
   </fake-page>
 </template>
 <script lang="ts" setup>
 import { Uploader } from '@nutui/icons-vue-taro'
 import { inject, onMounted, Ref } from 'vue'
+import Line from '../../components/Line.vue'
 import PostSnap from './PostSnap.vue'
 
-
-const navBarHeight = inject<Ref<number>>('navBarHeight')
 const showNavBack = inject<Ref<boolean>>('showNavBack')
 
 onMounted(() => {

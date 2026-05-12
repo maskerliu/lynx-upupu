@@ -1,7 +1,8 @@
 <template>
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
-    <nav-bar />
-    <router-view v-slot="{ Component }" :class='theme == "dark" ? "nut-theme-dark" : ""'>
+    <nav-bar style="z-index: 100;" />
+    <router-view v-slot="{ Component }" :class='theme == "dark" ? "nut-theme-dark" : ""'
+      :style="{ marginTop: navBarHeight + 'px' }">
       <transition name="slide-fade">
         <keep-alive :include="['Main']">
           <component :is="Component" />
@@ -15,7 +16,7 @@ import Taro from '@tarojs/taro'
 import { onMounted, provide, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import NavBar from '../../components/NavBar.vue'
-import './index.scss'
+import './index.css'
 
 const navBarHeight = ref(0)
 const navTitle = ref('')
