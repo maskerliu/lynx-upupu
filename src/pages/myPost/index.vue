@@ -1,5 +1,6 @@
 <template>
-  <fake-page>
+  <nut-config-provider :theme="theme" :theme-vars="themeVars">
+    <nav-bar style="z-index: 100;" />
     <view style="padding: 0 5px;">
       <nut-cell-group>
         <nut-cell title="我的作品">
@@ -20,18 +21,23 @@
       </nut-cell-group>
 
       <nut-cell-group>
-        <Line style="margin: 10px;" />
+        <nut-cell style="padding: 0;">
+          <Line style="width:calc(100% - 10px); height: 30vh;" />
+        </nut-cell>
       </nut-cell-group>
     </view>
-  </fake-page>
+  </nut-config-provider>
 </template>
 <script lang="ts" setup>
 import { Uploader } from '@nutui/icons-vue-taro'
 import { inject, onMounted, Ref } from 'vue'
 import Line from '../../components/Line.vue'
-import PostSnap from './PostSnap.vue'
+import NavBar from '../../components/NavBar.vue'
+import PostSnap from '../../components/post/PostSnap.vue'
 
 const showNavBack = inject<Ref<boolean>>('showNavBack')
+const theme = inject<Ref<string>>('theme')
+const themeVars = inject<Ref<any>>('themeVars')
 
 onMounted(() => {
   showNavBack.value = true

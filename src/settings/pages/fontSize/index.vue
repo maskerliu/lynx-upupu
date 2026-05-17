@@ -1,6 +1,8 @@
 <template>
-  <fake-page>
-    <view style="padding: 0 10px;">
+  <nut-config-provider :theme="theme" :theme-vars="themeVars">
+    <nav-bar style="z-index: 100;" />
+    <view style="padding: 0 10px;"
+      :style="{ height: `calc(100vh - ${navBarHeight}px)`, marginTop: navBarHeight + 'px' }">
       <nut-cell-group>
         <nut-cell title="黑白模式">
           <template #desc>
@@ -9,12 +11,12 @@
         </nut-cell>
       </nut-cell-group>
 
-      <view style="position: absolute; width: calc(100% - 20px); bottom: 10px;">
+      <view style="position: absolute; width: calc(100% - 20px); bottom: 20px;">
         <view style="padding: 40px 0; color: var(--nut-primary-color);" :style="{ fontSize: curFontSize + 'px' }">
           这是一段字体大小预览文本
         </view>
 
-        <nut-range v-model="curFontSize" :marks="marks" :min="14" :max="24" :step="2" hidden-range hidden-tag
+        <nut-range v-model="curFontSize" :marks="marks" :min="16" :max="24" :step="2" hidden-range hidden-tag
           @change="onSliderChange" style="width: calc(100% - 20px); margin: 0 10px 40px 10px;"></nut-range>
 
         <nut-button block type="primary" plain @click="saveFontSize">
@@ -22,16 +24,17 @@
         </nut-button>
       </view>
     </view>
-  </fake-page>
+  </nut-config-provider>
 </template>
 
 <script setup lang="ts">
 import Taro from '@tarojs/taro'
 import { inject, onMounted, ref, Ref } from 'vue'
-import FakePage from '../../components/FakePage.vue'
-import './FontSize.css'
+import NavBar from '../../../components/NavBar.vue'
+import './index.css'
 
 const showNavBack = inject<Ref<boolean>>('showNavBack')
+const navBarHeight = inject<Ref<number>>('navBarHeight')
 const navTitle = inject<Ref<string>>('navTitle')
 const theme = inject<Ref<string>>('theme')
 const themeVars = inject<Ref<Record<string, string>>>('themeVars')

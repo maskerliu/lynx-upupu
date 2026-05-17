@@ -2,7 +2,10 @@
   <nut-cell is-link center @click="handleGetUserInfo">
 
     <template #icon>
-      <image src="/assets/icon_default.png" class="user-avatar" mode="aspectFit" />
+      <nut-avatar size="large">
+        <My v-if="userInfo.avatarUrl == ''" />
+        <img v-else :src="userInfo.avatarUrl" mode="aspectFit" />
+      </nut-avatar>
     </template>
 
     <template #title>
@@ -30,7 +33,7 @@
 
 <script setup lang="ts">
 
-import { Edit, Jdl, People, Shop } from '@nutui/icons-vue-taro'
+import { Edit, Jdl, My, People, Shop } from '@nutui/icons-vue-taro'
 import Taro from '@tarojs/taro'
 import { onMounted, ref, useTemplateRef } from 'vue'
 import Login from './Login.vue'
@@ -39,7 +42,7 @@ import './UserSnap.css'
 const login = useTemplateRef<typeof Login>('loginRef')
 const userInfo = ref({
   nickName: '',
-  avatarUrl: ''
+  avatarUrl: '/assets/icon_default.png'
 })
 
 onMounted(() => {

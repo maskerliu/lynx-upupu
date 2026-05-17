@@ -2,7 +2,8 @@
   position: relative;
   border-radius: 10px;
   text-align: center;
-  background: linear-gradient(45deg, #c6c5c555, #b2948955);
+  box-shadow: var(--nut-cell-box-shadow);
+  background: linear-gradient(45deg, #c6c5c555, #f4f1f055);
 }
 
 .post-image {

@@ -1,7 +1,7 @@
 <template>
   <view class="post-card" @click="onClick">
     <view class="post-image">
-      <image src="/assets/icon_default.png" mode="aspectFill" class="post-image" />
+      <image mode="aspectFill" class="post-image" />
       <view class="post-tag">
         <nut-tag color="#FA685D" style="margin-right: 5px;"> 外卖 </nut-tag>
         <nut-tag plain color="#FA685D"> 20分钟 </nut-tag>
@@ -14,6 +14,7 @@
   </view>
 </template>
 <script setup lang="ts">
+import Taro from '@tarojs/taro'
 import { Post } from 'src/common/model'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -33,7 +34,10 @@ onMounted(() => {
 
 
 async function onClick() {
-  await router.push(`/postDetail/${data.id}`)
+  await Taro.navigateTo({
+    url: '/pages/postDetail/index'
+  })
+  // await router.push(`/postDetail/${data.id}`)
 }
 
 </script>

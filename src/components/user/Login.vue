@@ -13,8 +13,8 @@
         <template #label>
           <text>验证码</text>
         </template>
-        <nut-input v-model="verifyCode" placeholder="请输入验证码" type="number" :maxLength="6" :border="false"
-          class="input-field">
+        <nut-input v-model="numberInput" placeholder="请输入验证码" type="number" :maxLength="6" :border="false"
+          class="input-field" @blur="showKeyboard = true">
           <template #right>
             <nut-button size="small" type="primary" plain :disabled="isCountingDown" @click="sendCode" class="code-btn">
               {{ codeButtonText }}
@@ -42,7 +42,7 @@
 </template>
 <script setup lang="ts">
 import Taro from '@tarojs/taro'
-import { computed, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, ref, Ref } from 'vue'
 
 // 暴露方法给父组件
 const emit = defineEmits(['loginSuccess'])
@@ -55,8 +55,8 @@ const isCountingDown = ref(false)
 const countdown = ref(60)
 const isLogging = ref(false)
 const agreeTerms = ref(false)
-
-
+const showKeyboard = inject<Ref<boolean>>('showKeyboard')
+const numberInput = inject<Ref<string>>('numberInput')
 
 const codeButtonText = computed(() => {
   return isCountingDown.value ? `${countdown.value}秒后重发` : '获取验证码'

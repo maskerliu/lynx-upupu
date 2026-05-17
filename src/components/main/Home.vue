@@ -1,20 +1,17 @@
 <template>
-  <scroll-view style="flex: 1; overflow: hidden auto;">
+  <scroll-view style="flex: 1;">
     <nut-swiper>
       <nut-swiper-item v-for="(item, index) in ADs" :key="index" style="height: 300rpx">
         <img :src="item" alt="" style="height: 100%; width: 100%" draggable="false" />
       </nut-swiper-item>
     </nut-swiper>
 
-    <nut-skeleton width="200px" height="15px" title avatar avatar-size="60px" row="3"
-      style="padding: 5px;"></nut-skeleton>
-
     <nut-row :gutter="5" class="activity-row"
       :style="{ height: row.height * 120 + 'rpx', width: 'calc(100vw - 20rpx)' }" v-for="row in Activities">
       <nut-col :span="col.width * 6" style="height: 100%;" v-for="col in row.cols">
         <ActivityCard :style="{
           height: `calc(${100 / col.items.length}% + ${5 / col.items.length}px - 5px)`,
-          marginTop: `${idx == 0 ? 0 : 5 * col.items.length / (col.items.length - 1)}rpx`
+          marginTop: `${idx == 0 ? 0 : 3 * col.items.length / (col.items.length - 1)}px`
         }" :data="item" v-for="(item, idx) in col.items" />
       </nut-col>
     </nut-row>
@@ -27,15 +24,17 @@
     </nut-row>
   </scroll-view>
 </template>
-
 <script setup lang="ts">
-import Taro, { useDidShow, usePageScroll } from '@tarojs/taro'
-import { onActivated, onMounted, onUnmounted, ref } from 'vue'
+
+import Taro, { nextTick, usePageScroll } from '@tarojs/taro'
+import { onActivated, onDeactivated, onMounted, ref } from 'vue'
 import { ActivityCardType, ActivityCol, ActivityRow, Post } from '../../common/model'
 import ActivityCard from '../../components/ActivityCard.vue'
 import PostSnap from '../../components/post/PostSnap.vue'
+import { useCommonStore } from '../../stores/common'
 import './Home.css'
 
+const commonStore = useCommonStore()
 const activeCatergory = ref(0)
 const winInfo = ref(null)
 
@@ -49,13 +48,8 @@ const ADs = ref([
 
 const PostData = ref<Post>()
 
-useDidShow(() => console.log('home onShow'))
-
-usePageScroll((e => {
-
-}))
-
 onMounted(async () => {
+  console.log('home onMounted')
 
   // const res = await Taro.request({
   //   url: 'https://192.168.21.77:8884/common/bizConfig/get',
@@ -214,14 +208,23 @@ onMounted(async () => {
   }
 })
 
+let scrollTop = 0
+
 onActivated(() => {
-
+  nextTick(() => {
+    Taro.pageScrollTo({
+      scrollTop: commonStore.scrollTop['home'] | 0,
+      duration: 0
+    })
+  })
 })
 
-
-onUnmounted(() => {
-
+onDeactivated(() => {
+  commonStore.scrollTop['home'] = scrollTop
 })
 
+usePageScroll((e => {
+  scrollTop = e.scrollTop
+}))
 
 </script>

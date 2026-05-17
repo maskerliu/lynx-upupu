@@ -14,9 +14,12 @@ page {
   --nut-dark-background5: #5a5a5a;
   --nut-dark-background6: #6b6b6b;
   --nut-dark-background7: #7a7a7a;
-  --nut-cell-box-shadow: 0px 1px 7px 0px rgb(237, 238, 241);
+  --nut-cell-border-radius: 10px;
+  --nut-cell-box-shadow: 0px 2px 5px 1px rgb(185, 185, 185);
 
   background: var(--nut-background);
+
+  -webkit-overflow-scrolling: touch;
 }
 
 .nut-theme-dark {
@@ -25,9 +28,35 @@ page {
 
   --nut-tabs-titles-item-color: var(--nut-white);
   --nut-tabs-titles-item-active-color: var(--nut-white);
-  --nut-cell-box-shadow: 0px 2px 5px 0px rgb(117, 117, 117);
+  --nut-cell-box-shadow: 0px 2px 5px 0px rgb(97, 97, 97);
   --nut-tabbar-border-bottom: 1px solid var(--nut-nut-dark-background4);
   --nut-tabbar-border-top: 1px solid var(--nut-nut-dark-background4);
 
   background: var(--nut-background);
+}
+
+scroll-view::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  color: transparent;
+  background: transparent;
+}
+
+.nav-bar {
+  display: flex;
+  position: fixed;
+  top: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  background: linear-gradient(180deg, var(--nut-white) 10%, var(--nut-background) 100%);
+  font-weight: bold;
+  z-index: 999;
 }

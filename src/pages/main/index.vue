@@ -9,31 +9,29 @@
         </keep-alive>
       </transition>
     </router-view>
+
+    <nut-number-keyboard v-model:visible="showKeyboard" overlay @input="onInput" @delete="onDelete"
+      @close="showKeyboard = false">
+    </nut-number-keyboard>
   </nut-config-provider>
 </template>
 <script setup lang="ts">
 import Taro from '@tarojs/taro'
-import { onMounted, provide, ref } from 'vue'
+import { inject, onMounted, Ref, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import NavBar from '../../components/NavBar.vue'
 import './index.css'
 
-const navBarHeight = ref(0)
-const navTitle = ref('')
-const theme = ref('light')
-const showNavBack = ref(false)
-const themeVars = ref({
-  primaryColor: '#2980b9',
-  primaryColorEnd: '#3498db',
-})
+const navBarHeight = inject<Ref<number>>('navBarHeight')
+const navTitle = inject<Ref<string>>('navTitle')
+const theme = inject<Ref<string>>('theme')
+const showNavBack = inject<Ref<boolean>>('showNavBack')
+const themeVars = inject<Ref<Record<string, string>>>('themeVars')
+
+const showKeyboard = ref(false)
+const numberInput = ref('')
 
 const router = useRouter()
-
-provide('navBarHeight', navBarHeight)
-provide('navTitle', navTitle)
-provide('showNavBack', showNavBack)
-provide('theme', theme)
-provide('themeVars', themeVars)
 
 onMounted(() => {
   router.replace('/main/home')
@@ -46,6 +44,15 @@ onMounted(() => {
   themeVars.value['font-size-2'] = `${fontSize}px`
   themeVars.value['font-size-3'] = `${fontSize + 2}px`
   themeVars.value['font-size-4'] = `${fontSize + 4}px`
+  themeVars.value['font-size-5'] = `${fontSize + 8}px`
 })
+
+function onInput(value: string) {
+  numberInput.value += value
+}
+
+function onDelete() {
+  numberInput.value = numberInput.value.slice(0, -1)
+}
 
 </script>

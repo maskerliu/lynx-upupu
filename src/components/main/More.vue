@@ -1,5 +1,6 @@
 <template>
-  <view style="padding: 0 10px; overflow: hidden auto;">
+  <scroll-view style="flex: 1; padding: 0 10px; width: calc(100% - 20px); "
+    :style="{ minHeight: `calc(150vh - ${navBarHeight}px)` }">
     <nut-cell-group>
       <user-snap></user-snap>
     </nut-cell-group>
@@ -24,41 +25,32 @@
       </nut-cell>
     </nut-cell-group>
 
-    <nut-cell-group>
-      <Line style="margin: 10px; height: 30vh;" />
-    </nut-cell-group>
-
-    <nut-cell-group>
-      <nut-cell :title="item.title" @click="naviTo(item)" is-link :to="item.to" v-for="item in Group2"
-        :key="item.title">
-        <template #icon>
-          <component :is="item.icon" style="font-size: 1.0rem; color: gray; margin-right: 10px;"></component>
-        </template>
-      </nut-cell>
-    </nut-cell-group>
-  </view>
+  </scroll-view>
 </template>
+<script setup lang="ts">
 
-<script setup>
 import { Ask, Edit, Footprint, Message, Order } from '@nutui/icons-vue-taro'
-import Taro, { nextTick, useDidShow } from '@tarojs/taro'
-import { onActivated, onDeactivated, onMounted } from 'vue'
+import Taro, { nextTick, useDidShow, usePageScroll } from '@tarojs/taro'
+import { inject, onActivated, onDeactivated, onMounted, Ref } from 'vue'
 import { useRouter } from 'vue-router'
-import Line from '../../components/Line.vue'
+import { useCommonStore } from '../../stores/common'
 import UserSnap from '../user/UserSnap.vue'
 
+const navBarHeight = inject<Ref<number>>('navBarHeight')
+
+const commonStore = useCommonStore()
 const router = useRouter()
 const notice = '大家快来看看最新的动态，有新的功能和优化！'
 
 const Group1 = [
-  { title: '作品', icon: Footprint, to: '/post/myPost' },
-  { title: '订单', icon: Order, to: '/order/myOrder' },
+  { title: '作品', icon: Footprint, to: '/pages/myPost/index' },
+  { title: '订单', icon: Order, to: '/pages/myOrder/index' },
 ]
 
 const Group2 = [
-  { title: '常见问题', icon: Ask, to: '/settings/commonQA' },
-  { title: '字体大小', icon: Edit, to: '/settings/fontSize' },
-  { title: '联系我们', icon: Message, to: '/settings/contactUs' }
+  { title: '常见问题', icon: Ask, to: '/settings/pages/commonQA/index' },
+  { title: '字体大小', icon: Edit, to: '/settings/pages/fontSize/index' },
+  { title: '联系我们', icon: Message, to: '/settings/pages/contactUs/index' }
 ]
 
 let scrollTop = 0
@@ -67,30 +59,43 @@ onMounted(() => {
 
 })
 
-// onPageScroll((e => {
-//   scrollTop = e.detail.scrollTop
-// }))
+
+usePageScroll((e => {
+  scrollTop = e.scrollTop
+}))
 
 onActivated(() => {
-
+  nextTick(() => {
+    Taro.pageScrollTo({
+      scrollTop: commonStore.scrollTop['more'] | 0,
+      duration: 10
+    })
+  })
 })
 
 onDeactivated(() => {
-  scrollTop = 30
+  commonStore.scrollTop['more'] = scrollTop
 })
 
 useDidShow(() => {
-  console.log(scrollTop)
+  console.log('more onShow')
   nextTick(() => {
     Taro.pageScrollTo({
-      scrollTop: scrollTop,
+      scrollTop: commonStore.scrollTop['more'] | 0,
       duration: 0
     })
   })
 })
 
 async function naviTo(item) {
-  await router.push(item.to)
+
+  if (item.to.indexOf('/pages/') > -1) {
+    await Taro.navigateTo({
+      url: item.to
+    })
+  } else {
+    await router.push(item.to)
+  }
 }
 
 </script>

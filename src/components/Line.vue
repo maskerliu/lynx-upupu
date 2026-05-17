@@ -1,5 +1,5 @@
 <template>
-  <e-chart ref="canvas" canvas-id="bar-canvas" style="margin: 5px 10px 0 10px; width: calc(100% - 20px); height: 40vh;">
+  <e-chart ref="canvas" canvas-id="bar-canvas" style="height: 40vh;">
   </e-chart>
 </template>
 
@@ -53,11 +53,12 @@ const options = {
 }
 
 onMounted(() => {
-
+  Taro.nextTick(() => {
+    canvas.value.refresh(options)
+  })
 })
 
 onActivated(() => {
-
   Taro.nextTick(() => {
     canvas.value.refresh(options)
   })

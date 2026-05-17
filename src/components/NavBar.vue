@@ -41,6 +41,7 @@ function initNavBarHeight() {
 
 function goBack() {
   emits('onNavBack')
+  Taro.navigateBack()
   // router.go(-1)
 }
 

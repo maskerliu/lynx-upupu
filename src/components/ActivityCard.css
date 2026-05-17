@@ -2,9 +2,9 @@
   position: relative;
   height: 100%;
   border-radius: 10px;
-  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--nut-cell-box-shadow);
   text-align: center;
-  background: linear-gradient(45deg, #c6c5c5, #f4f1f0);
+  background: linear-gradient(45deg, #c6c5c555, #f4f1f055);
 }
 
 .activity-image {

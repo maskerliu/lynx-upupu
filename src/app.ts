@@ -1,20 +1,15 @@
-import { createApp } from 'vue'
+import { createApp, ref } from 'vue'
 import { createMemoryHistory, createRouter } from "vue-router"
 
 import "@nutui/nutui-taro/dist/style.css"
 import { loadEcharts } from 'echarts4taro3'
+import { createPinia } from 'pinia'
 import './app.css'
 import * as echarts from './components/echarts'
 import Find from './components/main/Find.vue'
 import Home from './components/main/Home.vue'
 import Main from './components/main/Main.vue'
 import More from './components/main/More.vue'
-import MyOrder from './components/order/MyOrder.vue'
-import MyPost from './components/post/MyPost.vue'
-import PostDetail from './components/post/PostDetail.vue'
-import CommonQA from './components/settings/CommonQA.vue'
-import ContactUs from './components/settings/ContactUs.vue'
-import FontSize from './components/settings/FontSize.vue'
 import UserProfile from './components/user/UserProfile.vue'
 
 try {
@@ -41,21 +36,35 @@ const router = createRouter({
         { path: 'more', component: More, meta: { keepAlive: true } },
       ]
     },
-    { path: '/settings/fontSize', component: FontSize },
-    { path: '/settings/contactUs', component: ContactUs },
-    { path: '/settings/commonQA', component: CommonQA },
-    { path: '/postDetail/:id', component: PostDetail },
     { path: '/user/profile', component: UserProfile },
-    { path: '/post/myPost', component: MyPost },
-    { path: '/order/myOrder', component: MyOrder },
   ],
 })
 
-const App = createApp({
-  onShow() { },
+const app = createApp({
+  onShow() { console.log('App Show') },
 })
 
-// App.use(NutUI)
-App.use(router)
+const showKeyboard = ref(false)
+const numberInput = ref('')
 
-export default App
+const navBarHeight = ref(0)
+const navTitle = ref('')
+const theme = ref('light')
+const showNavBack = ref(false)
+const themeVars = ref({
+  primaryColor: '#2980b9',
+  primaryColorEnd: '#3498db',
+})
+
+app.provide('showKeyboard', showKeyboard)
+app.provide('numberInput', numberInput)
+app.provide('navBarHeight', navBarHeight)
+app.provide('navTitle', navTitle)
+app.provide('showNavBack', showNavBack)
+app.provide('theme', theme)
+app.provide('themeVars', themeVars)
+
+app.use(createPinia())
+app.use(router)
+
+export default app

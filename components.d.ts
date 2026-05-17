@@ -8,15 +8,10 @@ export { }
 declare module 'vue' {
   export interface GlobalComponents {
     ActivityCard: typeof import('./src/components/ActivityCard.vue')['default']
-    CommonQA: typeof import('./src/components/settings/CommonQA.vue')['default']
-    ContactUs: typeof import('./src/components/settings/ContactUs.vue')['default']
     Find: typeof import('./src/components/main/Find.vue')['default']
-    FontSize: typeof import('./src/components/settings/FontSize.vue')['default']
     Home: typeof import('./src/components/main/Home.vue')['default']
     Main: typeof import('./src/components/main/Main.vue')['default']
     More: typeof import('./src/components/main/More.vue')['default']
-    MyOrder: typeof import('./src/components/order/MyOrder.vue')['default']
-    MyPost: typeof import('./src/components/post/MyPost.vue')['default']
     NutButton: typeof import('@nutui/nutui-taro')['Button']
     NutCell: typeof import('@nutui/nutui-taro')['Cell']
     NutCellGroup: typeof import('@nutui/nutui-taro')['CellGroup']
@@ -41,7 +36,6 @@ declare module 'vue' {
     NutTabs: typeof import('@nutui/nutui-taro')['Tabs']
     NutTag: typeof import('@nutui/nutui-taro')['Tag']
     OrderSnap: typeof import('./src/components/order/OrderSnap.vue')['default']
-    PostDetail: typeof import('./src/components/post/PostDetail.vue')['default']
     PostSnap: typeof import('./src/components/post/PostSnap.vue')['default']
     RouterView: typeof import('vue-router')['RouterView']
     UserPosts: typeof import('./src/components/UserPosts.vue')['default']

@@ -1,7 +1,7 @@
 <template>
-  <view :style="{ height: 'calc(100% - ' + (navBarHeight + 52) + 'px)' }">
+  <view>
     <canvas id="drawCanvas" canvas-id="drawCanvas" class="draw-canvas"></canvas>
-    <view :style="{ height: `calc(40vh - ${navBarHeight + 92}px)` }"
+    <view :style="{ height: `calc(40vh - ${navBarHeight + 94}px)` }"
       style="overflow: hidden auto; margin: 0 5px; padding: 0;">
       <nut-form>
         <nut-form-item label-width="3rem" center>
@@ -42,8 +42,8 @@
     </nut-row>
   </view>
 </template>
-
 <script setup lang="ts">
+
 import { Ask } from '@nutui/icons-vue-taro'
 import Taro, { nextTick } from '@tarojs/taro'
 import { inject, onMounted, ref, Ref, watch } from 'vue'
@@ -151,7 +151,6 @@ watch(() => canvasSize.value, async () => {
 })
 
 async function initCanvas() {
-  // 初始化canvas上下文
   Taro.createSelectorQuery()
     .select('#drawCanvas')
     .fields({ node: true, size: true })
@@ -282,8 +281,7 @@ async function drawMan(row: number, col: number, text: string, config: ManConfig
         let y = marginV + config.height * (isHorizontal ? i : j)
 
         await Taro.canvasPutImageData({
-          canvasId: 'drawCanvas',
-          x, y,
+          canvasId: 'drawCanvas', x, y,
           width: config.width,
           height: config.height,
           data: imageData,
