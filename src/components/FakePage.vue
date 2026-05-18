@@ -12,15 +12,14 @@
 import { inject, onMounted, ref, Ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const router = useRouter()
-
-const showNavBack = inject<Ref<boolean>>('showNavBack')
 const navBarHeight = inject<Ref<number>>('navBarHeight')
 
 const useBackConfirm = ref(true)
 
+const router = useRouter()
+
 onMounted(async () => {
-  showNavBack.value = true
+
 })
 
 async function handleBeforeLeave() {

@@ -1,7 +1,8 @@
 <template>
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
-    <nav-bar style="z-index: 100;" />
-    <nut-tabs v-model="activeCatergory" title-scroll :animated-time="0">
+    <nav-bar style="z-index: 100;" show-nav-back title="我的订单" />
+    <nut-tabs :style="{ height: `calc(100vh - ${navBarHeight}px)`, marginTop: navBarHeight + 'px' }"
+      v-model="activeCatergory" title-scroll :animated-time="0">
       <nut-tab-pane :title="category" :pane-key="idx" style="background-color: transparent;"
         v-for="(category, idx) in Categories">
         <view :style="{ height: `${containerHeight}px` }" style="overflow: hidden auto; ">
@@ -16,7 +17,6 @@ import { computed, inject, onMounted, Ref, ref } from 'vue'
 import NavBar from '../../components/NavBar.vue'
 
 const navBarHeight = inject<Ref<number>>('navBarHeight')
-const showNavBack = inject<Ref<boolean>>('showNavBack')
 const theme = inject<Ref<string>>('theme')
 const themeVars = inject<Ref<any>>('themeVars')
 
@@ -26,8 +26,6 @@ const winInfo = ref(null)
 const activeCatergory = ref(0)
 
 onMounted(() => {
-  showNavBack.value = true
-
   winInfo.value = Taro.getWindowInfo()
 })
 

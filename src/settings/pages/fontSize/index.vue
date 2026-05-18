@@ -1,9 +1,9 @@
 <template>
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
-    <nav-bar style="z-index: 100;" />
+    <nav-bar style="z-index: 100;" show-nav-back title="字体大小" />
     <view style="padding: 0 10px;"
       :style="{ height: `calc(100vh - ${navBarHeight}px)`, marginTop: navBarHeight + 'px' }">
-      <nut-cell-group>
+      <nut-cell-group style="padding-top: 10px;">
         <nut-cell title="黑白模式">
           <template #desc>
             <nut-switch v-model="isDark" @change="changeTheme" />
@@ -33,9 +33,8 @@ import { inject, onMounted, ref, Ref } from 'vue'
 import NavBar from '../../../components/NavBar.vue'
 import './index.css'
 
-const showNavBack = inject<Ref<boolean>>('showNavBack')
+
 const navBarHeight = inject<Ref<number>>('navBarHeight')
-const navTitle = inject<Ref<string>>('navTitle')
 const theme = inject<Ref<string>>('theme')
 const themeVars = inject<Ref<Record<string, string>>>('themeVars')
 const isDark = ref(false)
@@ -50,9 +49,6 @@ const marks = {
 const curFontSize = ref<number>(16)
 
 onMounted(async () => {
-  showNavBack.value = true
-  navTitle.value = '字体大小'
-
   isDark.value = theme.value === 'dark'
   const savedSize = Taro.getStorageSync('app_font_size')
   if (savedSize && typeof savedSize === 'number') {

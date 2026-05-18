@@ -1,7 +1,7 @@
 <template>
   <view>
     <canvas id="drawCanvas" canvas-id="drawCanvas" class="draw-canvas"></canvas>
-    <view :style="{ height: `calc(40vh - ${navBarHeight + 94}px)` }"
+    <view :style="{ height: `calc(40vh - ${statusBarHeight + 92}px)` }"
       style="overflow: hidden auto; margin: 0 5px; padding: 0;">
       <nut-form>
         <nut-form-item label-width="3rem" center>
@@ -35,10 +35,14 @@
       </nut-form>
     </view>
 
-    <nut-row>
-      <nut-button type="primary" plain :loading="generating" :disabled="generating" class="find-btn"
-        @click="generate">生成</nut-button>
-      <nut-button type="success" plain @click="saveToAlbum" :disabled="!canSave" class="find-btn">保存</nut-button>
+    <nut-row style="padding: 0 5px; width: calc(100% - 10px);" type="flex" justify="space-between">
+      <nut-button style="width: 46%;" type="primary" plain :loading="generating" :disabled="generating"
+        @click="generate">
+        生成
+      </nut-button>
+      <nut-button style="width: 46%;" type="success" plain @click="saveToAlbum" :disabled="!canSave">
+        保存
+      </nut-button>
     </nut-row>
   </view>
 </template>
@@ -49,7 +53,8 @@ import Taro, { nextTick } from '@tarojs/taro'
 import { inject, onMounted, ref, Ref, watch } from 'vue'
 import './Find.css'
 
-const navBarHeight = inject<Ref<number>>('navBarHeight')
+
+const statusBarHeight = inject<Ref<number>>('statusBarHeight')
 
 type ManConfig = {
   file: string,

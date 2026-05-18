@@ -35,7 +35,7 @@ onMounted(() => {
 
 async function onClick() {
   await Taro.navigateTo({
-    url: '/pages/postDetail/index'
+    url: '/post/pages/postDetail/index'
   })
   // await router.push(`/postDetail/${data.id}`)
 }

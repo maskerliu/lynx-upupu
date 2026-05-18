@@ -1,7 +1,8 @@
 <template>
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
-    <nav-bar style="z-index: 100;" />
-    <view style="padding: 0 5px;">
+    <nav-bar style="z-index: 100;" show-nav-back title="我的作品" />
+    <view style="padding: 5px;"
+      :style="{ height: `calc(100vh - ${navBarHeight + 10}px)`, paddingTop: navBarHeight + 'px' }">
       <nut-cell-group>
         <nut-cell title="我的作品">
           <template #desc>
@@ -30,16 +31,25 @@
 </template>
 <script lang="ts" setup>
 import { Uploader } from '@nutui/icons-vue-taro'
+import { loadEcharts } from 'echarts4taro3'
 import { inject, onMounted, Ref } from 'vue'
-import Line from '../../components/Line.vue'
-import NavBar from '../../components/NavBar.vue'
-import PostSnap from '../../components/post/PostSnap.vue'
+import * as echarts from '../../../components/echarts'
+import Line from '../../../components/Line.vue'
+import NavBar from '../../../components/NavBar.vue'
+import PostSnap from '../../../components/post/PostSnap.vue'
 
-const showNavBack = inject<Ref<boolean>>('showNavBack')
+try {
+  loadEcharts(echarts)
+} catch (e) {
+  console.log('echarts error', e)
+}
+
+const navBarHeight = inject<Ref<number>>('navBarHeight')
+const statusBarHeight = inject<Ref<number>>('statusBarHeight')
 const theme = inject<Ref<string>>('theme')
 const themeVars = inject<Ref<any>>('themeVars')
 
 onMounted(() => {
-  showNavBack.value = true
+
 })
 </script>

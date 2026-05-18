@@ -14,14 +14,13 @@
   </fake-page>
 </template>
 <script setup lang="ts">
-import { inject, onMounted, Ref } from 'vue'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import FakePage from '../../components/FakePage.vue'
 
 const router = useRouter()
-const showNavBack = inject<Ref<boolean>>('showNavBack')
 
 onMounted(async () => {
-  showNavBack.value = true
+
 })
 </script>

@@ -20,8 +20,7 @@ import { h, inject, onActivated, onMounted, ref, Ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const navBarHeight = inject<Ref<number>>('navBarHeight')
-const navTitle = inject<Ref<string>>('navTitle')
-const showNavBack = inject<Ref<boolean>>('showNavBack')
+
 const router = useRouter()
 const containerHeight = ref(0)
 const activeTab = ref('home')
@@ -52,9 +51,7 @@ onMounted(() => {
 })
 
 onActivated(() => {
-  showNavBack.value = false
-  navTitle.value = ''
-  showNavBack.value = false
+
 })
 
 function tabSwitch(tab: any) {

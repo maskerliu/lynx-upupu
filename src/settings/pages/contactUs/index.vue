@@ -1,6 +1,6 @@
 <template>
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
-    <nav-bar style="z-index: 100;" />
+    <nav-bar style="z-index: 100;" show-nav-back title="联系我们" />
     <view :style="{ height: `calc(100vh - ${navBarHeight}px)`, marginTop: navBarHeight + 'px' }">
       <nut-rate v-model="value" :custom-icon="HeartFill" active-color="skyblue" size="1.5rem" />
     </view>
@@ -12,16 +12,13 @@ import { inject, onMounted, Ref, ref } from 'vue'
 import NavBar from '../../../components/NavBar.vue'
 
 const navBarHeight = inject<Ref<number>>('navBarHeight')
-const navTitle = inject<Ref<string>>('navTitle')
-const showNavBack = inject<Ref<boolean>>('showNavBack')
 const theme = inject<Ref<string>>('theme')
 const themeVars = inject<Ref<any>>('themeVars')
 
 const value = ref(3)
 
 onMounted(() => {
-  showNavBack.value = true
-  navTitle.value = '联系我们'
+
 })
 
 </script>

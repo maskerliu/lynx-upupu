@@ -7,14 +7,14 @@
           <text>手机号</text>
         </template>
         <nut-input v-model="phoneNumber" placeholder="请输入手机号" type="number" :maxLength="11" :border="false"
-          class="input-field" />
+          class="input-field" @focus="onPoneFocus" @blur="onPhoneBlur" />
       </nut-form-item>
       <nut-form-item label-width="3rem">
         <template #label>
           <text>验证码</text>
         </template>
-        <nut-input v-model="numberInput" placeholder="请输入验证码" type="number" :maxLength="6" :border="false"
-          class="input-field" @blur="showKeyboard = true">
+        <nut-input v-model="verifyCode" placeholder="请输入验证码" type="number" :maxLength="6" :border="false"
+          class="input-field" @focus="onCodeFocus" @blur="onCodeBlur">
           <template #right>
             <nut-button size="small" type="primary" plain :disabled="isCountingDown" @click="sendCode" class="code-btn">
               {{ codeButtonText }}
@@ -42,7 +42,7 @@
 </template>
 <script setup lang="ts">
 import Taro from '@tarojs/taro'
-import { computed, inject, onMounted, ref, Ref } from 'vue'
+import { computed, inject, onMounted, ref, Ref, watch } from 'vue'
 
 // 暴露方法给父组件
 const emit = defineEmits(['loginSuccess'])
@@ -69,9 +69,44 @@ const canLogin = computed(() => {
     !isLogging.value
 })
 
+let onPhone = false
+let onCode = false
+
 onMounted(() => {
 
 })
+
+watch(() => numberInput.value, (newVal) => {
+
+  if (onPhone) {
+    phoneNumber.value = newVal
+  }
+  else if (onCode) {
+    verifyCode.value = newVal
+  }
+})
+
+function onPoneFocus() {
+  showKeyboard.value = true
+  onPhone = true
+  onCode = false
+}
+
+function onPhoneBlur() {
+  showKeyboard.value = false
+  onPhone = false
+}
+
+function onCodeFocus() {
+  showKeyboard.value = true
+  onPhone = false
+  onCode = true
+}
+
+function onCodeBlur() {
+  showKeyboard.value = false
+  onCode = false
+}
 
 function sendCode() {
   if (!validatePhone()) {

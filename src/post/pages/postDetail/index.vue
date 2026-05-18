@@ -1,6 +1,6 @@
 <template>
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
-    <nav-bar style="z-index: 100;" />
+    <nav-bar style="z-index: 100;" show-nav-back title="帖子详情" />
     <view>
 
 
@@ -27,11 +27,11 @@
 <script setup lang="ts">
 import { Edit, Follow, Share, Star } from '@nutui/icons-vue-taro'
 import { inject, onMounted, Ref, ref } from 'vue'
-import NavBar from '../../components/NavBar.vue'
-import { useCommonStore } from '../../stores/common'
+import NavBar from '../../../components/NavBar.vue'
+import { useCommonStore } from '../../../stores/common'
 import './index.css'
 
-const showNavBack = inject<Ref<boolean>>('showNavBack')
+
 const theme = inject<Ref<string>>('theme')
 const themeVars = inject<Ref<any>>('themeVars')
 const commonStore = useCommonStore()
@@ -40,7 +40,7 @@ const isFollow = ref(false)
 const isStar = ref(false)
 
 onMounted(() => {
-  showNavBack.value = true
+
 })
 
 

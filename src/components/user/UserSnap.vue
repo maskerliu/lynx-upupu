@@ -9,7 +9,7 @@
     </template>
 
     <template #title>
-      <nut-row style="font-size: var(--nut-font-size-4); font-weight: bold;">暴走的大兔子</nut-row>
+      <nut-row style="font-size: var(--nut-font-size-2); font-weight: bold;">暴走的大兔子</nut-row>
       <nut-row style="margin-top: 10px;">
         <nut-tag plain round color="#16a085">
           <People style="padding: 2px 5px;" />

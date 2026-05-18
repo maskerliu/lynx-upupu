@@ -1,7 +1,7 @@
 <template>
   <scroll-view style="flex: 1; padding: 0 10px; width: calc(100% - 20px); "
-    :style="{ minHeight: `calc(150vh - ${navBarHeight}px)` }">
-    <nut-cell-group>
+    :style="{ minHeight: `calc(100vh - ${statusBarHeight}px)` }">
+    <nut-cell-group style="padding-top: 40px;">
       <user-snap></user-snap>
     </nut-cell-group>
 
@@ -36,14 +36,15 @@ import { useRouter } from 'vue-router'
 import { useCommonStore } from '../../stores/common'
 import UserSnap from '../user/UserSnap.vue'
 
-const navBarHeight = inject<Ref<number>>('navBarHeight')
+
+const statusBarHeight = inject<Ref<number>>('statusBarHeight')
 
 const commonStore = useCommonStore()
 const router = useRouter()
 const notice = '大家快来看看最新的动态，有新的功能和优化！'
 
 const Group1 = [
-  { title: '作品', icon: Footprint, to: '/pages/myPost/index' },
+  { title: '作品', icon: Footprint, to: '/post/pages/myPost/index' },
   { title: '订单', icon: Order, to: '/pages/myOrder/index' },
 ]
 
@@ -78,7 +79,6 @@ onDeactivated(() => {
 })
 
 useDidShow(() => {
-  console.log('more onShow')
   nextTick(() => {
     Taro.pageScrollTo({
       scrollTop: commonStore.scrollTop['more'] | 0,

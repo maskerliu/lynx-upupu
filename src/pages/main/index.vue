@@ -1,13 +1,10 @@
 <template>
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
-    <nav-bar style="z-index: 100;" />
     <router-view v-slot="{ Component }" :class='theme == "dark" ? "nut-theme-dark" : ""'
-      :style="{ marginTop: navBarHeight + 'px' }">
-      <transition name="slide-fade">
-        <keep-alive :include="['Main']">
-          <component :is="Component" />
-        </keep-alive>
-      </transition>
+      :style="{ paddingTop: statusBarHeight + 'px' }">
+      <keep-alive :include="['Main']">
+        <component :is="Component" />
+      </keep-alive>
     </router-view>
 
     <nut-number-keyboard v-model:visible="showKeyboard" overlay @input="onInput" @delete="onDelete"
@@ -19,26 +16,22 @@
 import Taro from '@tarojs/taro'
 import { inject, onMounted, Ref, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import NavBar from '../../components/NavBar.vue'
 import './index.css'
 
-const navBarHeight = inject<Ref<number>>('navBarHeight')
-const navTitle = inject<Ref<string>>('navTitle')
+const statusBarHeight = inject<Ref<number>>('statusBarHeight')
 const theme = inject<Ref<string>>('theme')
-const showNavBack = inject<Ref<boolean>>('showNavBack')
 const themeVars = inject<Ref<Record<string, string>>>('themeVars')
+const showKeyboard = inject<Ref<boolean>>('showKeyboard')
 
-const showKeyboard = ref(false)
 const numberInput = ref('')
 
 const router = useRouter()
 
 onMounted(() => {
   router.replace('/main/home')
-  showNavBack.value = false
 
   theme.value = Taro.getStorageSync('app_theme') || 'light'
-  const fontSize = Taro.getStorageSync('app_font_size')
+  const fontSize = Taro.getStorageSync('app_font_size') || 16
   themeVars.value['font-size-0'] = `${fontSize - 3}px`
   themeVars.value['font-size-1'] = `${fontSize - 2}px`
   themeVars.value['font-size-2'] = `${fontSize}px`
@@ -54,5 +47,6 @@ function onInput(value: string) {
 function onDelete() {
   numberInput.value = numberInput.value.slice(0, -1)
 }
+
 
 </script>

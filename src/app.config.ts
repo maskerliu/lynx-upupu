@@ -1,8 +1,6 @@
 export default {
   pages: [
     'pages/main/index',
-    'pages/postDetail/index',
-    'pages/myPost/index',
     'pages/myOrder/index',
   ],
   subpackages: [
@@ -13,7 +11,15 @@ export default {
         'pages/contactUs/index',
         'pages/commonQA/index',
       ],
-      "independent": false
+      independent: false
+    },
+    {
+      root: 'post',
+      pages: [
+        'pages/myPost/index',
+        'pages/postDetail/index',
+      ],
+      independent: false
     }
   ],
   window: {

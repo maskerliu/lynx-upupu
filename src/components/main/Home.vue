@@ -49,7 +49,6 @@ const ADs = ref([
 const PostData = ref<Post>()
 
 onMounted(async () => {
-  console.log('home onMounted')
 
   // const res = await Taro.request({
   //   url: 'https://192.168.21.77:8884/common/bizConfig/get',
