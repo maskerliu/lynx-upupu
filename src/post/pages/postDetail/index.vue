@@ -1,13 +1,14 @@
 <template>
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="帖子详情" />
-    <view>
+    <view :style="{ height: `calc(100vh - ${navBarHeight}px)`, padding: `${navBarHeight}px 5px 0 5px` }">
 
 
     </view>
 
-    <nut-row style="position: absolute; bottom: 0; left: 0; right: 0;">
-      <nut-input placeholder="请输入评论内容" style=" padding: 5px 0; background-color: transparent;">
+    <nut-row style="position: absolute; left: 0; right: 0;" :style="{ bottom: commontBottom }">
+      <nut-input v-model:value="comment" :adjust-position="false" placeholder="请输入评论内容"
+        style=" padding: 5px 0; background-color: transparent;">
         <template #left>
           <Edit></Edit>
         </template>
@@ -25,22 +26,31 @@
   </nut-config-provider>
 </template>
 <script setup lang="ts">
+import NavBar from '@components/NavBar.vue'
 import { Edit, Follow, Share, Star } from '@nutui/icons-vue-taro'
+import { useCommonStore } from '@stores/common'
+import { onKeyboardHeightChange } from '@tarojs/taro'
 import { inject, onMounted, Ref, ref } from 'vue'
-import NavBar from '../../../components/NavBar.vue'
-import { useCommonStore } from '../../../stores/common'
 import './index.css'
 
-
+const navBarHeight = inject<Ref<number>>('navBarHeight')
 const theme = inject<Ref<string>>('theme')
 const themeVars = inject<Ref<any>>('themeVars')
 const commonStore = useCommonStore()
 
 const isFollow = ref(false)
 const isStar = ref(false)
+const commontBottom = ref('0px')
+
+const comment = ref('')
 
 onMounted(() => {
 
+})
+
+onKeyboardHeightChange((res) => {
+  comment.value = res.height + 'px'
+  commontBottom.value = res.height + 'px'
 })
 
 

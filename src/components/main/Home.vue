@@ -6,7 +6,7 @@
       </nut-swiper-item>
     </nut-swiper>
 
-    <nut-row :gutter="5" class="activity-row"
+    <nut-row :gutter="5" style="padding: 10px 5px 0 5px;"
       :style="{ height: row.height * 120 + 'rpx', width: 'calc(100vw - 20rpx)' }" v-for="row in Activities">
       <nut-col :span="col.width * 6" style="height: 100%;" v-for="col in row.cols">
         <ActivityCard :style="{
@@ -26,13 +26,12 @@
 </template>
 <script setup lang="ts">
 
-import Taro, { nextTick, usePageScroll } from '@tarojs/taro'
-import { onActivated, onDeactivated, onMounted, ref } from 'vue'
+import PostSnap from '@components/post/PostSnap.vue'
+import { useCommonStore } from '@stores/common'
+import Taro from '@tarojs/taro'
+import { onMounted, ref } from 'vue'
 import { ActivityCardType, ActivityCol, ActivityRow, Post } from '../../common/model'
-import ActivityCard from '../../components/ActivityCard.vue'
-import PostSnap from '../../components/post/PostSnap.vue'
-import { useCommonStore } from '../../stores/common'
-import './Home.css'
+import ActivityCard from '../OperationCard.vue'
 
 const commonStore = useCommonStore()
 const activeCatergory = ref(0)
@@ -206,24 +205,5 @@ onMounted(async () => {
     winInfo.value = { windowHeight: 667 }
   }
 })
-
-let scrollTop = 0
-
-onActivated(() => {
-  nextTick(() => {
-    Taro.pageScrollTo({
-      scrollTop: commonStore.scrollTop['home'] | 0,
-      duration: 0
-    })
-  })
-})
-
-onDeactivated(() => {
-  commonStore.scrollTop['home'] = scrollTop
-})
-
-usePageScroll((e => {
-  scrollTop = e.scrollTop
-}))
 
 </script>

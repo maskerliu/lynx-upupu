@@ -10,6 +10,7 @@ export default {
         'pages/fontSize/index',
         'pages/contactUs/index',
         'pages/commonQA/index',
+        'pages/feedback/index',
       ],
       independent: false
     },

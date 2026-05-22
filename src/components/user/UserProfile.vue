@@ -14,9 +14,9 @@
   </fake-page>
 </template>
 <script setup lang="ts">
+import FakePage from '@components/FakePage.vue'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import FakePage from '../../components/FakePage.vue'
 
 const router = useRouter()
 

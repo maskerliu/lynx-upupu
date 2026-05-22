@@ -1,14 +1,14 @@
 import { createApp, ref } from 'vue'
 import { createMemoryHistory, createRouter } from "vue-router"
 
+import Find from '@components/main/Find.vue'
+import Home from '@components/main/Home.vue'
+import Main from '@components/main/Main.vue'
+import More from '@components/main/More.vue'
 import "@nutui/nutui-taro/dist/style.css"
 import Taro from '@tarojs/taro'
 import { createPinia } from 'pinia'
 import './app.css'
-import Find from './components/main/Find.vue'
-import Home from './components/main/Home.vue'
-import Main from './components/main/Main.vue'
-import More from './components/main/More.vue'
 
 
 const router = createRouter({

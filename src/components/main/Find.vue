@@ -1,7 +1,7 @@
 <template>
-  <view>
+  <scroll-view style="flex: 1;">
     <canvas id="drawCanvas" canvas-id="drawCanvas" class="draw-canvas"></canvas>
-    <view :style="{ height: `calc(40vh - ${statusBarHeight + 92}px)` }"
+    <view :style="{ height: `calc(40vh - ${statusBarHeight + 94}px)` }"
       style="overflow: hidden auto; margin: 0 5px; padding: 0;">
       <nut-form>
         <nut-form-item label-width="3rem" center>
@@ -28,7 +28,7 @@
         <nut-form-item label="颜色" label-width="3rem" center>
           <nut-radio-group v-model="color" direction="horizontal">
             <nut-radio v-for="item in Colors" :key="item" :label="item" shape="button" size="mini">
-              <nut-tag :color="item" class="color-tag"></nut-tag>
+              <nut-tag :color="item" style="width: 1rem; height: 1rem;"></nut-tag>
             </nut-radio>
           </nut-radio-group>
         </nut-form-item>
@@ -44,7 +44,7 @@
         保存
       </nut-button>
     </nut-row>
-  </view>
+  </scroll-view>
 </template>
 <script setup lang="ts">
 

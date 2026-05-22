@@ -2,7 +2,7 @@
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="字体大小" />
     <view style="padding: 0 10px;"
-      :style="{ height: `calc(100vh - ${navBarHeight}px)`, marginTop: navBarHeight + 'px' }">
+      :style="{ height: `calc(100vh - ${navBarHeight}px)`, paddingTop: navBarHeight + 'px' }">
       <nut-cell-group style="padding-top: 10px;">
         <nut-cell title="黑白模式">
           <template #desc>
@@ -28,9 +28,9 @@
 </template>
 
 <script setup lang="ts">
+import NavBar from '@components/NavBar.vue'
 import Taro from '@tarojs/taro'
 import { inject, onMounted, ref, Ref } from 'vue'
-import NavBar from '../../../components/NavBar.vue'
 import './index.css'
 
 

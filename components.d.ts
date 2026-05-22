@@ -7,7 +7,7 @@ export { }
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ActivityCard: typeof import('./src/components/ActivityCard.vue')['default']
+    ActivityCard: typeof import('./src/components/OperationCard.vue')['default']
     Find: typeof import('./src/components/main/Find.vue')['default']
     Home: typeof import('./src/components/main/Home.vue')['default']
     Main: typeof import('./src/components/main/Main.vue')['default']

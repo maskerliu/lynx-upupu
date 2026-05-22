@@ -1,8 +1,7 @@
 <template>
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="我的作品" />
-    <view style="padding: 5px;"
-      :style="{ height: `calc(100vh - ${navBarHeight + 10}px)`, paddingTop: navBarHeight + 'px' }">
+    <view :style="{ height: `calc(100vh - ${navBarHeight}px)`, padding: `${navBarHeight}px 5px 0 5px` }">
       <nut-cell-group>
         <nut-cell title="我的作品">
           <template #desc>
@@ -30,13 +29,13 @@
   </nut-config-provider>
 </template>
 <script lang="ts" setup>
+import * as echarts from '@components/echarts'
+import Line from '@components/Line.vue'
+import NavBar from '@components/NavBar.vue'
+import PostSnap from '@components/post/PostSnap.vue'
 import { Uploader } from '@nutui/icons-vue-taro'
 import { loadEcharts } from 'echarts4taro3'
 import { inject, onMounted, Ref } from 'vue'
-import * as echarts from '../../../components/echarts'
-import Line from '../../../components/Line.vue'
-import NavBar from '../../../components/NavBar.vue'
-import PostSnap from '../../../components/post/PostSnap.vue'
 
 try {
   loadEcharts(echarts)

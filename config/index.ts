@@ -64,6 +64,9 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
         }
       },
       webpackChain(chain) {
+        // chain.resolve.alias.set('@', path.resolve(__dirname, '../src'))
+
+
         chain.output.globalObject('wx')
         // chain.output.set('chunkLoadingGlobal', 'webpackJsonp')
 

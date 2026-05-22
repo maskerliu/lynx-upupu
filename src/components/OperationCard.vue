@@ -13,7 +13,7 @@
 
 import { Activity } from 'src/common/model'
 import { onMounted, ref } from 'vue'
-import './ActivityCard.css'
+import './OperationCard.css'
 
 const {
   offset = 0,

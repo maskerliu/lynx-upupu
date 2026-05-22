@@ -1,6 +1,6 @@
 <template>
   <scroll-view style="flex: 1; padding: 0 10px; width: calc(100% - 20px); "
-    :style="{ minHeight: `calc(100vh - ${statusBarHeight}px)` }">
+    :style="{ minHeight: `calc(100vh - ${statusBarHeight + 52}px)` }">
     <nut-cell-group style="padding-top: 40px;">
       <user-snap></user-snap>
     </nut-cell-group>
@@ -30,10 +30,10 @@
 <script setup lang="ts">
 
 import { Ask, Edit, Footprint, Message, Order } from '@nutui/icons-vue-taro'
-import Taro, { nextTick, useDidShow, usePageScroll } from '@tarojs/taro'
-import { inject, onActivated, onDeactivated, onMounted, Ref } from 'vue'
+import { useCommonStore } from '@stores/common'
+import Taro from '@tarojs/taro'
+import { inject, onMounted, Ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useCommonStore } from '../../stores/common'
 import UserSnap from '../user/UserSnap.vue'
 
 
@@ -54,37 +54,8 @@ const Group2 = [
   { title: '联系我们', icon: Message, to: '/settings/pages/contactUs/index' }
 ]
 
-let scrollTop = 0
-
 onMounted(() => {
 
-})
-
-
-usePageScroll((e => {
-  scrollTop = e.scrollTop
-}))
-
-onActivated(() => {
-  nextTick(() => {
-    Taro.pageScrollTo({
-      scrollTop: commonStore.scrollTop['more'] | 0,
-      duration: 10
-    })
-  })
-})
-
-onDeactivated(() => {
-  commonStore.scrollTop['more'] = scrollTop
-})
-
-useDidShow(() => {
-  nextTick(() => {
-    Taro.pageScrollTo({
-      scrollTop: commonStore.scrollTop['more'] | 0,
-      duration: 0
-    })
-  })
 })
 
 async function naviTo(item) {

@@ -1,6 +1,6 @@
 <template>
   <nut-navbar :title="title" :left-show="showNavBack" @click-back="goBack" :style="{ top: statusBarHeight + 'px' }"
-    style="position: absolute;"></nut-navbar>
+    style="position: fixed;"></nut-navbar>
 </template>
 <script setup lang="ts">
 import Taro from '@tarojs/taro'
@@ -24,9 +24,9 @@ onMounted(() => {
 
 })
 
-function goBack() {
+async function goBack() {
   emits('onNavBack')
-  Taro.navigateBack()
+  await Taro.navigateBack()
   // router.go(-1)
 }
 

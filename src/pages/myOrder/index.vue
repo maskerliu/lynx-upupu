@@ -1,7 +1,7 @@
 <template>
   <nut-config-provider :theme="theme" :theme-vars="themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="我的订单" />
-    <nut-tabs :style="{ height: `calc(100vh - ${navBarHeight}px)`, marginTop: navBarHeight + 'px' }"
+    <nut-tabs :style="{ height: `calc(100vh - ${navBarHeight}px)`, paddingTop: navBarHeight + 'px' }"
       v-model="activeCatergory" title-scroll :animated-time="0">
       <nut-tab-pane :title="category" :pane-key="idx" style="background-color: transparent;"
         v-for="(category, idx) in Categories">
@@ -12,9 +12,9 @@
   </nut-config-provider>
 </template>
 <script lang="ts" setup>
+import NavBar from '@components/NavBar.vue'
 import Taro from '@tarojs/taro'
 import { computed, inject, onMounted, Ref, ref } from 'vue'
-import NavBar from '../../components/NavBar.vue'
 
 const navBarHeight = inject<Ref<number>>('navBarHeight')
 const theme = inject<Ref<string>>('theme')
