@@ -1,5 +1,5 @@
 <template>
-  <scroll-view style="flex: 1;">
+  <view style="flex: 1; overflow: hidden auto;">
     <nut-swiper>
       <nut-swiper-item v-for="(item, index) in ADs" :key="index" style="height: 300rpx">
         <img :src="item" alt="" style="height: 100%; width: 100%" draggable="false" />
@@ -22,7 +22,7 @@
           :style="{ margin: `0 ${idx % 2 == 0 ? '1vw' : '0'} 0 ${idx % 2 == 0 ? '0' : '1vw'}` }" />
       </nut-col>
     </nut-row>
-  </scroll-view>
+  </view>
 </template>
 <script setup lang="ts">
 

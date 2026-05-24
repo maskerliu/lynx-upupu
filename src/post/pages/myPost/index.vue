@@ -29,7 +29,7 @@
   </nut-config-provider>
 </template>
 <script lang="ts" setup>
-import * as echarts from '@components/echarts'
+import * as echarts from '@components/echarts.js'
 import Line from '@components/Line.vue'
 import NavBar from '@components/NavBar.vue'
 import PostSnap from '@components/post/PostSnap.vue'

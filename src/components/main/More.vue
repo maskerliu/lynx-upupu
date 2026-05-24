@@ -1,5 +1,5 @@
 <template>
-  <scroll-view style="flex: 1; padding: 0 10px; width: calc(100% - 20px); "
+  <view style="flex: 1; padding: 0 10px; width: calc(100% - 20px); "
     :style="{ minHeight: `calc(100vh - ${statusBarHeight + 52}px)` }">
     <nut-cell-group style="padding-top: 40px;">
       <user-snap></user-snap>
@@ -25,7 +25,7 @@
       </nut-cell>
     </nut-cell-group>
 
-  </scroll-view>
+  </view>
 </template>
 <script setup lang="ts">
 

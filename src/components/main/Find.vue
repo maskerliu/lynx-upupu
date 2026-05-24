@@ -1,5 +1,5 @@
 <template>
-  <scroll-view style="flex: 1;">
+  <view style="flex: 1;">
     <canvas id="drawCanvas" canvas-id="drawCanvas" class="draw-canvas"></canvas>
     <view :style="{ height: `calc(40vh - ${statusBarHeight + 94}px)` }"
       style="overflow: hidden auto; margin: 0 5px; padding: 0;">
@@ -44,7 +44,7 @@
         保存
       </nut-button>
     </nut-row>
-  </scroll-view>
+  </view>
 </template>
 <script setup lang="ts">
 

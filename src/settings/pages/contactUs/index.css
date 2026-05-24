@@ -118,23 +118,23 @@
 }
 
 .footer-section {
+  font-size: 12px;
   text-align: center;
   padding: 30px 0 40px;
 }
 
 .footer-link {
-  font-size: 13px;
   text-decoration: underline;
-  color: #2196F3;
+  color: #2980b9;
+  padding-bottom: 5px;
 }
 
 .footer-phone {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.9);
+  padding: 5px;
+  color: #34495e;
   margin-bottom: 6px;
 }
 
 .footer-version {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #34495e;
 }
