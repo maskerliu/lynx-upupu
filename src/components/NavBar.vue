@@ -1,15 +1,13 @@
 <template>
-  <nut-navbar :title="title" :left-show="showNavBack" @click-back="goBack" :style="{ top: statusBarHeight + 'px' }"
-    style="position: fixed;"></nut-navbar>
+  <nut-navbar :title="title" :left-show="showNavBack" @click-back="goBack"
+    :style="{ top: commonStore.statusBarHeight + 'px' }" style="position: fixed;"></nut-navbar>
 </template>
 <script setup lang="ts">
+import { useCommonStore } from '@stores/common'
 import Taro from '@tarojs/taro'
-import { inject, onMounted, Ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
 
-const router = useRouter()
-
-const statusBarHeight = inject<Ref<number>>('statusBarHeight')
+const commonStore = useCommonStore()
 
 defineProps<{
   showNavBack: boolean

@@ -1,7 +1,10 @@
 <template>
-  <nut-config-provider :theme="theme" :theme-vars="themeVars">
+  <nut-config-provider :theme="commonStore.theme" :theme-vars="commonStore.themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="常见问题" />
-    <view :style="{ height: `calc(100vh - ${navBarHeight}px)`, paddingTop: navBarHeight + 'px' }">
+    <view :style="{
+      height: `calc(100vh - ${commonStore.navBarHeight}px)`,
+      paddingTop: commonStore.navBarHeight + 'px'
+    }">
       <nut-cell-group title="视频创作" style="padding: 0 10px;">
         <nut-cell title="如何在个人名片上加上我的视频号？" is-link></nut-cell>
         <nut-cell title="账号被封禁会影响我的订单吗？" is-link></nut-cell>
@@ -24,11 +27,12 @@
 </template>
 <script setup lang="ts">
 import NavBar from '@components/NavBar.vue'
-import { inject, onMounted, Ref } from 'vue'
+import { useCommonStore } from '@stores/common'
+import { onMounted } from 'vue'
 
-const navBarHeight = inject<Ref<number>>('navBarHeight')
-const theme = inject<Ref<string>>('theme')
-const themeVars = inject<Ref<any>>('themeVars')
+
+const commonStore = useCommonStore()
+
 
 onMounted(() => {
 

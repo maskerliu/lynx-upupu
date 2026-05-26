@@ -41,12 +41,16 @@
   </nut-popup>
 </template>
 <script setup lang="ts">
+import { useCommonStore } from '@stores/common'
 import Taro from '@tarojs/taro'
-import { computed, inject, onMounted, ref, Ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 // 暴露方法给父组件
 const emit = defineEmits(['loginSuccess'])
 defineExpose({ show, hide })
+
+
+const commonStore = useCommonStore()
 
 const visible = ref(false)
 const phoneNumber = ref('')
@@ -55,8 +59,6 @@ const isCountingDown = ref(false)
 const countdown = ref(60)
 const isLogging = ref(false)
 const agreeTerms = ref(false)
-const showKeyboard = inject<Ref<boolean>>('showKeyboard')
-const numberInput = inject<Ref<string>>('numberInput')
 
 const codeButtonText = computed(() => {
   return isCountingDown.value ? `${countdown.value}秒后重发` : '获取验证码'
@@ -76,7 +78,7 @@ onMounted(() => {
 
 })
 
-watch(() => numberInput.value, (newVal) => {
+watch(() => commonStore.numberInput, (newVal) => {
 
   if (onPhone) {
     phoneNumber.value = newVal
@@ -87,24 +89,24 @@ watch(() => numberInput.value, (newVal) => {
 })
 
 function onPoneFocus() {
-  showKeyboard.value = true
+  commonStore.showKeyboard = true
   onPhone = true
   onCode = false
 }
 
 function onPhoneBlur() {
-  showKeyboard.value = false
+  commonStore.showKeyboard = false
   onPhone = false
 }
 
 function onCodeFocus() {
-  showKeyboard.value = true
+  commonStore.showKeyboard = true
   onPhone = false
   onCode = true
 }
 
 function onCodeBlur() {
-  showKeyboard.value = false
+  commonStore.showKeyboard = false
   onCode = false
 }
 
@@ -170,17 +172,15 @@ function handleLogin() {
   // 模拟登录请求
   Taro.showLoading({ title: '登录中...' })
 
-  setTimeout(() => {
+  setTimeout(async () => {
     Taro.hideLoading()
 
+    await commonStore.login(phoneNumber.value, verifyCode.value)
     // 模拟登录成功
     Taro.setStorageSync('user_token', 'mock_token_123456')
     Taro.setStorageSync('user_phone', phoneNumber.value)
 
-    Taro.showToast({
-      title: '登录成功',
-      icon: 'success'
-    })
+    Taro.showToast({ title: '登录成功', icon: 'success' })
 
     visible.value = false
     isLogging.value = false

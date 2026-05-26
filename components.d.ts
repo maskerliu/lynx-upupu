@@ -10,7 +10,6 @@ declare module 'vue' {
     ActivityCard: typeof import('./src/components/OperationCard.vue')['default']
     Find: typeof import('./src/components/main/Find.vue')['default']
     Home: typeof import('./src/components/main/Home.vue')['default']
-    Main: typeof import('./src/components/main/Main.vue')['default']
     More: typeof import('./src/components/main/More.vue')['default']
     NutButton: typeof import('@nutui/nutui-taro')['Button']
     NutCell: typeof import('@nutui/nutui-taro')['Cell']

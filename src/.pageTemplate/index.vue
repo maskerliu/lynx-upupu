@@ -1,7 +1,7 @@
 <template>
-  <nut-config-provider :theme="theme" :theme-vars="themeVars">
+  <nut-config-provider :theme="commonStore.theme" :theme-vars="commonStore.themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="" />
-    <view style="overflow: hidden auto;" :style="{ height: `calc(100vh)`, paddingTop: navBarHeight + 'px' }">
+    <view style="overflow: hidden auto; height: 100vh;" :style="{ paddingTop: commonStore.navBarHeight + 'px' }">
     </view>
   </nut-config-provider>
 </template>
@@ -9,10 +9,9 @@
 
 import NavBar from '@components/NavBar.vue'
 import { inject, onMounted, Ref } from 'vue'
+import { useCommonStore } from '@stores/common'
 
-const navBarHeight = inject<Ref<number>>('navBarHeight')
-const theme = inject<Ref<string>>('theme')
-const themeVars = inject<Ref<Record<string, string>>>('themeVars')
+const commonStore = useCommonStore()
 
 
 onMounted(() => {

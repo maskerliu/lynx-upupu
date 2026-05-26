@@ -1,7 +1,10 @@
 <template>
-  <nut-config-provider :theme="theme" :theme-vars="themeVars">
+  <nut-config-provider :theme="commonStore.theme" :theme-vars="commonStore.themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="我的作品" />
-    <view :style="{ height: `calc(100vh - ${navBarHeight}px)`, padding: `${navBarHeight}px 5px 0 5px` }">
+    <view :style="{
+      height: `calc(100vh - ${commonStore.navBarHeight}px)`,
+      padding: `${commonStore.navBarHeight}px 5px 0 5px`
+    }">
       <nut-cell-group>
         <nut-cell title="我的作品">
           <template #desc>
@@ -34,8 +37,9 @@ import Line from '@components/Line.vue'
 import NavBar from '@components/NavBar.vue'
 import PostSnap from '@components/post/PostSnap.vue'
 import { Uploader } from '@nutui/icons-vue-taro'
+import { useCommonStore } from '@stores/common'
 import { loadEcharts } from 'echarts4taro3'
-import { inject, onMounted, Ref } from 'vue'
+import { onMounted } from 'vue'
 
 try {
   loadEcharts(echarts)
@@ -43,10 +47,7 @@ try {
   console.log('echarts error', e)
 }
 
-const navBarHeight = inject<Ref<number>>('navBarHeight')
-const statusBarHeight = inject<Ref<number>>('statusBarHeight')
-const theme = inject<Ref<string>>('theme')
-const themeVars = inject<Ref<any>>('themeVars')
+const commonStore = useCommonStore()
 
 onMounted(() => {
 

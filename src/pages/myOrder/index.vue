@@ -1,26 +1,29 @@
 <template>
-  <nut-config-provider :theme="theme" :theme-vars="themeVars">
+  <nut-config-provider :theme="commonStore.theme" :theme-vars="commonStore.themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="我的订单" />
-    <nut-tabs :style="{ height: `calc(100vh - ${navBarHeight}px)`, paddingTop: navBarHeight + 'px' }"
-      v-model="activeCatergory" title-scroll :animated-time="0">
-      <nut-tab-pane :title="category" :pane-key="idx" style="background-color: transparent;"
-        v-for="(category, idx) in Categories">
-        <view :style="{ height: `${containerHeight}px` }" style="overflow: hidden auto; ">
-        </view>
+    <nut-tabs :style="{
+      height: `calc(100vh - ${commonStore.navBarHeight}px)`,
+      paddingTop: commonStore.navBarHeight + 'px'
+    }" v-model="activeCatergory" title-scroll :animated-time="0">
+      <nut-tab-pane :title="category" :pane-key="idx"
+        style="background-color: transparent; padding: 0 10px; overflow: hidden auto;"
+        :style="{ height: `${containerHeight}px` }" v-for="(category, idx) in Categories">
+        <order-snap v-for="(item, index) in data" :key="index" />
       </nut-tab-pane>
     </nut-tabs>
   </nut-config-provider>
 </template>
 <script lang="ts" setup>
 import NavBar from '@components/NavBar.vue'
+import OrderSnap from '@components/order/OrderSnap.vue'
+import { useCommonStore } from '@stores/common'
 import Taro from '@tarojs/taro'
-import { computed, inject, onMounted, Ref, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
-const navBarHeight = inject<Ref<number>>('navBarHeight')
-const theme = inject<Ref<string>>('theme')
-const themeVars = inject<Ref<any>>('themeVars')
 
-const Categories = ref(['推荐', '穿搭', '美食', '职场', '影视', '情感', '美食', '游戏', '健身'])
+const commonStore = useCommonStore()
+
+const Categories = ref(['全部', '待付款', '待收货/待使用', '待评价', '退款/售后'])
 const data = ref(new Array(20).fill(0))
 const winInfo = ref(null)
 const activeCatergory = ref(0)
@@ -31,7 +34,7 @@ onMounted(() => {
 
 const containerHeight = computed(() => {
   if (!winInfo.value) return 470
-  const calcHeight = winInfo.value.windowHeight - 46 - navBarHeight.value
+  const calcHeight = winInfo.value.windowHeight - 46 - commonStore.navBarHeight
   return Math.max(calcHeight, 300)
 })
 

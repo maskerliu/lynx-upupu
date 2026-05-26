@@ -1,6 +1,6 @@
 <template>
   <view style="flex: 1; padding: 0 10px; width: calc(100% - 20px); "
-    :style="{ minHeight: `calc(100vh - ${statusBarHeight + 52}px)` }">
+    :style="{ minHeight: `calc(100vh - ${commonStore.statusBarHeight + 52}px)` }">
     <nut-cell-group style="padding-top: 40px;">
       <user-snap></user-snap>
     </nut-cell-group>
@@ -32,12 +32,9 @@
 import { Ask, Edit, Footprint, Message, Order } from '@nutui/icons-vue-taro'
 import { useCommonStore } from '@stores/common'
 import Taro from '@tarojs/taro'
-import { inject, onMounted, Ref } from 'vue'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import UserSnap from '../user/UserSnap.vue'
-
-
-const statusBarHeight = inject<Ref<number>>('statusBarHeight')
 
 const commonStore = useCommonStore()
 const router = useRouter()

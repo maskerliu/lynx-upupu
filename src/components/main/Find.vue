@@ -1,7 +1,7 @@
 <template>
   <view style="flex: 1;">
     <canvas id="drawCanvas" canvas-id="drawCanvas" class="draw-canvas"></canvas>
-    <view :style="{ height: `calc(40vh - ${statusBarHeight + 94}px)` }"
+    <view :style="{ height: `calc(40vh - ${commonStore.statusBarHeight + 94}px)` }"
       style="overflow: hidden auto; margin: 0 5px; padding: 0;">
       <nut-form>
         <nut-form-item label-width="3rem" center>
@@ -49,12 +49,12 @@
 <script setup lang="ts">
 
 import { Ask } from '@nutui/icons-vue-taro'
+import { useCommonStore } from '@stores/common'
 import Taro, { nextTick } from '@tarojs/taro'
-import { inject, onMounted, ref, Ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import './Find.css'
 
-
-const statusBarHeight = inject<Ref<number>>('statusBarHeight')
+const commonStore = useCommonStore()
 
 type ManConfig = {
   file: string,

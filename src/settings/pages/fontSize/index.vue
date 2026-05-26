@@ -1,8 +1,10 @@
 <template>
-  <nut-config-provider :theme="theme" :theme-vars="themeVars">
+  <nut-config-provider :theme="commonStore.theme" :theme-vars="commonStore.themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="字体大小" />
-    <view style="padding: 0 10px;"
-      :style="{ height: `calc(100vh - ${navBarHeight}px)`, paddingTop: navBarHeight + 'px' }">
+    <view style="padding: 0 10px;" :style="{
+      height: `calc(100vh - ${commonStore.navBarHeight}px)`,
+      paddingTop: commonStore.navBarHeight + 'px'
+    }">
       <nut-cell-group style="padding-top: 10px;">
         <nut-cell title="黑白模式">
           <template #desc>
@@ -29,14 +31,13 @@
 
 <script setup lang="ts">
 import NavBar from '@components/NavBar.vue'
+import { useCommonStore } from '@stores/common'
 import Taro from '@tarojs/taro'
-import { inject, onMounted, ref, Ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import './index.css'
 
 
-const navBarHeight = inject<Ref<number>>('navBarHeight')
-const theme = inject<Ref<string>>('theme')
-const themeVars = inject<Ref<Record<string, string>>>('themeVars')
+const commonStore = useCommonStore()
 const isDark = ref(false)
 
 const marks = {
@@ -49,16 +50,15 @@ const marks = {
 const curFontSize = ref<number>(16)
 
 onMounted(async () => {
-  isDark.value = theme.value === 'dark'
-  const savedSize = Taro.getStorageSync('app_font_size')
+  isDark.value = commonStore.theme === 'dark'
+  const savedSize = commonStore.fontSize
   if (savedSize && typeof savedSize === 'number') {
     curFontSize.value = savedSize
   }
 })
 
 function changeTheme() {
-  theme.value = isDark.value ? 'dark' : 'light'
-  Taro.setStorageSync('app_theme', theme.value)
+  commonStore.setTheme(isDark.value ? 'dark' : 'light')
 }
 
 function onSliderChange() {
@@ -67,13 +67,7 @@ function onSliderChange() {
 
 function saveFontSize() {
   try {
-    themeVars.value['font-size-0'] = `${curFontSize.value - 3}px`
-    themeVars.value['font-size-1'] = `${curFontSize.value - 2}px`
-    themeVars.value['font-size-2'] = `${curFontSize.value}px`
-    themeVars.value['font-size-3'] = `${curFontSize.value + 2}px`
-    themeVars.value['font-size-4'] = `${curFontSize.value + 4}px`
-
-    Taro.setStorageSync('app_font_size', curFontSize.value)
+    commonStore.setFontSize(curFontSize.value)
     Taro.showToast({ title: '设置已保存', icon: 'none' })
   } catch (error) {
     Taro.showToast({ title: '保存失败', icon: 'none' })

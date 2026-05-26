@@ -1,9 +1,10 @@
 <template>
-  <nut-config-provider :theme="theme" :theme-vars="themeVars">
+  <nut-config-provider :theme="commonStore.theme" :theme-vars="commonStore.themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="帖子详情" />
-    <view :style="{ height: `calc(100vh - ${navBarHeight}px)`, padding: `${navBarHeight}px 5px 0 5px` }">
-
-
+    <view :style="{
+      height: `calc(100vh - ${commonStore.navBarHeight}px)`,
+      padding: `${commonStore.navBarHeight}px 5px 0 5px`
+    }">
     </view>
 
     <nut-row style="position: absolute; left: 0; right: 0;" :style="{ bottom: commontBottom }">
@@ -30,12 +31,9 @@ import NavBar from '@components/NavBar.vue'
 import { Edit, Follow, Share, Star } from '@nutui/icons-vue-taro'
 import { useCommonStore } from '@stores/common'
 import { onKeyboardHeightChange } from '@tarojs/taro'
-import { inject, onMounted, Ref, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import './index.css'
 
-const navBarHeight = inject<Ref<number>>('navBarHeight')
-const theme = inject<Ref<string>>('theme')
-const themeVars = inject<Ref<any>>('themeVars')
 const commonStore = useCommonStore()
 
 const isFollow = ref(false)

@@ -1,51 +1,69 @@
 <template>
-  <nut-config-provider :theme="theme" :theme-vars="themeVars">
-    <router-view v-slot="{ Component }" :class='theme == "dark" ? "nut-theme-dark" : ""'
-      :style="{ paddingTop: statusBarHeight + 'px' }">
-      <keep-alive :include="['Main']">
-        <component :is="Component" />
-      </keep-alive>
-    </router-view>
+  <nut-config-provider :theme="commonStore.theme" :theme-vars="commonStore.themeVars">
+    <view :class='commonStore.theme == "dark" ? "nut-theme-dark" : ""'>
+      <router-view v-slot="{ Component }" style="padding-bottom: 52px;"
+        :style="{ paddingTop: commonStore.statusBarHeight + 'px' }">
+        <keep-alive :include="['Home', 'Find', 'More']">
+          <component :is="Component" />
+        </keep-alive>
+      </router-view>
 
-    <nut-number-keyboard v-model:visible="showKeyboard" overlay @input="onInput" @delete="onDelete"
-      @close="showKeyboard = false">
+      <nut-tabbar v-model="activeTab" @tab-switch="tabSwitch" class="fixed-tabbar"
+        style="border-color: var(--nut-background);">
+        <nut-tabbar-item v-for="item in Tabs" :key="item.name" :name="item.name" :icon="item.icon" />
+      </nut-tabbar>
+    </view>
+
+    <nut-number-keyboard v-model:visible="commonStore.showKeyboard" overlay @input="onInput" @delete="onDelete"
+      @close="commonStore.showKeyboard = false">
     </nut-number-keyboard>
   </nut-config-provider>
 </template>
 <script setup lang="ts">
-import Taro from '@tarojs/taro'
-import { inject, onMounted, Ref, ref } from 'vue'
+import { Fabulous, Home, My } from '@nutui/icons-vue-taro'
+import { useCommonStore } from '@stores/common'
+import { h, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import './index.css'
 
-const statusBarHeight = inject<Ref<number>>('statusBarHeight')
-const theme = inject<Ref<string>>('theme')
-const themeVars = inject<Ref<Record<string, string>>>('themeVars')
-const showKeyboard = inject<Ref<boolean>>('showKeyboard')
-
-const numberInput = ref('')
-
+const commonStore = useCommonStore()
 const router = useRouter()
 
-onMounted(() => {
-  router.replace('/main/home')
+const activeTab = ref('home')
+const Tabs = [
+  {
+    title: '首页',
+    icon: h(Home),
+    name: 'home'
+  },
+  {
+    title: '发现',
+    icon: h(Fabulous),
+    name: 'find'
+  },
+  {
+    title: '我的',
+    icon: h(My),
+    name: 'more'
+  }
+]
 
-  theme.value = Taro.getStorageSync('app_theme') || 'light'
-  const fontSize = Taro.getStorageSync('app_font_size') || 16
-  themeVars.value['font-size-0'] = `${fontSize - 3}px`
-  themeVars.value['font-size-1'] = `${fontSize - 2}px`
-  themeVars.value['font-size-2'] = `${fontSize}px`
-  themeVars.value['font-size-3'] = `${fontSize + 2}px`
-  themeVars.value['font-size-4'] = `${fontSize + 4}px`
-  themeVars.value['font-size-5'] = `${fontSize + 8}px`
+onMounted(() => {
+  activeTab.value = 'home'
+  router.replace(`/main/${activeTab.value}`)
 })
 
+function tabSwitch(tab: any) {
+  router.replace(`/main/${tab.name}`)
+  activeTab.value = tab.name
+}
+
 function onInput(value: string) {
-  numberInput.value += value
+  commonStore.numberInput += value
 }
 
 function onDelete() {
-  numberInput.value = numberInput.value.slice(0, -1)
+  commonStore.numberInput = commonStore.numberInput.slice(0, -1)
 }
 
 

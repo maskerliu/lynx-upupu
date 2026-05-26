@@ -1,7 +1,7 @@
 <template>
-  <nut-config-provider :theme="theme" :theme-vars="themeVars">
+  <nut-config-provider :theme="commonStore.theme" :theme-vars="commonStore.themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="联系我们" />
-    <view style="overflow: hidden auto;" :style="{ height: `calc(100vh)`, paddingTop: navBarHeight + 'px' }">
+    <view style="overflow: hidden auto;" :style="{ paddingTop: commonStore.navBarHeight + 'px' }">
       <view class="header-section">
         <view class="header-icon">
           <Issue size="48" color="#fff" />
@@ -46,13 +46,13 @@
 <script setup lang="ts">
 import NavBar from '@components/NavBar.vue'
 import { Ask, Edit, Github, Issue } from '@nutui/icons-vue-taro'
+import { useCommonStore } from '@stores/common'
 import Taro from '@tarojs/taro'
-import { inject, onMounted, Ref, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import './index.css'
 
-const navBarHeight = inject<Ref<number>>('navBarHeight')
-const theme = inject<Ref<string>>('theme')
-const themeVars = inject<Ref<any>>('themeVars')
+
+const commonStore = useCommonStore()
 
 const value = ref(3)
 
