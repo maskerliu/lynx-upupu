@@ -1,9 +1,6 @@
 <template>
-  <view style="flex: 1; padding: 0 10px; width: calc(100% - 20px); "
-    :style="{ minHeight: `calc(100vh - ${commonStore.statusBarHeight + 52}px)` }">
-    <nut-cell-group style="padding-top: 40px;">
-      <user-snap></user-snap>
-    </nut-cell-group>
+  <view style="flex: 1; padding: 0 10px;">
+    <user-snap></user-snap>
 
     <nut-noticebar :text="notice" close-mode />
 

@@ -15,7 +15,7 @@ page {
   --nut-dark-background6: #6b6b6b;
   --nut-dark-background7: #7a7a7a;
   --nut-cell-border-radius: 10px;
-  --nut-cell-box-shadow: 0px 2px 5px 1px rgb(185, 185, 185);
+  --nut-cell-box-shadow: 0px 0px 0px 0px rgb(185, 185, 185);
 
 
   background: var(--nut-background);
@@ -25,17 +25,27 @@ page {
 
 .nut-theme-dark {
   color: var(--nut-white);
-  --nut-background: var(--nut-dark-background2);
 
+  --nut-dark-background: #2e2e2e;
+  --nut-dark-background2: #353535;
+  --nut-nut-dark-background3: #343434;
+  --nut-nut-dark-background4: #4b4b4b;
+  --nut-dark-background5: #5a5a5a;
+  --nut-dark-background6: #6b6b6b;
+  --nut-dark-background7: #7a7a7a;
+
+  --nut-background: var(--nut-dark-background);
+
+  --nut-cell-background: var(--nut-dark-background7);
   --nut-tabs-titles-item-color: var(--nut-white);
   --nut-tabs-titles-item-active-color: var(--nut-white);
-  --nut-cell-box-shadow: 0px 2px 5px 0px rgb(97, 97, 97);
-  --nut-navbar-box-shadow: 0px 2px 5px 1px rgb(71, 71, 71);
+  --nut-cell-box-shadow: 0px 0px 0px 0px rgb(0, 0, 0);
+  --nut-navbar-box-shadow: 0px 0px 1px 0px rgb(71, 71, 71);
 
   --nut-tabbar-border-bottom: 1px solid var(--nut-nut-dark-background4);
   --nut-tabbar-border-top: 1px solid var(--nut-nut-dark-background4);
 
-  background: var(--nut-background);
+  background: var(--nut-dark-background);
 }
 
 scroll-view::-webkit-scrollbar {

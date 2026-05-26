@@ -3,7 +3,7 @@
     <nav-bar style="z-index: 100;" show-nav-back title="常见问题" />
     <view :style="{
       height: `calc(100vh - ${commonStore.navBarHeight}px)`,
-      paddingTop: commonStore.navBarHeight + 'px'
+      paddingTop: `${commonStore.navBarHeight}px`
     }">
       <nut-cell-group title="视频创作" style="padding: 0 10px;">
         <nut-cell title="如何在个人名片上加上我的视频号？" is-link></nut-cell>

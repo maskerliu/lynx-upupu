@@ -7,7 +7,7 @@
     }">
     </view>
 
-    <nut-row style="position: absolute; left: 0; right: 0;" :style="{ bottom: commontBottom }">
+    <nut-row class="post-bottom" style="position: absolute; left: 0; right: 0;" :style="{ bottom: commontBottom }">
       <nut-input v-model:value="comment" :adjust-position="false" placeholder="请输入评论内容"
         style=" padding: 5px 0; background-color: transparent;">
         <template #left>

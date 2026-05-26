@@ -3,15 +3,13 @@
     <nav-bar style="z-index: 100;" show-nav-back title="字体大小" />
     <view style="padding: 0 10px;" :style="{
       height: `calc(100vh - ${commonStore.navBarHeight}px)`,
-      paddingTop: commonStore.navBarHeight + 'px'
+      paddingTop: `${commonStore.navBarHeight}px`
     }">
-      <nut-cell-group style="padding-top: 10px;">
-        <nut-cell title="黑白模式">
-          <template #desc>
-            <nut-switch v-model="isDark" @change="changeTheme" />
-          </template>
-        </nut-cell>
-      </nut-cell-group>
+      <nut-cell title="黑白模式" style="margin-top: 10px;">
+        <template #desc>
+          <nut-switch v-model="isDark" @change="changeTheme" />
+        </template>
+      </nut-cell>
 
       <view style="position: absolute; width: calc(100% - 20px); bottom: 20px;">
         <view style="padding: 40px 0; color: var(--nut-primary-color);" :style="{ fontSize: curFontSize + 'px' }">

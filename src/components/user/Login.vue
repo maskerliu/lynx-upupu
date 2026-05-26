@@ -89,14 +89,16 @@ watch(() => commonStore.numberInput, (newVal) => {
 })
 
 function onPoneFocus() {
+  console.log('phone focus')
   commonStore.showKeyboard = true
   onPhone = true
   onCode = false
 }
 
 function onPhoneBlur() {
-  commonStore.showKeyboard = false
-  onPhone = false
+  console.log('phone blur')
+  // commonStore.showKeyboard = false
+  // onPhone = false
 }
 
 function onCodeFocus() {
@@ -106,8 +108,8 @@ function onCodeFocus() {
 }
 
 function onCodeBlur() {
-  commonStore.showKeyboard = false
-  onCode = false
+  // commonStore.showKeyboard = false
+  // onCode = false
 }
 
 function sendCode() {
@@ -177,9 +179,6 @@ function handleLogin() {
 
     await commonStore.login(phoneNumber.value, verifyCode.value)
     // 模拟登录成功
-    Taro.setStorageSync('user_token', 'mock_token_123456')
-    Taro.setStorageSync('user_phone', phoneNumber.value)
-
     Taro.showToast({ title: '登录成功', icon: 'success' })
 
     visible.value = false
@@ -190,7 +189,7 @@ function handleLogin() {
       phone: phoneNumber.value,
       token: 'mock_token_123456'
     })
-  }, 1500)
+  }, 800)
 }
 
 function show() {

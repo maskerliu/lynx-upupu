@@ -3,7 +3,7 @@
     <nav-bar style="z-index: 100;" show-nav-back title="我的订单" />
     <nut-tabs :style="{
       height: `calc(100vh - ${commonStore.navBarHeight}px)`,
-      paddingTop: commonStore.navBarHeight + 'px'
+      paddingTop: `${commonStore.navBarHeight}px`
     }" v-model="activeCatergory" title-scroll :animated-time="0">
       <nut-tab-pane :title="category" :pane-key="idx"
         style="background-color: transparent; padding: 0 10px; overflow: hidden auto;"

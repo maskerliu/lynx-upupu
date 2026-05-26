@@ -1,6 +1,7 @@
 export default {
   pages: [
     'pages/main/index',
+    'pages/userProfile/index',
     'pages/myOrder/index',
   ],
   subpackages: [

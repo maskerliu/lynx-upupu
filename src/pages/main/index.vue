@@ -1,8 +1,10 @@
 <template>
   <nut-config-provider :theme="commonStore.theme" :theme-vars="commonStore.themeVars">
     <view :class='commonStore.theme == "dark" ? "nut-theme-dark" : ""'>
-      <router-view v-slot="{ Component }" style="padding-bottom: 52px;"
-        :style="{ paddingTop: commonStore.statusBarHeight + 'px' }">
+      <router-view v-slot="{ Component }" style="padding-bottom: 52px;" :style="{
+        height: `calc(100vh - ${commonStore.statusBarHeight + 52}px)`,
+        paddingTop: `${commonStore.statusBarHeight}px`
+      }">
         <keep-alive :include="['Home', 'Find', 'More']">
           <component :is="Component" />
         </keep-alive>
@@ -14,8 +16,7 @@
       </nut-tabbar>
     </view>
 
-    <nut-number-keyboard v-model:visible="commonStore.showKeyboard" overlay @input="onInput" @delete="onDelete"
-      @close="commonStore.showKeyboard = false">
+    <nut-number-keyboard v-model:visible="commonStore.showKeyboard" :overlay="true" @input="onInput" @delete="onDelete">
     </nut-number-keyboard>
   </nut-config-provider>
 </template>

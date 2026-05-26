@@ -9,3 +9,7 @@
 .post-starred {
   color: #f39c12;
 }
+
+.post-bottom {
+  transition: bottom 0.25s ease;
+}

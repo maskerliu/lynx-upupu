@@ -1,7 +1,10 @@
 <template>
   <nut-config-provider :theme="commonStore.theme" :theme-vars="commonStore.themeVars">
     <nav-bar style="z-index: 100;" show-nav-back title="联系我们" />
-    <view style="overflow: hidden auto;" :style="{ paddingTop: commonStore.navBarHeight + 'px' }">
+    <view style="overflow: hidden auto;" :style="{
+      height: `calc(100vh - ${commonStore.navBarHeight}px)`,
+      paddingTop: `${commonStore.navBarHeight}px`
+    }">
       <view class="header-section">
         <view class="header-icon">
           <Issue size="48" color="#fff" />

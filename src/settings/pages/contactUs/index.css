@@ -118,6 +118,10 @@
 }
 
 .footer-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   font-size: 12px;
   text-align: center;
   padding: 30px 0 40px;

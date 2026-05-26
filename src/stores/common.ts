@@ -42,6 +42,8 @@ export const useCommonStore = defineStore('common', {
       this.statusBarHeight = menuBtnInfo.top - (44 - menuBtnInfo.height) / 2
       this.navBarHeight = this.statusBarHeight + 44
 
+      this.accessToken = Taro.getStorageSync('access_token') || null
+      this.userInfo = Taro.getStorageSync('user_info') || { name: '', phone: '', avatar: '' }
 
       this.fontSize = Taro.getStorageSync('app_font_size') || 16
 
@@ -53,6 +55,8 @@ export const useCommonStore = defineStore('common', {
         'font-size-4': `${this.fontSize + 4}px`,
         'font-size-5': `${this.fontSize + 8}px`,
       })
+
+      this.theme = Taro.getStorageSync('app_theme') || 'light'
     },
     async login(phone: string, verifyCode: string) {
       this.accessToken = 'akeana314113kl0'
@@ -61,6 +65,9 @@ export const useCommonStore = defineStore('common', {
         phone,
         avatar: 'https://c-ssl.duitang.com/uploads/item/201403/21/20140321180046_kjW3f.jpeg',
       }
+
+      Taro.setStorageSync('access_token', this.accessToken)
+      Taro.setStorageSync('user_info', this.userInfo)
     },
     setFontSize(fontSize: number) {
       this.fontSize = fontSize

@@ -1,5 +1,5 @@
 <template>
-  <nut-cell is-link center @click="handleGetUserInfo">
+  <nut-cell is-link center @click="handleGetUserInfo" style="margin-top: 40px;">
 
     <template #icon>
       <nut-avatar size="large">
