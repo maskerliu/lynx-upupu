@@ -1,5 +1,5 @@
 <template>
-  <nut-cell is-link center @click="handleGetUserInfo" style="margin-top: 40px;">
+  <nut-cell is-link center @click="handleGetUserInfo" style="margin-top: 42px;">
 
     <template #icon>
       <nut-avatar size="large">
@@ -26,7 +26,7 @@
     </template>
 
     <template #link>
-      <Edit style="padding: 2px 5px;" />
+      <Edit style="padding: 2px 5px; font-size: 1.5rem;" />
     </template>
 
   </nut-cell>

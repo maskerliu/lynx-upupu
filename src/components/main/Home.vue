@@ -1,5 +1,5 @@
 <template>
-  <view style="flex: 1; overflow: hidden auto;">
+  <view class="hide-scrollbar" style="flex: 1; overflow: hidden auto;">
     <nut-swiper>
       <nut-swiper-item v-for="(item, index) in ADs" :key="index" style="height: 300rpx">
         <img :src="item" alt="" style="height: 100%; width: 100%" draggable="false" />
@@ -126,7 +126,7 @@ onMounted(async () => {
         title: '严选好物',
         image: 'https://www.baidu.com',
         schema: 'https://www.baidu.com',
-        desc: '省时美味',
+        desc: '省时美味，限时优惠',
         type: ActivityCardType.C2_1,
       }
     ]
@@ -144,7 +144,7 @@ onMounted(async () => {
         title: '活动5',
         image: 'https://www.baidu.com',
         schema: 'https://www.baidu.com',
-        desc: '活动5的描述',
+        desc: '活动5的描述，0元体验',
         type: ActivityCardType.C1_2,
       }
     ]

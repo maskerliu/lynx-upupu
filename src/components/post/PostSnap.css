@@ -2,8 +2,8 @@
   position: relative;
   border-radius: 10px;
   text-align: center;
-  box-shadow: var(--nut-cell-box-shadow);
-  background: linear-gradient(45deg, #c6c5c555, #f4f1f055);
+  box-shadow: var(--trans-box-shadow);
+  background: linear-gradient(45deg, #bdc3c7a5, #f4f1f055);
 }
 
 .post-image {
@@ -21,7 +21,7 @@
 .post-snap {
   padding: 5px;
   border-radius: 0 0 10px 10px;
-  background: #f5f5f555;
+  background: #f5f5f595;
 }
 
 .post-title {

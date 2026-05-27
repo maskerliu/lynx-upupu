@@ -13,7 +13,7 @@
             海韵鲜踪
           </nut-col>
           <nut-col span="1">
-            <RectRight style="margin-top: 1px;" />
+            <ArrowRight style="margin-top: 1px;" />
           </nut-col>
         </nut-row>
         <nut-divider style="margin: 0 0 5px 0; color: #bdc3c7;" />
@@ -40,7 +40,7 @@
   </nut-cell-group>
 </template>
 <script lang="ts" setup>
-import { My, RectRight } from '@nutui/icons-vue-taro'
+import { ArrowRight, My } from '@nutui/icons-vue-taro'
 import Taro from '@tarojs/taro'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'

@@ -2,7 +2,7 @@
   position: relative;
   height: 100%;
   border-radius: 10px;
-  box-shadow: var(--nut-cell-box-shadow);
+  box-shadow: var(--trans-box-shadow);
   text-align: center;
   background: linear-gradient(45deg, #c6c5c555, #f4f1f055);
 }
@@ -23,13 +23,23 @@
 }
 
 .activity-title {
-  font-size: var(--nut-font-size-0);
+  text-align: left;
+  font-size: var(--nut-font-size-1);
   font-weight: bold;
   color: rgb(230, 230, 230);
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .activity-desc {
+  text-align: left;
   font-size: var(--nut-font-size-0);
   padding: 3px 0;
   color: rgb(208, 208, 208);
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

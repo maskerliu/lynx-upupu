@@ -48,8 +48,8 @@ export const useCommonStore = defineStore('common', {
       this.fontSize = Taro.getStorageSync('app_font_size') || 16
 
       this.themeVars = Object.assign(this.themeVars, {
-        'font-size-0': `${this.fontSize - 3}px`,
-        'font-size-1': `${this.fontSize - 2}px`,
+        'font-size-0': `${this.fontSize - 4}px`,
+        'font-size-1': `${this.fontSize - 3}px`,
         'font-size-2': `${this.fontSize}px`,
         'font-size-3': `${this.fontSize + 2}px`,
         'font-size-4': `${this.fontSize + 4}px`,

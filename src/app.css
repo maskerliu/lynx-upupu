@@ -17,6 +17,7 @@ page {
   --nut-cell-border-radius: 10px;
   --nut-cell-box-shadow: 0px 0px 0px 0px rgb(185, 185, 185);
 
+  --trans-box-shadow: 0px 0px 2px 0px rgb(185, 185, 185);
 
   background: var(--nut-background);
 
@@ -48,7 +49,7 @@ page {
   background: var(--nut-dark-background);
 }
 
-scroll-view::-webkit-scrollbar {
+.hide-scrollbar::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
   height: 0 !important;

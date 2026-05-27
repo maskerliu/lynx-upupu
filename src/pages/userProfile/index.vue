@@ -12,39 +12,39 @@
             src="https://c-ssl.duitang.com/uploads/item/201403/21/20140321180046_kjW3f.jpeg" />
         </template>
         <template #link>
-          <RectRight style="color: #bdc3c7;" />
+          <ArrowRight style="color: #bdc3c7;" />
         </template>
       </nut-cell>
 
       <nut-cell center is-link title="名字" desc="暴走的兔子" round-radius="0px" style="margin: 0;">
         <template #link>
-          <RectRight style="color: #bdc3c7;" />
+          <ArrowRight style="color: #bdc3c7;" />
         </template>
       </nut-cell>
       <nut-cell center is-link title="性别" desc="男" round-radius="0px" style="margin: 0;">
         <template #link>
-          <RectRight style="color: #bdc3c7;" />
+          <ArrowRight style="color: #bdc3c7;" />
         </template>
       </nut-cell>
       <nut-cell center is-link title="地区" desc="上海 长宁" round-radius="0px" style="margin: 0;">
         <template #link>
-          <RectRight style="color: #bdc3c7;" />
+          <ArrowRight style="color: #bdc3c7;" />
         </template>
       </nut-cell>
       <nut-cell center is-link title="手机号" desc="138******01" round-radius="0px" style="margin: 0;">
         <template #link>
-          <RectRight style="color: #bdc3c7;" />
+          <ArrowRight style="color: #bdc3c7;" />
         </template>
       </nut-cell>
 
       <nut-cell center is-link title="我的地址" round-radius="0px" style="margin: 10px 0 0 0;">
         <template #link>
-          <RectRight style="color: #bdc3c7;" />
+          <ArrowRight style="color: #bdc3c7;" />
         </template>
       </nut-cell>
       <nut-cell center is-link title="我的发票抬头" round-radius="0px" style="margin: 0;">
         <template #link>
-          <RectRight style="color: #bdc3c7;" />
+          <ArrowRight style="color: #bdc3c7;" />
         </template>
       </nut-cell>
     </view>
@@ -53,7 +53,7 @@
 <script setup lang="ts">
 
 import NavBar from '@components/NavBar.vue'
-import { RectRight } from '@nutui/icons-vue-taro'
+import { ArrowRight } from '@nutui/icons-vue-taro'
 import { useCommonStore } from '@stores/common'
 import { onMounted } from 'vue'
 
